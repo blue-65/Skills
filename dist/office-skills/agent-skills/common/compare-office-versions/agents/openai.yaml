@@ -1,0 +1,4 @@
+interface:
+  display_name: "Compare Office versions"
+  short_description: "Find material changes between Office files"
+  default_prompt: "Use $compare-office-versions. Compare two versions of Word, PowerPoint, or Excel files for content, structure, calculation, and visual changes. Follow its failure boundaries and return the required evidence."

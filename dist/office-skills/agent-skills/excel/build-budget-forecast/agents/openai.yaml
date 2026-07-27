@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build a budget and forecast"
+  short_description: "Create driver-based budgets and forecasts"
+  default_prompt: "Use $build-budget-forecast. Build an Excel budget, forecast, rolling plan, or variance model. Follow its failure boundaries and return the required evidence."

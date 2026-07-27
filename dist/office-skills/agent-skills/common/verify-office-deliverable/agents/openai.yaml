@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verify an Office deliverable"
+  short_description: "Enforce save scan render and review gates"
+  default_prompt: "Use $verify-office-deliverable. Run the final delivery gate for Word, PowerPoint, or Excel artifacts. Follow its failure boundaries and return the required evidence."

@@ -1,0 +1,1333 @@
+{
+  "upstream": "https://github.com/MengTo/Skills",
+  "sourceCommit": "21b278c62f49f3ce3d8c8ecbcc84cbcd534f3e49",
+  "sourceSkillCount": 121,
+  "generatedSkillCount": 64,
+  "entries": [
+    {
+      "sourcePath": "agent-skills/codex/article-prompts-to-skills/SKILL.md",
+      "sourceName": "article-prompts-to-skills",
+      "disposition": "preserve-reference",
+      "primary": "word",
+      "targetSkills": [
+        "inspect-office-source",
+        "create-sop"
+      ],
+      "officeUse": "Preserve the skill-packaging method as guidance for turning source material into a governed Word SOP."
+    },
+    {
+      "sourcePath": "agent-skills/codex/audit-reference-originality/SKILL.md",
+      "sourceName": "audit-reference-originality",
+      "disposition": "adapt",
+      "primary": "common",
+      "targetSkills": [
+        "inspect-office-source",
+        "manage-office-sources",
+        "compare-office-versions"
+      ],
+      "officeUse": "Audit Office drafts against references for provenance, originality, and evidence-backed copying risk."
+    },
+    {
+      "sourcePath": "agent-skills/codex/audit-verify-explain-grade-5/SKILL.md",
+      "sourceName": "audit-verify-explain-grade-5",
+      "disposition": "adapt",
+      "primary": "common",
+      "targetSkills": [
+        "audit-office-claims",
+        "verify-office-deliverable"
+      ],
+      "officeUse": "Verify an Office artifact with concrete evidence and explain the result in plain language."
+    },
+    {
+      "sourcePath": "agent-skills/codex/browser-video-recording/SKILL.md",
+      "sourceName": "browser-video-recording",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "create-product-demo-deck",
+        "source-presentation-assets"
+      ],
+      "officeUse": "Preserve browser-recording mechanics while using verified clips and frames in a PowerPoint product demo."
+    },
+    {
+      "sourcePath": "agent-skills/codex/build-daily-inspiration-sites/SKILL.md",
+      "sourceName": "build-daily-inspiration-sites",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "compose-image-first-slide"
+      ],
+      "officeUse": "Preserve the Sites workflow while adapting its reference discipline into an original presentation concept board."
+    },
+    {
+      "sourcePath": "agent-skills/codex/customer-email-draft-threads/SKILL.md",
+      "sourceName": "customer-email-draft-threads",
+      "disposition": "preserve-reference",
+      "primary": "word",
+      "targetSkills": [
+        "create-sop",
+        "create-meeting-decision-record"
+      ],
+      "officeUse": "Preserve Gmail automation details while documenting approvals, handoffs, and closure steps in Word."
+    },
+    {
+      "sourcePath": "agent-skills/codex/customer-support-verification/SKILL.md",
+      "sourceName": "customer-support-verification",
+      "disposition": "adapt",
+      "primary": "common",
+      "targetSkills": [
+        "audit-office-claims",
+        "verify-office-deliverable"
+      ],
+      "officeUse": "Apply evidence-first read-back, authority, and completion checks to Office support records."
+    },
+    {
+      "sourcePath": "agent-skills/codex/daily-ui-inspiration-capture/SKILL.md",
+      "sourceName": "daily-ui-inspiration-capture",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "compose-image-first-slide"
+      ],
+      "officeUse": "Package dated, deduplicated visual references into a sourced PowerPoint inspiration deck."
+    },
+    {
+      "sourcePath": "agent-skills/codex/elevenlabs-tts/SKILL.md",
+      "sourceName": "elevenlabs-tts",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "write-speaker-notes",
+        "create-training-deck"
+      ],
+      "officeUse": "Preserve external TTS execution while using PowerPoint notes as the narration script and timing source."
+    },
+    {
+      "sourcePath": "agent-skills/codex/generate-reference-inspired-brand-worlds/SKILL.md",
+      "sourceName": "generate-reference-inspired-brand-worlds",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "compose-image-first-slide",
+        "apply-office-design-system"
+      ],
+      "officeUse": "Create originality-safe campaign directions and translate approved brand worlds into presentation assets."
+    },
+    {
+      "sourcePath": "agent-skills/codex/html-to-interaction-prompts/SKILL.md",
+      "sourceName": "html-to-interaction-prompts",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "plan-presentation-story",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Translate captured web interactions into a slide-by-slide PowerPoint motion storyboard."
+    },
+    {
+      "sourcePath": "agent-skills/codex/implement-fog-of-war/SKILL.md",
+      "sourceName": "implement-fog-of-war",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "compose-technical-wireframe-slide",
+        "create-architecture-diagram"
+      ],
+      "officeUse": "Preserve Three.js visibility algorithms while diagramming perception rules and state boundaries in slides."
+    },
+    {
+      "sourcePath": "agent-skills/codex/optimize-web-animations/SKILL.md",
+      "sourceName": "optimize-web-animations",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "optimize-powerpoint-motion",
+        "verify-powerpoint"
+      ],
+      "officeUse": "Carry over motion restraint and accessibility checks without implying that PowerPoint runs web code."
+    },
+    {
+      "sourcePath": "agent-skills/codex/performance-profiling/SKILL.md",
+      "sourceName": "performance-profiling",
+      "disposition": "preserve-reference",
+      "primary": "word",
+      "targetSkills": [
+        "create-business-report"
+      ],
+      "officeUse": "Preserve Apple profiling procedures and report measured evidence and recommendations in Word."
+    },
+    {
+      "sourcePath": "agent-skills/codex/stitched-full-page-capture/SKILL.md",
+      "sourceName": "stitched-full-page-capture",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "compose-image-first-slide"
+      ],
+      "officeUse": "Preserve browser capture repair techniques while using trustworthy captures as presentation evidence."
+    },
+    {
+      "sourcePath": "agent-skills/codex/video-to-superprompt/SKILL.md",
+      "sourceName": "video-to-superprompt",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "plan-presentation-story",
+        "create-morph-presentation",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Convert a reference video's sequence and transitions into an editable PowerPoint storyboard."
+    },
+    {
+      "sourcePath": "agent-skills/codex/write-like-meng-on-x/SKILL.md",
+      "sourceName": "write-like-meng-on-x",
+      "disposition": "adapt",
+      "primary": "word",
+      "targetSkills": [
+        "match-business-writing-voice"
+      ],
+      "officeUse": "Apply evidence-based voice matching to Word copy without carrying over X publishing behavior."
+    },
+    {
+      "sourcePath": "agent-skills/codex/x-bookmark-quote-posts/SKILL.md",
+      "sourceName": "x-bookmark-quote-posts",
+      "disposition": "preserve-reference",
+      "primary": "word",
+      "targetSkills": [
+        "match-business-writing-voice",
+        "manage-office-sources",
+        "create-business-document"
+      ],
+      "officeUse": "Preserve X collection mechanics while turning sourced ideas into a traceable Word content brief."
+    },
+    {
+      "sourcePath": "agent-skills/customer-support/handle-saas-account-cases/SKILL.md",
+      "sourceName": "handle-saas-account-cases",
+      "disposition": "preserve-reference",
+      "primary": "word",
+      "targetSkills": [
+        "create-sop",
+        "create-business-report"
+      ],
+      "officeUse": "Preserve SaaS account actions while documenting evidence, decisions, communication, and closure in Word."
+    },
+    {
+      "sourcePath": "agent-skills/customer-support/handle-saas-billing-cases/SKILL.md",
+      "sourceName": "handle-saas-billing-cases",
+      "disposition": "preserve-reference",
+      "primary": "word",
+      "targetSkills": [
+        "create-sop",
+        "create-business-report"
+      ],
+      "officeUse": "Preserve billing authority and transaction rules while producing an auditable Word procedure and case record."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/author-game-levels/SKILL.md",
+      "sourceName": "author-game-levels",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "compose-technical-wireframe-slide",
+        "create-process-roadmap-slides"
+      ],
+      "officeUse": "Preserve game-engine implementation while presenting routes, encounter zones, and objectives in review slides."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/build-game-audio-feedback/SKILL.md",
+      "sourceName": "build-game-audio-feedback",
+      "disposition": "preserve-reference",
+      "primary": "word",
+      "targetSkills": [
+        "create-business-document",
+        "create-sop"
+      ],
+      "officeUse": "Preserve web-audio runtime details while documenting cues, mix priorities, accessibility, and tests in Word."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/build-game-camera-controls/SKILL.md",
+      "sourceName": "build-game-camera-controls",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "compose-technical-wireframe-slide",
+        "create-architecture-diagram"
+      ],
+      "officeUse": "Preserve Three.js camera code while diagramming framing, controls, occlusion, and regression cases."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/build-game-changelog/SKILL.md",
+      "sourceName": "build-game-changelog",
+      "disposition": "preserve-reference",
+      "primary": "excel",
+      "targetSkills": [
+        "build-management-report",
+        "create-business-workbook"
+      ],
+      "officeUse": "Preserve in-game UI behavior while tracking versions, provenance, release notes, and verification in Excel."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/build-game-inventory/SKILL.md",
+      "sourceName": "build-game-inventory",
+      "disposition": "preserve-reference",
+      "primary": "excel",
+      "targetSkills": [
+        "create-business-workbook",
+        "build-data-validation-inputs"
+      ],
+      "officeUse": "Preserve runtime inventory logic while maintaining item schemas, stack rules, slots, and checks in Excel."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/build-game-map-editor/SKILL.md",
+      "sourceName": "build-game-map-editor",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "compose-technical-wireframe-slide",
+        "create-architecture-diagram"
+      ],
+      "officeUse": "Preserve browser editor code while documenting panels, state flow, permissions, and release boundaries."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/build-game-monster-system/SKILL.md",
+      "sourceName": "build-game-monster-system",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "create-architecture-diagram",
+        "compose-technical-wireframe-slide"
+      ],
+      "officeUse": "Preserve rig and runtime contracts while diagramming joints, hit volumes, states, and adapters."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/build-hybrid-game-assets/SKILL.md",
+      "sourceName": "build-hybrid-game-assets",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "create-process-roadmap-slides"
+      ],
+      "officeUse": "Preserve the game asset pipeline while presenting asset choices, provenance, handoffs, and review gates."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/build-isometric-arpg/SKILL.md",
+      "sourceName": "build-isometric-arpg",
+      "disposition": "preserve-reference",
+      "primary": "word",
+      "targetSkills": [
+        "build-long-word-document",
+        "create-business-document"
+      ],
+      "officeUse": "Preserve the implementation playbook as a structured Word game design document."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/build-mobile-threejs-games/SKILL.md",
+      "sourceName": "build-mobile-threejs-games",
+      "disposition": "preserve-reference",
+      "primary": "word",
+      "targetSkills": [
+        "create-business-report",
+        "create-sop"
+      ],
+      "officeUse": "Preserve mobile Three.js techniques while documenting controls, safe areas, performance, and device QA."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/build-threejs-enemy-systems/SKILL.md",
+      "sourceName": "build-threejs-enemy-systems",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "create-architecture-diagram",
+        "compose-technical-wireframe-slide"
+      ],
+      "officeUse": "Preserve enemy runtime code while showing schemas, state boundaries, timing, and adapters as diagrams."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/build-vesperfall-review-assets/SKILL.md",
+      "sourceName": "build-vesperfall-review-assets",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "create-comparison-slide"
+      ],
+      "officeUse": "Preserve Vesperfall tooling while presenting provenance-backed reference and model comparisons."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/create-game-vfx/SKILL.md",
+      "sourceName": "create-game-vfx",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Preserve shader implementation while adapting effect readability, timing, and reduced-motion alternatives to slides."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/design-action-combat/SKILL.md",
+      "sourceName": "design-action-combat",
+      "disposition": "preserve-reference",
+      "primary": "excel",
+      "targetSkills": [
+        "build-planning-model",
+        "build-data-validation-inputs"
+      ],
+      "officeUse": "Preserve combat runtime logic while modeling timing windows, phases, balance values, and tests in Excel."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/design-game-encounters/SKILL.md",
+      "sourceName": "design-game-encounters",
+      "disposition": "preserve-reference",
+      "primary": "excel",
+      "targetSkills": [
+        "build-planning-model",
+        "build-excel-charts"
+      ],
+      "officeUse": "Preserve encounter implementation while modeling composition, pacing, rewards, and difficulty curves in Excel."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/optimize-threejs-games/SKILL.md",
+      "sourceName": "optimize-threejs-games",
+      "disposition": "preserve-reference",
+      "primary": "excel",
+      "targetSkills": [
+        "build-kpi-dashboard",
+        "build-management-report"
+      ],
+      "officeUse": "Preserve browser profiling while tracking frame time, draw calls, budgets, devices, and regressions in Excel."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/ship-web-games/SKILL.md",
+      "sourceName": "ship-web-games",
+      "disposition": "preserve-reference",
+      "primary": "word",
+      "targetSkills": [
+        "create-sop",
+        "create-business-report"
+      ],
+      "officeUse": "Preserve web deployment mechanics while documenting release, smoke-test, rollback, and cleanup gates."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/test-playable-web-games/SKILL.md",
+      "sourceName": "test-playable-web-games",
+      "disposition": "preserve-reference",
+      "primary": "word",
+      "targetSkills": [
+        "create-business-report",
+        "create-sop"
+      ],
+      "officeUse": "Preserve browser gameplay testing while producing a reproducible Word protocol and evidence report."
+    },
+    {
+      "sourcePath": "agent-skills/game-development/tune-enemy-ai/SKILL.md",
+      "sourceName": "tune-enemy-ai",
+      "disposition": "preserve-reference",
+      "primary": "excel",
+      "targetSkills": [
+        "build-planning-model",
+        "build-data-validation-inputs"
+      ],
+      "officeUse": "Preserve AI runtime behavior while modeling states, thresholds, actions, parameters, and fixtures in Excel."
+    },
+    {
+      "sourcePath": "agent-skills/media/aura-asset-images/SKILL.md",
+      "sourceName": "aura-asset-images",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "manage-office-sources"
+      ],
+      "officeUse": "Source presentation-ready Aura imagery with deliberate crops, resolution, provenance, and usage review."
+    },
+    {
+      "sourcePath": "agent-skills/media/unsplash-asset-images/SKILL.md",
+      "sourceName": "unsplash-asset-images",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "manage-office-sources"
+      ],
+      "officeUse": "Source presentation-ready Unsplash imagery with deliberate crops, provenance, and licensing notes."
+    },
+    {
+      "sourcePath": "agent-skills/ui/design-first-ui-prompting/SKILL.md",
+      "sourceName": "design-first-ui-prompting",
+      "disposition": "adapt",
+      "primary": "common",
+      "targetSkills": [
+        "apply-office-design-system"
+      ],
+      "officeUse": "Translate spec-first prompting into explicit Office typography, spacing, layout, variation, and review rules."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/add-shader-cursor-trail/SKILL.md",
+      "sourceName": "add-shader-cursor-trail",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Preserve WebGPU cursor code while reusing its visual ideas only as slide assets or restrained motion."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/agency-grid-layout-minimal/SKILL.md",
+      "sourceName": "agency-grid-layout-minimal",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "apply-slide-grid",
+        "compose-editorial-slide"
+      ],
+      "officeUse": "Translate the disciplined editorial grid, oversized type, utility labels, and restrained imagery into PowerPoint."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/ambient-section-particles/SKILL.md",
+      "sourceName": "ambient-section-particles",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Use sparse atmospheric particles as sourced slide decoration with static and reduced-motion fallbacks."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/animation-on-scroll/SKILL.md",
+      "sourceName": "animation-on-scroll",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "plan-presentation-story",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Convert scroll-triggered sequencing into presenter-controlled slide builds and transitions."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/animation-systems/SKILL.md",
+      "sourceName": "animation-systems",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "optimize-powerpoint-motion",
+        "create-morph-presentation"
+      ],
+      "officeUse": "Apply motion hierarchy, timing, restraint, and reduced-motion rules to PowerPoint."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/atmosphere-background/SKILL.md",
+      "sourceName": "atmosphere-background",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "compose-image-first-slide"
+      ],
+      "officeUse": "Create restrained atmospheric backgrounds that support rather than compete with slide content."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/background-grid-webgl/SKILL.md",
+      "sourceName": "background-grid-webgl",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "apply-slide-grid",
+        "source-presentation-assets"
+      ],
+      "officeUse": "Preserve WebGL rendering while adapting the visible grid as a static, editable slide structure."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/beam-glow-states/SKILL.md",
+      "sourceName": "beam-glow-states",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Use beam and glow states sparingly to signal focus, sequence, or status in PowerPoint."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/beautiful-shadows/SKILL.md",
+      "sourceName": "beautiful-shadows",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "compose-editorial-slide",
+        "apply-office-design-system"
+      ],
+      "officeUse": "Translate restrained elevation and shadow hierarchy into editable Office-safe slide styling."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/blue-cloudy-clean-modern/SKILL.md",
+      "sourceName": "blue-cloudy-clean-modern",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "apply-slide-grid",
+        "compose-editorial-slide"
+      ],
+      "officeUse": "Apply the clean blue atmospheric system to a restrained, projector-safe PowerPoint layout."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/blue-laser-clean-glass-layout/SKILL.md",
+      "sourceName": "blue-laser-clean-glass-layout",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "compose-technical-wireframe-slide",
+        "source-presentation-assets"
+      ],
+      "officeUse": "Translate laser, glass, and technical framing into a legible PowerPoint composition."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/book-serif-index/SKILL.md",
+      "sourceName": "book-serif-index",
+      "disposition": "adapt",
+      "primary": "word",
+      "targetSkills": [
+        "build-long-word-document",
+        "apply-office-design-system"
+      ],
+      "officeUse": "Apply book-like serif hierarchy, indexing, chapters, and navigation to a long Word document."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/bright-green-tech-system-webgl/SKILL.md",
+      "sourceName": "bright-green-tech-system-webgl",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "compose-technical-wireframe-slide",
+        "source-presentation-assets"
+      ],
+      "officeUse": "Translate the bright-green technical language into editable slides and sourced visuals."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/build-awwwards-quality-sites/SKILL.md",
+      "sourceName": "build-awwwards-quality-sites",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "apply-slide-grid",
+        "verify-powerpoint"
+      ],
+      "officeUse": "Preserve site implementation guidance while applying its craft and review discipline to presentations."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/cinematic-gsap-lenis-motion-system/SKILL.md",
+      "sourceName": "cinematic-gsap-lenis-motion-system",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "create-morph-presentation",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Preserve GSAP and Lenis mechanics while translating cinematic pacing into reliable slide motion."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/cinematic-scroll-storytelling/SKILL.md",
+      "sourceName": "cinematic-scroll-storytelling",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "plan-presentation-story",
+        "create-morph-presentation"
+      ],
+      "officeUse": "Convert scroll-led chapters and visual pacing into a coherent PowerPoint narrative."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/clean-minimal-beige-light-mode/SKILL.md",
+      "sourceName": "clean-minimal-beige-light-mode",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "apply-slide-grid",
+        "compose-editorial-slide"
+      ],
+      "officeUse": "Translate warm neutral shells, quiet structure, and restrained accents into an editorial deck."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/cobejs/SKILL.md",
+      "sourceName": "cobejs",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "create-data-story",
+        "source-presentation-assets"
+      ],
+      "officeUse": "Preserve cobe interaction code while using exported globe views and verified data in slides."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/company-logos/SKILL.md",
+      "sourceName": "company-logos",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "manage-office-sources"
+      ],
+      "officeUse": "Source consistent, licensed company marks for slides instead of recreating logos as text."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/container-lines/SKILL.md",
+      "sourceName": "container-lines",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "apply-slide-grid"
+      ],
+      "officeUse": "Use container lines and corner markers as restrained alignment guides in PowerPoint."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/corner-diagonals/SKILL.md",
+      "sourceName": "corner-diagonals",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "compose-technical-wireframe-slide",
+        "apply-slide-grid"
+      ],
+      "officeUse": "Translate chamfered corners into an editable geometric slide language."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/corner-lasers/SKILL.md",
+      "sourceName": "corner-lasers",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Use a corner beam as a restrained focal device with a dependable static fallback."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/css-alpha-masking/SKILL.md",
+      "sourceName": "css-alpha-masking",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "compose-image-first-slide",
+        "source-presentation-assets"
+      ],
+      "officeUse": "Recreate edge fades through native transparency or preprocessed assets without claiming CSS support."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/css-border-gradient/SKILL.md",
+      "sourceName": "css-border-gradient",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "apply-slide-grid",
+        "apply-office-design-system"
+      ],
+      "officeUse": "Translate subtle highlighted borders into editable PowerPoint shapes with restrained contrast."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/dark-blue-contrasting-clean/SKILL.md",
+      "sourceName": "dark-blue-contrasting-clean",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "apply-slide-grid",
+        "compose-editorial-slide"
+      ],
+      "officeUse": "Apply crisp dark-blue contrast, framed structure, and restrained glow to a projector-safe deck."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/dark-glass-clean-layout/SKILL.md",
+      "sourceName": "dark-glass-clean-layout",
+      "disposition": "adapt",
+      "primary": "excel",
+      "targetSkills": [
+        "build-kpi-dashboard",
+        "apply-office-design-system"
+      ],
+      "officeUse": "Translate the clean workspace and data-card hierarchy into a readable Excel dashboard."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/dither-background/SKILL.md",
+      "sourceName": "dither-background",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "compose-image-first-slide"
+      ],
+      "officeUse": "Use a restrained dither texture as a presentation background while protecting text contrast."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/dither-laser-dark-mode/SKILL.md",
+      "sourceName": "dither-laser-dark-mode",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "compose-technical-wireframe-slide"
+      ],
+      "officeUse": "Translate dither texture and laser emphasis into a static, editable technical slide system."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/documentary-brutalist-agency/SKILL.md",
+      "sourceName": "documentary-brutalist-agency",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "create-case-study-deck",
+        "compose-editorial-slide"
+      ],
+      "officeUse": "Apply documentary imagery, hard chapter contrast, and exposed grids to a case-study deck."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/editorial-portfolio-chapters/SKILL.md",
+      "sourceName": "editorial-portfolio-chapters",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "create-case-study-deck",
+        "compose-editorial-slide"
+      ],
+      "officeUse": "Turn project-led chapters, campaign media, and outcomes into an editorial case-study deck."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/editorial-service-booking/SKILL.md",
+      "sourceName": "editorial-service-booking",
+      "disposition": "adapt",
+      "primary": "word",
+      "targetSkills": [
+        "create-word-form",
+        "create-proposal"
+      ],
+      "officeUse": "Translate service selection, location, and booking states into a Word form or proposal."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/editorial-tech/SKILL.md",
+      "sourceName": "editorial-tech",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "compose-editorial-slide",
+        "compose-technical-wireframe-slide"
+      ],
+      "officeUse": "Blend editorial hierarchy, technical labels, cinematic media, and restrained accents in PowerPoint."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/framed-grid-layout/SKILL.md",
+      "sourceName": "framed-grid-layout",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "apply-slide-grid"
+      ],
+      "officeUse": "Translate visible boundaries, corner brackets, and strict alignment into a consistent slide grid."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/framed-tech-dark-border-gradient/SKILL.md",
+      "sourceName": "framed-tech-dark-border-gradient",
+      "disposition": "adapt",
+      "primary": "excel",
+      "targetSkills": [
+        "build-kpi-dashboard",
+        "build-management-report"
+      ],
+      "officeUse": "Use framed technical panels and restrained borders to structure an Excel dashboard and report."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/funky-purple-container-tech/SKILL.md",
+      "sourceName": "funky-purple-container-tech",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "compose-technical-wireframe-slide",
+        "apply-slide-grid"
+      ],
+      "officeUse": "Translate layered technical containers and fuchsia signals into a disciplined slide system."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/glass-dark-mode-clock/SKILL.md",
+      "sourceName": "glass-dark-mode-clock",
+      "disposition": "adapt",
+      "primary": "excel",
+      "targetSkills": [
+        "build-kpi-dashboard",
+        "build-excel-charts"
+      ],
+      "officeUse": "Translate instrument-like calibration and status framing into an Excel KPI dashboard."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/glass-dark-ui/SKILL.md",
+      "sourceName": "glass-dark-ui",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "compose-editorial-slide",
+        "apply-office-design-system"
+      ],
+      "officeUse": "Translate frosted dark surfaces and readable contrast into Office-safe slide styling."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/globe-gl/SKILL.md",
+      "sourceName": "globe-gl",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "create-data-story",
+        "source-presentation-assets"
+      ],
+      "officeUse": "Preserve globe.gl code while using exported views in a sourced PowerPoint data story."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/globe-particles/SKILL.md",
+      "sourceName": "globe-particles",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "compose-image-first-slide"
+      ],
+      "officeUse": "Use a rendered particle globe as a focal presentation asset with clear provenance."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/gooey-blob-system/SKILL.md",
+      "sourceName": "gooey-blob-system",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Translate fluid merging forms into a sourced visual motif or simple slide motion."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/gsap-scrolltrigger-storytelling/SKILL.md",
+      "sourceName": "gsap-scrolltrigger-storytelling",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "create-morph-presentation",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Preserve ScrollTrigger implementation while adapting progressive state changes to Morph."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/gsap/SKILL.md",
+      "sourceName": "gsap",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Preserve GSAP APIs while transferring timing, staggering, and restraint to PowerPoint."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/high-contrast-skeuomorphic-clean/SKILL.md",
+      "sourceName": "high-contrast-skeuomorphic-clean",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "compose-technical-wireframe-slide",
+        "apply-office-design-system"
+      ],
+      "officeUse": "Translate tactile depth and crisp separation into restrained PowerPoint surfaces."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/image-first-grid-layout/SKILL.md",
+      "sourceName": "image-first-grid-layout",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "compose-image-first-slide",
+        "apply-slide-grid"
+      ],
+      "officeUse": "Build image-led slides with full-bleed evidence, structural guides, and anchored text."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/landing-page/SKILL.md",
+      "sourceName": "landing-page",
+      "disposition": "adapt",
+      "primary": "word",
+      "targetSkills": [
+        "create-proposal"
+      ],
+      "officeUse": "Translate single-offer structure, proof, objections, scope, and next action into a Word proposal."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/light-mode-paper-technical/SKILL.md",
+      "sourceName": "light-mode-paper-technical",
+      "disposition": "adapt",
+      "primary": "word",
+      "targetSkills": [
+        "create-business-document",
+        "apply-office-design-system"
+      ],
+      "officeUse": "Apply warm paper surfaces and precise geometry to a readable technical Word document."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/liquid-metal-border/SKILL.md",
+      "sourceName": "liquid-metal-border",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Preserve MetalFx implementation while using metallic treatments only as sourced slide emphasis."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/marquee-loop/SKILL.md",
+      "sourceName": "marquee-loop",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Translate repeated marquee movement into a short, non-essential PowerPoint animation."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/masked-reveal/SKILL.md",
+      "sourceName": "masked-reveal",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "create-morph-presentation",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Recreate masked word reveals through reliable slide-state changes with a static fallback."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/matterjs/SKILL.md",
+      "sourceName": "matterjs",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "create-morph-presentation",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Preserve Matter.js physics while translating useful spatial state changes into deterministic slide motion."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/mesh-gradient-dark-blue-clean/SKILL.md",
+      "sourceName": "mesh-gradient-dark-blue-clean",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "compose-image-first-slide"
+      ],
+      "officeUse": "Use a restrained dark-blue mesh atmosphere behind a disciplined slide structure."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/nested-container-clean-agency/SKILL.md",
+      "sourceName": "nested-container-clean-agency",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "apply-slide-grid",
+        "compose-editorial-slide"
+      ],
+      "officeUse": "Translate nested editorial shells and inset feature blocks into a coherent slide grid."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/nested-container-frames/SKILL.md",
+      "sourceName": "nested-container-frames",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "apply-slide-grid",
+        "compose-split-layout-slide"
+      ],
+      "officeUse": "Use nested frames and consistent inset spacing to separate slide hierarchy."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/number-details/SKILL.md",
+      "sourceName": "number-details",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "create-process-roadmap-slides",
+        "apply-slide-grid"
+      ],
+      "officeUse": "Use numbered markers to clarify sequence, chapters, and roadmap stages in PowerPoint."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/operational-enterprise-ai/SKILL.md",
+      "sourceName": "operational-enterprise-ai",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "create-proposal-deck",
+        "create-architecture-diagram"
+      ],
+      "officeUse": "Explain enterprise AI boundaries, approvals, auditability, exceptions, and rollback in a proposal deck."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/orange-clean-paper-saas/SKILL.md",
+      "sourceName": "orange-clean-paper-saas",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "create-proposal-deck",
+        "compose-editorial-slide"
+      ],
+      "officeUse": "Translate the warm paper SaaS system and orange signals into a clean proposal deck."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/pricing-page/SKILL.md",
+      "sourceName": "pricing-page",
+      "disposition": "adapt",
+      "primary": "excel",
+      "targetSkills": [
+        "build-financial-model",
+        "build-excel-charts"
+      ],
+      "officeUse": "Move plan prices, assumptions, comparisons, and unit economics into an auditable Excel model."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/product-proof-saas/SKILL.md",
+      "sourceName": "product-proof-saas",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "create-product-demo-deck",
+        "create-comparison-slide"
+      ],
+      "officeUse": "Center a product demo deck on real workflow evidence, honest comparisons, and qualified claims."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/progressive-blur/SKILL.md",
+      "sourceName": "progressive-blur",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "compose-image-first-slide",
+        "source-presentation-assets"
+      ],
+      "officeUse": "Translate progressive blur into native transparency or a preprocessed image while preserving legibility."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/reveal-hover-effect/SKILL.md",
+      "sourceName": "reveal-hover-effect",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "create-comparison-slide",
+        "create-morph-presentation"
+      ],
+      "officeUse": "Convert hover-to-reveal comparisons into explicit before-and-after slide states."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/scroll-progress-timeline/SKILL.md",
+      "sourceName": "scroll-progress-timeline",
+      "disposition": "adapt",
+      "primary": "excel",
+      "targetSkills": [
+        "build-planning-model",
+        "build-excel-charts"
+      ],
+      "officeUse": "Represent stages, dates, owners, progress, and exceptions in a data-driven Excel timeline."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/scroll-scrubbed-visual-sequence/SKILL.md",
+      "sourceName": "scroll-scrubbed-visual-sequence",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "create-morph-presentation",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Convert reversible scroll states into a presenter-controlled Morph sequence."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/scroll-scrubbed-word-reveal/SKILL.md",
+      "sourceName": "scroll-scrubbed-word-reveal",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Pace short text through accessible slide builds while preserving complete static readability."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/scroll-world-storytelling/SKILL.md",
+      "sourceName": "scroll-world-storytelling",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "plan-presentation-story",
+        "create-morph-presentation",
+        "create-data-story"
+      ],
+      "officeUse": "Turn a connected scroll world into a sequenced PowerPoint narrative with editable states."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/shaders-cursor-ripples/SKILL.md",
+      "sourceName": "shaders-cursor-ripples",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Preserve WebGPU ripple code while using captured output only as a sourced visual accent."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/skeuomorphic-ui/SKILL.md",
+      "sourceName": "skeuomorphic-ui",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "compose-technical-wireframe-slide",
+        "apply-office-design-system"
+      ],
+      "officeUse": "Translate tactile depth, inset hierarchy, and material cues into restrained PowerPoint shapes."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/solar-duotone-bold/SKILL.md",
+      "sourceName": "solar-duotone-bold",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "apply-office-design-system"
+      ],
+      "officeUse": "Use a consistent, licensed Solar Duotone icon family across presentation assets."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/split-layout-technical/SKILL.md",
+      "sourceName": "split-layout-technical",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "compose-split-layout-slide",
+        "compose-technical-wireframe-slide"
+      ],
+      "officeUse": "Translate dual panels, fine lines, metadata, and inset surfaces into a technical split slide."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/staggered-word-reveal/SKILL.md",
+      "sourceName": "staggered-word-reveal",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Use word-by-word builds only where paced disclosure improves comprehension."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/tailwindcss/SKILL.md",
+      "sourceName": "tailwindcss",
+      "disposition": "preserve-reference",
+      "primary": "common",
+      "targetSkills": [
+        "apply-office-design-system"
+      ],
+      "officeUse": "Preserve Tailwind recipes while translating spacing, typography, color, and responsive intent into Office tokens."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/tech-green-dark-mode-modern/SKILL.md",
+      "sourceName": "tech-green-dark-mode-modern",
+      "disposition": "adapt",
+      "primary": "excel",
+      "targetSkills": [
+        "build-kpi-dashboard",
+        "build-excel-charts"
+      ],
+      "officeUse": "Translate dark dashboard cards and green status signals into a readable Excel KPI dashboard."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/technical-wireframe-info-layout/SKILL.md",
+      "sourceName": "technical-wireframe-info-layout",
+      "disposition": "adapt",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "compose-technical-wireframe-slide",
+        "create-architecture-diagram"
+      ],
+      "officeUse": "Create an editable exploded view with precise callouts, interfaces, and sparse diagnostic labels."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/thinking-orbs/SKILL.md",
+      "sourceName": "thinking-orbs",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "optimize-powerpoint-motion",
+        "source-presentation-assets"
+      ],
+      "officeUse": "Preserve the React component while adapting semantic working states to restrained slide motion."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/threejs/SKILL.md",
+      "sourceName": "threejs",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "compose-technical-wireframe-slide"
+      ],
+      "officeUse": "Preserve Three.js implementation while using rendered views and annotated geometry as slide assets."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/unicorn-studio/SKILL.md",
+      "sourceName": "unicorn-studio",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Preserve Unicorn Studio embedding while using exported visuals and timing references in PowerPoint."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/vantajs/SKILL.md",
+      "sourceName": "vantajs",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Preserve Vanta.js runtime details while using rendered backgrounds as sourced slide assets."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/webgl-3d-object/SKILL.md",
+      "sourceName": "webgl-3d-object",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "compose-image-first-slide"
+      ],
+      "officeUse": "Preserve WebGL scene code while using verified 3D renders as image-first slide evidence."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/webgl-landing-steering/SKILL.md",
+      "sourceName": "webgl-landing-steering",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "plan-presentation-story",
+        "source-presentation-assets"
+      ],
+      "officeUse": "Preserve WebGL tradeoffs while applying its visual-direction discipline to a presentation story."
+    },
+    {
+      "sourcePath": "agent-skills/web-design/webgl-laser/SKILL.md",
+      "sourceName": "webgl-laser",
+      "disposition": "preserve-reference",
+      "primary": "powerpoint",
+      "targetSkills": [
+        "source-presentation-assets",
+        "optimize-powerpoint-motion"
+      ],
+      "officeUse": "Preserve WebGL laser code while using a rendered beam as a sourced accent with a static fallback."
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build auditable Excel formulas"
+  short_description: "Create clear traceable spreadsheet logic"
+  default_prompt: "Use $build-auditable-formulas. Design or repair Excel formulas so calculations are correct, consistent, and easy to audit. Follow its failure boundaries and return the required evidence."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Apply a slide grid"
+  short_description: "Build disciplined PowerPoint slide layouts"
+  default_prompt: "Use $apply-slide-grid. Apply a consistent grid, margins, alignment, and spacing system to PowerPoint. Follow its failure boundaries and return the required evidence."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Source presentation assets"
+  short_description: "Find licensed slide-ready visual assets"
+  default_prompt: "Use $source-presentation-assets. Source photographs, screenshots, logos, icons, illustrations, and generated visuals for PowerPoint. Follow its failure boundaries and return the required evidence."

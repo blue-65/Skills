@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create an executive brief"
+  short_description: "Write concise decision-ready Word briefs"
+  default_prompt: "Use $create-executive-brief. Create a concise executive or board-style Word brief. Follow its failure boundaries and return the required evidence."

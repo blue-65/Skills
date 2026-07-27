@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build a long Word document"
+  short_description: "Structure stable multi-section Word files"
+  default_prompt: "Use $build-long-word-document. Build or restructure a long Word document such as a manual, handbook, report, book, or multi-section specification. Follow its failure boundaries and return the required evidence."

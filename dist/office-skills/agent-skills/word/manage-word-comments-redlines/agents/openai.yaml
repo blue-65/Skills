@@ -1,0 +1,4 @@
+interface:
+  display_name: "Manage Word comments and redlines"
+  short_description: "Handle review history in Word safely"
+  default_prompt: "Use $manage-word-comments-redlines. Add, review, resolve, accept, reject, or summarize Word comments and tracked changes. Follow its failure boundaries and return the required evidence."

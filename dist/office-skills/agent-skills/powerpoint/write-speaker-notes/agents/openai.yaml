@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write PowerPoint speaker notes"
+  short_description: "Add useful notes and source blocks to slides"
+  default_prompt: "Use $write-speaker-notes. Write or edit PowerPoint speaker notes, talk tracks, facilitation cues, and source blocks. Follow its failure boundaries and return the required evidence."

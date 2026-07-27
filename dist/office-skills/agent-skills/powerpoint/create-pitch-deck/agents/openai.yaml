@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create a pitch deck"
+  short_description: "Create commercial investor-ready pitch decks"
+  default_prompt: "Use $create-pitch-deck. Create a PowerPoint pitch deck for investors, buyers, or strategic partners. Follow its failure boundaries and return the required evidence."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verify an Excel workbook"
+  short_description: "Verify formulas values charts and layout"
+  default_prompt: "Use $verify-excel-workbook. Verify a final Excel workbook for formulas, values, data types, structure, charts, print layout, accessibility, and save integrity. Follow its failure boundaries and return the required evidence."

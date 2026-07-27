@@ -1,0 +1,4 @@
+interface:
+  display_name: "Compose a split-layout slide"
+  short_description: "Create clear two-part PowerPoint slides"
+  default_prompt: "Use $compose-split-layout-slide. Compose a PowerPoint slide with two clear panels or regions. Follow its failure boundaries and return the required evidence."

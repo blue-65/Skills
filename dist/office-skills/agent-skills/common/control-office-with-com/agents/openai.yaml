@@ -1,0 +1,4 @@
+interface:
+  display_name: "Control Office with COM"
+  short_description: "Operate visible desktop Office safely"
+  default_prompt: "Use $control-office-with-com. Control visible Microsoft Word, PowerPoint, or Excel desktop applications with Windows COM automation. Follow its failure boundaries and return the required evidence."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Redact Office content"
+  short_description: "Remove sensitive Office content safely"
+  default_prompt: "Use $redact-office-content. Redact or anonymize sensitive information in Word, PowerPoint, and Excel while preserving usable layout. Follow its failure boundaries and return the required evidence."

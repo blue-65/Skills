@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prepare an Office delivery"
+  short_description: "Package final Office files for handoff"
+  default_prompt: "Use $prepare-client-delivery. Prepare verified Office artifacts for client or executive handoff. Follow its failure boundaries and return the required evidence."

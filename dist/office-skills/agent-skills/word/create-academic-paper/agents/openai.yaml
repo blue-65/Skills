@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create an academic paper"
+  short_description: "Create citation-safe academic Word papers"
+  default_prompt: "Use $create-academic-paper. Create or edit an academic, scientific, or technical paper in Word. Follow its failure boundaries and return the required evidence."

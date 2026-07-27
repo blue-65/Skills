@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reconcile workbook values"
+  short_description: "Trace and reconcile critical Excel outputs"
+  default_prompt: "Use $reconcile-workbook-values. Reconcile Excel values between sources, sheets, versions, systems, or reporting outputs. Follow its failure boundaries and return the required evidence."

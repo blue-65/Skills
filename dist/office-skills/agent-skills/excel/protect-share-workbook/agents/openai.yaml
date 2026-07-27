@@ -1,0 +1,4 @@
+interface:
+  display_name: "Protect and share an Excel workbook"
+  short_description: "Prepare safe editable Excel handoffs"
+  default_prompt: "Use $protect-share-workbook. Protect and prepare an Excel workbook for controlled sharing. Follow its failure boundaries and return the required evidence."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Apply an Office design system"
+  short_description: "Translate brand rules into Office tokens"
+  default_prompt: "Use $apply-office-design-system. Translate a brand or project design system into Word, PowerPoint, and Excel-safe tokens. Follow its failure boundaries and return the required evidence."

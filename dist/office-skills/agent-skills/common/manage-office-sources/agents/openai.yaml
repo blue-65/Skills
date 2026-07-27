@@ -1,0 +1,4 @@
+interface:
+  display_name: "Manage Office sources"
+  short_description: "Track claim asset and data provenance"
+  default_prompt: "Use $manage-office-sources. Collect and preserve provenance for claims, data, images, logos, and external assets used in Office documents. Follow its failure boundaries and return the required evidence."

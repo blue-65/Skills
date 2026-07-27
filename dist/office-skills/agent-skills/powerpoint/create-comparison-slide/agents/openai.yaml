@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create a comparison slide"
+  short_description: "Create fair decision-ready comparisons"
+  default_prompt: "Use $create-comparison-slide. Create a PowerPoint comparison, option, vendor, before-and-after, or competitive slide. Follow its failure boundaries and return the required evidence."

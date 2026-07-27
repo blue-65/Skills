@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create a product demo deck"
+  short_description: "Use product states as presentation evidence"
+  default_prompt: "Use $create-product-demo-deck. Create a PowerPoint product demo or product-proof deck. Follow its failure boundaries and return the required evidence."

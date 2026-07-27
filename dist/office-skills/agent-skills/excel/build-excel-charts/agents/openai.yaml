@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build Excel charts"
+  short_description: "Create truthful editable Excel charts"
+  default_prompt: "Use $build-excel-charts. Create or repair native Excel charts. Follow its failure boundaries and return the required evidence."

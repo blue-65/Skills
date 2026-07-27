@@ -1,0 +1,4 @@
+interface:
+  display_name: "Compose a technical wireframe slide"
+  short_description: "Explain systems with annotated slide views"
+  default_prompt: "Use $compose-technical-wireframe-slide. Compose a PowerPoint technical wireframe, exploded view, annotated product view, or component breakdown. Follow its failure boundaries and return the required evidence."

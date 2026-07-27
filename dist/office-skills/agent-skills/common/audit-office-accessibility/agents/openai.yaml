@@ -1,0 +1,4 @@
+interface:
+  display_name: "Audit Office accessibility"
+  short_description: "Check Office files for accessible use"
+  default_prompt: "Use $audit-office-accessibility. Audit Word, PowerPoint, and Excel artifacts for accessibility. Follow its failure boundaries and return the required evidence."

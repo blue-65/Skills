@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build Excel data-entry controls"
+  short_description: "Create safe usable Excel input sheets"
+  default_prompt: "Use $build-data-validation-inputs. Build Excel input sheets with validation, controlled lists, guidance, and error prevention. Follow its failure boundaries and return the required evidence."

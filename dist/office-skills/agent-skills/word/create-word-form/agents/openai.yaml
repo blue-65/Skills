@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create a Word form"
+  short_description: "Build usable protected Word forms"
+  default_prompt: "Use $create-word-form. Create a fillable Word form, questionnaire, checklist, or template with content controls or form fields. Follow its failure boundaries and return the required evidence."

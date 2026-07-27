@@ -1,0 +1,4 @@
+interface:
+  display_name: "Inspect an Office source"
+  short_description: "Inventory source structure before editing"
+  default_prompt: "Use $inspect-office-source. Inspect Word, PowerPoint, Excel, PDF, image, and text sources before Office authoring or editing. Follow its failure boundaries and return the required evidence."

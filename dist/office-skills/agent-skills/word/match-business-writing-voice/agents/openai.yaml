@@ -1,0 +1,4 @@
+interface:
+  display_name: "Match a business writing voice"
+  short_description: "Adapt Word prose to an approved voice"
+  default_prompt: "Use $match-business-writing-voice. Match an existing executive, corporate, or editorial writing voice in Word documents. Follow its failure boundaries and return the required evidence."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create a PowerPoint data story"
+  short_description: "Turn verified data into clear slide evidence"
+  default_prompt: "Use $create-data-story. Create a PowerPoint data story using charts, tables, annotations, and narrative sequence. Follow its failure boundaries and return the required evidence."

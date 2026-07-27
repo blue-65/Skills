@@ -1,0 +1,4 @@
+interface:
+  display_name: "Preserve Office template fidelity"
+  short_description: "Keep native masters styles and formulas intact"
+  default_prompt: "Use $preserve-template-fidelity. Preserve the structure and visual system of an existing Word, PowerPoint, or Excel template. Follow its failure boundaries and return the required evidence."

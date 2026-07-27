@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create a training deck"
+  short_description: "Create teachable practice-ready slide decks"
+  default_prompt: "Use $create-training-deck. Create a PowerPoint training, onboarding, workshop, or instructional deck. Follow its failure boundaries and return the required evidence."

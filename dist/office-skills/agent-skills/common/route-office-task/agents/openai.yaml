@@ -1,0 +1,4 @@
+interface:
+  display_name: "Route an Office task"
+  short_description: "Route work to the right Office artifact"
+  default_prompt: "Use $route-office-task. Route Microsoft Office work to Word, PowerPoint, Excel, or a deliberate multi-file package. Follow its failure boundaries and return the required evidence."

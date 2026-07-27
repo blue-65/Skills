@@ -1,0 +1,4 @@
+interface:
+  display_name: "Edit an Excel workbook"
+  short_description: "Make targeted safe changes to XLSX files"
+  default_prompt: "Use $edit-excel-workbook. Edit an existing Excel workbook while preserving formulas, formats, tables, names, charts, and user conventions. Follow its failure boundaries and return the required evidence."

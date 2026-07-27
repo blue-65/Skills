@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create a business report"
+  short_description: "Create structured evidence-led Word reports"
+  default_prompt: "Use $create-business-report. Create a structured business, research, audit, evaluation, or project report in Word. Follow its failure boundaries and return the required evidence."

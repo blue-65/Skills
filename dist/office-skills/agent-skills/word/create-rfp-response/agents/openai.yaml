@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create an RFP response"
+  short_description: "Build compliant traceable RFP responses"
+  default_prompt: "Use $create-rfp-response. Create a Word response to an RFP, RFI, RFQ, or procurement questionnaire. Follow its failure boundaries and return the required evidence."

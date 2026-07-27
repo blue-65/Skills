@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create a case study deck"
+  short_description: "Create evidence-led customer case decks"
+  default_prompt: "Use $create-case-study-deck. Create a PowerPoint customer case study, success story, or project retrospective. Follow its failure boundaries and return the required evidence."

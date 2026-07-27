@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create a policy document"
+  short_description: "Create enforceable readable Word policies"
+  default_prompt: "Use $create-policy-document. Create or revise a policy, standard, guideline, or governance document in Word. Follow its failure boundaries and return the required evidence."
