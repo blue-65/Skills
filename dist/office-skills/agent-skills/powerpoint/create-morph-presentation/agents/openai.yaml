@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create a Morph presentation"
+  short_description: "Build purposeful PowerPoint Morph sequences"
+  default_prompt: "Use $create-morph-presentation. Create a PowerPoint deck that uses Morph to explain spatial change, sequence, comparison, or transformation. Follow its failure boundaries and return the required evidence."

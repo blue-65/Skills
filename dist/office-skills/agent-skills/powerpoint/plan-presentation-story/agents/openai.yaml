@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan a presentation story"
+  short_description: "Build a cumulative decision-focused slide story"
+  default_prompt: "Use $plan-presentation-story. Plan the narrative arc, slide sequence, and communication job for a PowerPoint deck. Follow its failure boundaries and return the required evidence."

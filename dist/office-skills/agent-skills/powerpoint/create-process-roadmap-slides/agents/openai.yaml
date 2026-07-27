@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create process and roadmap slides"
+  short_description: "Create executable process and roadmap views"
+  default_prompt: "Use $create-process-roadmap-slides. Create PowerPoint process, timeline, phased plan, dependency, or roadmap slides. Follow its failure boundaries and return the required evidence."

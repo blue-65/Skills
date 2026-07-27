@@ -1,0 +1,4 @@
+interface:
+  display_name: "Edit a Word document"
+  short_description: "Make surgical edits to existing DOCX files"
+  default_prompt: "Use $edit-word-document. Edit an existing Word document while preserving its structure and formatting. Follow its failure boundaries and return the required evidence."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Preserve a PowerPoint template"
+  short_description: "Edit decks without flattening masters"
+  default_prompt: "Use $preserve-powerpoint-template. Create or edit slides inside an existing PowerPoint template or reference deck. Follow its failure boundaries and return the required evidence."

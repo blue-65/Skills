@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build an Excel KPI dashboard"
+  short_description: "Create decision-ready Excel KPI dashboards"
+  default_prompt: "Use $build-kpi-dashboard. Build an Excel KPI, management, operational, or performance dashboard. Follow its failure boundaries and return the required evidence."

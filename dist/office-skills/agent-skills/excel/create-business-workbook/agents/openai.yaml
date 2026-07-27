@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create a business workbook"
+  short_description: "Create auditable editable Excel workbooks"
+  default_prompt: "Use $create-business-workbook. Create a general-purpose Excel workbook for analysis, tracking, planning, or reporting. Follow its failure boundaries and return the required evidence."

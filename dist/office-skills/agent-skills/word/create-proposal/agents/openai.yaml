@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create a Word proposal"
+  short_description: "Build persuasive evidence-backed proposals"
+  default_prompt: "Use $create-proposal. Create a persuasive Word proposal for a client, partner, grant, project, or internal initiative. Follow its failure boundaries and return the required evidence."

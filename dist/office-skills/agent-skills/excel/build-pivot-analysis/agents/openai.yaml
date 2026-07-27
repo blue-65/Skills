@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build an Excel pivot analysis"
+  short_description: "Create refreshable pivot-based analysis"
+  default_prompt: "Use $build-pivot-analysis. Build or repair Excel PivotTables, PivotCharts, slicers, and grouped analyses. Follow its failure boundaries and return the required evidence."

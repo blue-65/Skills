@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verify a PowerPoint deck"
+  short_description: "Inspect every slide and runtime behavior"
+  default_prompt: "Use $verify-powerpoint. Verify a final PowerPoint deck for structure, visual quality, narrative, accessibility, sources, and runtime behavior. Follow its failure boundaries and return the required evidence."

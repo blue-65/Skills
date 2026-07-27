@@ -1,0 +1,4 @@
+interface:
+  display_name: "Compose an image-first slide"
+  short_description: "Use imagery as the presentation stage"
+  default_prompt: "Use $compose-image-first-slide. Compose a PowerPoint slide around one dominant photograph, product image, or visual artifact. Follow its failure boundaries and return the required evidence."

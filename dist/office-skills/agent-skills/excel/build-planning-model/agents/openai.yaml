@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build an Excel planning model"
+  short_description: "Create operational scenario planning models"
+  default_prompt: "Use $build-planning-model. Build an Excel capacity, staffing, demand, delivery, resource, or scenario planning model. Follow its failure boundaries and return the required evidence."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build an Excel management report"
+  short_description: "Create repeatable Excel reporting packs"
+  default_prompt: "Use $build-management-report. Build a recurring Excel management report or reporting pack. Follow its failure boundaries and return the required evidence."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create a proposal deck"
+  short_description: "Create enterprise-ready proposal presentations"
+  default_prompt: "Use $create-proposal-deck. Create a PowerPoint proposal or solution deck for a client, procurement process, or internal sponsor. Follow its failure boundaries and return the required evidence."

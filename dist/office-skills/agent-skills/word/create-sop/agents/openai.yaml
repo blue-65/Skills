@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create a standard operating procedure"
+  short_description: "Build executable step-by-step Word SOPs"
+  default_prompt: "Use $create-sop. Create a Word standard operating procedure, runbook, work instruction, or operational checklist. Follow its failure boundaries and return the required evidence."

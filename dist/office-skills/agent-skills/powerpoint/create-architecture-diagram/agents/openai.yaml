@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create an architecture diagram"
+  short_description: "Create readable editable technical diagrams"
+  default_prompt: "Use $create-architecture-diagram. Create a PowerPoint architecture, system, network, data-flow, or integration diagram. Follow its failure boundaries and return the required evidence."

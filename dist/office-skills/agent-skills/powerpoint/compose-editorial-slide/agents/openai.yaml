@@ -1,0 +1,4 @@
+interface:
+  display_name: "Compose an editorial slide"
+  short_description: "Create restrained editorial slide layouts"
+  default_prompt: "Use $compose-editorial-slide. Compose a PowerPoint slide with editorial hierarchy, asymmetry, columns, rules, media bands, and deliberate negative space. Follow its failure boundaries and return the required evidence."

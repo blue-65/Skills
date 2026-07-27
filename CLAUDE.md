@@ -1,49 +1,14 @@
-# Claude Code — Repo Guide
+# Claude Code repository adapter
 
-Repo: **@MengTo/Skills**
+Read and follow:
 
-This repo contains designer-focused AgentSkills for reusable agent workflows.
+1. `AGENTS.md`
+2. `DESIGN.md`
+3. `references/office-output-contract.md`
+4. The narrowest matching
+   `dist/office-skills/agent-skills/<category>/<skill>/SKILL.md`
 
-## What to do here
-- Add new skills (new folders under `agent-skills/`)
-- Improve existing skills (`SKILL.md` + `REFERENCES.md`)
-- Keep docs procedural: checklists, recipes, pitfalls, workflows
-
-## Folder contract
-Each skill folder should look like:
-
-```txt
-agent-skills/<category>/<skill-name>/
-  SKILL.md            # required (frontmatter + steps)
-  REFERENCES.md       # optional (links only)
-  ARTICLE.md          # optional (long-form)
-  assets/             # optional
-  scripts/            # optional
-```
-
-Conventions:
-- `SKILL.md` should be concise + actionable.
-- `REFERENCES.md` should be links only (no big explanations).
-- Prefer copy/paste snippets and “when to use” triggers.
-
-## Style
-- Write like Meng To: skimmable, practical, confident.
-- Prefer constraints and defaults (durations, spacing, hierarchy).
-- Avoid fluff.
-
-## Safety
-- Don’t include secrets, API keys, tokens.
-- Don’t paste private client info.
-
-## Suggested workflow (for Claude)
-1) Identify the most specific skill folder.
-2) Update `SKILL.md` first.
-3) Add/refresh links in `REFERENCES.md`.
-4) Keep changes small and commit with a clear message.
-
-## Git
-This folder is its own git repo. Work from:
-
-```bash
-cd /Users/mengto/clawd/@MengTo/Skills
-```
+Do not assume web, game, or HTML demo behavior from the upstream repository.
+This fork targets native, editable, and verified Word, PowerPoint, and Excel
+artifacts. Do not hand-edit generated files under `dist/office-skills`; update
+`scripts/skill-catalog.mjs` or a shared reference and rebuild.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build a financial model"
+  short_description: "Build auditable finance-grade Excel models"
+  default_prompt: "Use $build-financial-model. Build or extend a financial model in Excel. Follow its failure boundaries and return the required evidence."

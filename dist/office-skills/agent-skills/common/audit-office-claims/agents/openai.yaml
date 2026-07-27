@@ -1,0 +1,4 @@
+interface:
+  display_name: "Audit Office claims"
+  short_description: "Verify claims before document delivery"
+  default_prompt: "Use $audit-office-claims. Audit factual claims, numbers, comparisons, and citations in Office deliverables. Follow its failure boundaries and return the required evidence."

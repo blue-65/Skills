@@ -1,0 +1,4 @@
+interface:
+  display_name: "Optimize PowerPoint motion"
+  short_description: "Use restrained reliable slide animation"
+  default_prompt: "Use $optimize-powerpoint-motion. Design, simplify, or repair PowerPoint animation and transition behavior. Follow its failure boundaries and return the required evidence."

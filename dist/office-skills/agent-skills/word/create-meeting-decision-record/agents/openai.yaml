@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create a meeting and decision record"
+  short_description: "Turn meetings into owned decision records"
+  default_prompt: "Use $create-meeting-decision-record. Create a Word meeting brief, minutes, decision log, or action record. Follow its failure boundaries and return the required evidence."

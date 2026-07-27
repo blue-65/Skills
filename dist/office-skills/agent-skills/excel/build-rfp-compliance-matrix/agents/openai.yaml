@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build an RFP compliance matrix"
+  short_description: "Track procurement requirements in Excel"
+  default_prompt: "Use $build-rfp-compliance-matrix. Build an Excel RFP, RFI, RFQ, or compliance matrix. Follow its failure boundaries and return the required evidence."

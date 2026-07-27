@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
-.DS_Store
+__pycache__/
+*.py[cod]
 
 # Local credentials and account-specific configuration
 .env
@@ -11,6 +12,7 @@ config/local/
 
 # Generated private outputs
 outputs/
+dist/.office-skills-build/
 
 # Private keys and signing material
 *.key

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create an executive briefing"
+  short_description: "Create concise executive decision decks"
+  default_prompt: "Use $create-executive-briefing. Create a concise executive or board PowerPoint briefing. Follow its failure boundaries and return the required evidence."

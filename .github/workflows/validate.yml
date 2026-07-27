@@ -1,0 +1,102 @@
+name: Validate Office skills
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install evidence validation dependency
+        run: python -m pip install -r scripts/requirements-validation.txt
+
+      - name: Regenerate Office distribution
+        run: node scripts/build-office-skills.mjs
+
+      - name: Validate Office distribution and upstream coverage
+        run: node scripts/validate-office-skills.mjs
+
+      - name: Test OOXML validator
+        run: python scripts/validate_ooxml.py --self-test
+
+      - name: Test Office static scanner
+        run: python scripts/scan_office.py --self-test
+
+      - name: Test evidence semantic validator
+        run: python scripts/validate_evidence_report.py --self-test
+
+      - name: Parse PowerShell runtime adapters
+        shell: pwsh
+        run: |
+          $allErrors = @()
+          foreach ($script in @(
+            "scripts/office_preflight.ps1",
+            "scripts/export_office.ps1"
+          )) {
+            $tokens = $null
+            $parseErrors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile(
+              (Resolve-Path $script),
+              [ref]$tokens,
+              [ref]$parseErrors
+            ) | Out-Null
+            $allErrors += @($parseErrors)
+          }
+          if ($allErrors.Count -gt 0) {
+            $allErrors | ForEach-Object { Write-Error $_ }
+            exit 1
+          }
+
+      - name: Test ASCII-safe PowerShell JSON
+        shell: pwsh
+        run: |
+          $caseRoot = Join-Path $env:RUNNER_TEMP "오피스-json"
+          New-Item -ItemType Directory -Path $caseRoot | Out-Null
+          try {
+            $input = Join-Path $caseRoot "제안서.txt"
+            [System.IO.File]::WriteAllText($input, "fixture")
+            $output = Join-Path $caseRoot "제안서.pdf"
+            foreach ($script in @(
+              "scripts/office_preflight.ps1",
+              "scripts/export_office.ps1"
+            )) {
+              $json = & pwsh -NoProfile -File $script `
+                -InputPath $input -OutputPath $output -Format PDF
+              $adapterExit = $LASTEXITCODE
+              $raw = $json -join [Environment]::NewLine
+              if ($adapterExit -ne 1) {
+                throw "$script should reject the unsupported fixture."
+              }
+              if ([regex]::IsMatch($raw, "[^\x00-\x7F]")) {
+                throw "$script emitted a literal non-ASCII JSON character."
+              }
+              $decoded = $raw | ConvertFrom-Json
+              if ($decoded.input_path -ne $input) {
+                throw "$script did not preserve the Unicode path after JSON parsing."
+              }
+            }
+          }
+          finally {
+            Remove-Item -LiteralPath $caseRoot -Recurse -Force
+          }
+          Write-Output "ASCII-safe PowerShell JSON checks passed."
+          exit 0
+
+      - name: Confirm generated files are committed
+        run: git diff --exit-code -- dist/office-skills

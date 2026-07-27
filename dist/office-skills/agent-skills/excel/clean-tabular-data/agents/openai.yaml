@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clean tabular data in Excel"
+  short_description: "Normalize raw data without losing lineage"
+  default_prompt: "Use $clean-tabular-data. Clean, normalize, and prepare tabular data in Excel. Follow its failure boundaries and return the required evidence."

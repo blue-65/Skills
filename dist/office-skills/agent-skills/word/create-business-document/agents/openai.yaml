@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create a business document"
+  short_description: "Create polished editable Word documents"
+  default_prompt: "Use $create-business-document. Create a professional editable Word document from notes, sources, or a brief. Follow its failure boundaries and return the required evidence."
