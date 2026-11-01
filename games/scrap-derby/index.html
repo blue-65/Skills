@@ -53,11 +53,19 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--hazard);outline
 .kchip b{font:700 14px/1 var(--ui);color:var(--ink);font-variant-numeric:tabular-nums}
 .kchip.pop{animation:kpop .55s ease-out}
 @keyframes kpop{30%{transform:scale(1.4);background:rgba(255,75,62,.45);border-color:var(--hurt)}}
-#muteBtn{pointer-events:auto;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:5px 9px;font:600 10px/1 var(--ui);letter-spacing:.12em;color:var(--mute);cursor:pointer}
+#muteBtn{pointer-events:auto;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:4px 7px;font:600 9px/1 var(--ui);letter-spacing:.12em;color:var(--mute);cursor:pointer}
 #muteBtn[aria-pressed="true"]{color:var(--hurt)}
 
 /* top-centre: battle royale status */
 #br{position:absolute;top:var(--edge-t);left:50%;transform:translateX(-50%);display:grid;justify-items:center;gap:6px}
+.obj{display:grid;justify-items:center;gap:5px;padding:7px 14px 8px;border-radius:12px;background:var(--panel);border:1px solid var(--line);min-width:118px;max-width:156px}
+.otitle{font:700 10px/1 var(--ui);letter-spacing:.14em;color:var(--hazard);white-space:nowrap}
+.omain{display:flex;align-items:baseline;gap:5px;max-width:100%;min-width:0}
+.omain b{font:400 24px/1 var(--display);font-variant-numeric:tabular-nums;white-space:nowrap}
+.omain span{font:600 11px/1.2 var(--kr);color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.obar{width:100%;height:4px;border-radius:2px;background:rgba(255,255,255,.1);overflow:hidden}
+.obar i{display:block;height:100%;width:0;background:var(--hazard);transition:width .25s}
+.obj.done .obar i{background:var(--ok)}
 #br .alive{display:flex;align-items:baseline;gap:6px;padding:6px 14px 7px;border-radius:12px;background:var(--panel);border:1px solid var(--line)}
 #br .alive b{font:400 26px/1 var(--display);font-variant-numeric:tabular-nums}
 #br .alive span{font:600 11px/1 var(--kr);color:var(--mute)}
@@ -126,6 +134,9 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--hazard);outline
 body.lowhp #dangerFx{opacity:1;animation:beat .9s infinite}
 @keyframes beat{0%,100%{opacity:.55}15%{opacity:1}30%{opacity:.6}45%{opacity:.95}}
 #countdown{position:fixed;inset:0;z-index:8;display:grid;place-items:center;pointer-events:none}
+#countdown .cdw{display:grid;justify-items:center;gap:12px;padding:0 16px}
+.brief{margin:0;text-align:center;font:600 15px/1.45 var(--kr);color:var(--ink);background:rgba(10,11,15,.85);border:1px solid var(--line);padding:12px 18px;border-radius:14px;max-width:320px}
+.brief strong{display:block;font:700 11px/1 var(--ui);letter-spacing:.18em;color:var(--hazard);margin-bottom:7px}
 #countdown b{font:400 clamp(96px,30vw,160px)/1 var(--display);color:var(--hazard);text-shadow:0 7px 0 rgba(0,0,0,.5);animation:cd .95s ease-out forwards}
 #countdown b.cd-go{color:var(--ok)}
 @keyframes cd{0%{transform:scale(2.2);opacity:0}18%{transform:scale(1);opacity:1}75%{opacity:1}100%{transform:scale(.8);opacity:0}}
@@ -228,7 +239,7 @@ body.touch #vitals{bottom:calc(var(--edge-b) + 186px);width:min(310px,calc(100vw
 body.touch .howto.desk,body:not(.touch) .howto.tch{display:none}
 .ghost{background:transparent;border:1px solid var(--line);border-radius:8px;padding:12px;font:600 14px/1 var(--kr);color:var(--ink);cursor:pointer}
 @media (prefers-reduced-motion:reduce){.play,.pill .dot-live{animation:none}}
-@media (max-height:760px){.menu .tagline,.menu .tape{display:none}.menu-main{gap:9px}#preview{height:clamp(100px,18vh,140px)}}
+@media (max-height:760px){.menu .tagline,.menu .tape,.menu .diff p{display:none}.menu-main{gap:9px}#preview{height:clamp(100px,18vh,140px)}}
 
 /* ---------- Menus ---------- */
 .overlay{position:fixed;inset:0;z-index:10;display:grid;place-items:center;overflow:auto;touch-action:pan-y;
@@ -265,6 +276,30 @@ kbd{font:600 11px/1 var(--ui);color:var(--ink);background:#22252d;border:1px sol
 .stats b{font:400 20px/1 var(--display);font-variant-numeric:tabular-nums}
 .stats span{font:600 11px/1 var(--kr);color:var(--mute)}
 /* result card */
+.result .res-head{display:grid;justify-items:center;gap:8px;text-align:center}
+.stars{display:flex;gap:10px;justify-content:center;margin-top:2px}
+.stars i{width:42px;height:42px;background:#2a2d35;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.stars i:nth-child(2){transform:translateY(-8px) scale(1.12)}
+.stars i.on{background:var(--hazard);animation:starpop .45s cubic-bezier(.2,1.6,.4,1) both}
+.stars i:nth-child(2).on{animation-name:starpop2}
+@keyframes starpop{0%{transform:scale(0) rotate(-40deg)}100%{transform:scale(1)}}
+@keyframes starpop2{0%{transform:translateY(-8px) scale(0) rotate(-40deg)}100%{transform:translateY(-8px) scale(1.12)}}
+.btnrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btnrow .ghost[hidden]+.ghost{grid-column:1 / -1}
+/* stage path on the menu */
+.stagebox{width:100%;display:grid;gap:8px;justify-items:center}
+.stagepath{display:flex;align-items:center;gap:6px}
+.stagepath .ln{width:14px;height:3px;border-radius:2px;background:rgba(255,255,255,.18)}
+.stagepath .ln.done{background:var(--hazard)}
+.snode{position:relative;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:400 15px/1 var(--display);background:#1a1c22;border:2px solid rgba(255,255,255,.14);color:var(--mute);cursor:pointer;padding:0}
+.snode.done{background:#3a2e08;border-color:var(--hazard);color:var(--hazard)}
+.snode.cur{width:52px;height:52px;font-size:20px;background:var(--hazard);border-color:#fff3c2;color:#16171b;box-shadow:0 0 0 4px rgba(255,194,26,.25)}
+.snode.sel{outline:3px solid #fff;outline-offset:2px}
+.snode.lock{cursor:default;opacity:.55}
+.snode.boss{border-style:dashed}
+.snode small{position:absolute;bottom:-11px;left:50%;transform:translateX(-50%);font:700 9px/1 var(--ui);color:var(--hazard);letter-spacing:-.5px;white-space:nowrap}
+.stageinfo{font:600 13px/1.4 var(--kr);color:#d7d2c6;text-align:center}
+.stageinfo b{color:var(--hazard);font:700 12px/1 var(--ui);letter-spacing:.12em;margin-right:6px}
 .res-head{display:flex;align-items:center;gap:16px}
 .place{display:flex;align-items:baseline;gap:4px}
 .place b{font:400 64px/1 var(--display);color:var(--hazard);font-variant-numeric:tabular-nums}
@@ -305,7 +340,7 @@ kbd{font:600 11px/1 var(--ui);color:var(--ink);background:#22252d;border:1px sol
     <button id="muteBtn" type="button" aria-pressed="false">SOUND ON</button>
   </div>
   <div id="br">
-    <div class="alive"><b id="hAlive">15</b><span>생존</span></div>
+    <div class="obj" id="obj"><div class="otitle" id="objTitle">STAGE 1</div><div class="omain"><b id="objMain">0</b><span id="objSub"></span></div><div class="obar"><i id="objBar"></i></div></div>
     <div id="zone"><i></i><span id="zoneText">출발 대기</span></div>
   </div>
   <canvas id="minimap" width="300" height="300" aria-hidden="true"></canvas>
@@ -337,7 +372,7 @@ kbd{font:600 11px/1 var(--ui);color:var(--ink);background:#22252d;border:1px sol
 <div id="startScreen" class="menu">
   <div class="menu-top">
     <div class="pill lvp"><span class="lvb sm" id="mLv">LV 1</span><span class="mxp"><i id="mXp"></i></span></div>
-    <div class="pill rec">우승 <b id="mWins">0</b>회</div>
+    <div class="pill rec">★ <b id="mWins">0</b></div>
     <button id="menuMute" class="icon-btn" type="button" aria-pressed="false" aria-label="소리 끄기">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path class="on" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/><path class="off" d="M17 9l5 6M22 9l-5 6" hidden/></svg>
     </button>
@@ -345,13 +380,14 @@ kbd{font:600 11px/1 var(--ui);color:var(--ink);background:#22252d;border:1px sol
   <div class="menu-main">
     <h1 class="logo">SCRAP<span>DERBY</span></h1>
     <div class="tape"></div>
-    <p class="tagline">15대 중 마지막까지 살아남아라.</p>
+    <p class="tagline">스테이지를 깰수록 더 거친 차들이 몰려온다.</p>
     <div class="garage">
       <button class="arrow" id="skinPrev" type="button" aria-label="이전 차"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
       <canvas id="preview" aria-label="내 차 미리보기 (좌우로 밀어서 변경)"></canvas>
       <button class="arrow" id="skinNext" type="button" aria-label="다음 차"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
     </div>
     <div class="skin-name" id="skinName" aria-live="polite"></div>
+    <div class="stagebox"><div class="stagepath" id="stagePath"></div><div class="stageinfo" id="stageInfo"></div></div>
     <form id="startForm" autocomplete="off">
       <input id="nick" maxlength="12" placeholder="닉네임 입력" aria-label="닉네임">
       <button class="play" id="playBtn" type="submit">PLAY</button>
@@ -370,22 +406,23 @@ kbd{font:600 11px/1 var(--ui);color:var(--ink);background:#22252d;border:1px sol
     <div class="tape"></div>
     <div class="inner">
       <div class="res-head">
-        <div class="place"><b id="resPlace">#1</b><span id="resOf">/ 15</span></div>
-        <div><div class="eyebrow" id="resEyebrow">경기 종료</div><h2 class="logo" id="resTitle">WRECKED</h2></div>
+        <div class="eyebrow" id="resEyebrow">STAGE 1</div>
+        <h2 class="logo" id="resTitle">CLEAR!</h2>
+        <div class="stars" id="resStars"><i></i><i></i><i></i></div>
       </div>
       <p class="reason" id="deathReason"></p>
       <div class="stats">
         <div><b id="dKills">0</b><span>격파</span></div>
         <div><b id="dScore">0</b><span>적재량 (kg)</span></div>
-        <div><b id="dTime">0:00</b><span>생존 시간</span></div>
+        <div><b id="dTime">0:00</b><span>플레이 시간</span></div>
       </div>
       <div class="xpbox">
         <ul id="xpLines"></ul>
         <div class="lvrow"><span class="lvb" id="resLv">LV 1</span><div class="xpbar"><i id="resXp"></i></div><span class="xpt" id="resXpText"></span></div>
         <div class="levelup" id="levelUp" hidden></div>
       </div>
-      <button class="go" id="againBtn" type="button">다시 도전</button>
-      <button class="ghost" id="menuBtn" type="button">차고로 (차 바꾸기)</button>
+      <button class="go" id="againBtn" type="button">다음 스테이지</button>
+      <div class="btnrow"><button class="ghost" id="retryBtn" type="button">다시 하기</button><button class="ghost" id="menuBtn" type="button">차고로</button></div>
     </div>
   </div>
 </div>
@@ -896,7 +933,8 @@ function spawnBot(car, initial, pos) {
   car.ai.aggro = rand(d.aggro[0], d.aggro[1]); car.ai.playerBias = rand(d.bias[0], d.bias[1]);
   const score = pos ? Math.round(Math.random() * 30) : initial ? Math.round(Math.pow(Math.random(), 1.6) * d.botScore) : Math.round(Math.random() * 60);
   car.respawnAt = 0;
-  spawnCar(car, { name: nextBotName(), color: CAR_COLORS[Math.random() * CAR_COLORS.length | 0], score, pos });
+  if (match.on && match.def) { car.ai.aggro *= match.def.aggro; car.ai.caution *= match.def.caution; }
+  spawnCar(car, { name: nextBotName(), color: CAR_COLORS[Math.random() * CAR_COLORS.length | 0], score: match.on && match.def && !pos ? Math.round(Math.random() * 40) : score, pos });
 }
 
 /* ================= damage / wreck ================= */
@@ -948,7 +986,7 @@ function wreck(car, cause) {
   if (killer) feed(`${esc(killer.name)}<em>${cause === 'fall' ? 'RING OUT' : 'WRECK'}</em>${esc(car.name)}`, mine);
   else feed(`${esc(car.name)}<em>${cause === 'fall' ? '추락' : '대파'}</em>`, mine);
   if (car.isPlayer) onPlayerDeath(killer, cause);
-  else if (!match.on) car.respawnAt = now + rand(2, 5);
+  else if (!match.on || (match.mode !== 'royale' && !car.benched)) car.respawnAt = now + rand(2, 4.5);
   if (match.on) checkMatchEnd();
 }
 
@@ -1531,7 +1569,8 @@ resize();
 
 /* ================= HUD ================= */
 const hud = {
-  root: $('#hud'), score: $('#hScore'), kills: $('#hKills'), killChip: $('#killChip'), alive: $('#hAlive'),
+  root: $('#hud'), score: $('#hScore'), kills: $('#hKills'), killChip: $('#killChip'),
+  obj: $('#obj'), objTitle: $('#objTitle'), objMain: $('#objMain'), objSub: $('#objSub'), objBar: $('#objBar'),
   zone: $('#zone'), zoneText: $('#zoneText'), speed: $('#speedNum'),
   vHp: $('#vHp'), hpFill: $('#hpFill'), hpGhost: $('#hpGhost'), hpNum: $('#hpNum'),
   vNi: $('#vNi'), nitroFill: $('#nitroFill'), nitroNum: $('#nitroNum')
@@ -1569,13 +1608,35 @@ function updateHud(dt) {
   if (boardT <= 0) {
     boardT = 0.25;
     leader = ranking()[0] || null;
-    hud.alive.textContent = aliveCount();
+    updateObjective();
     drawMinimap();
   }
+}
+function myRank() { const r = ranking(); const i = r.indexOf(player); return i < 0 ? r.length + 1 : i + 1; }
+function objectiveState() {
+  const d = match.def; if (!d) return { main: '', sub: '', ratio: 0, done: false };
+  if (d.mode === 'solo') return { main: fmt(player.score), sub: `/ ${d.goal} kg`, ratio: player.score / d.goal, done: player.score >= d.goal };
+  if (d.mode === 'kills') return { main: String(player.kills), sub: `/ ${d.goal}대 격파`, ratio: player.kills / d.goal, done: player.kills >= d.goal };
+  if (d.mode === 'size') {
+    const r = ranking(), rk = myRank(), top = r[0], second = r.find(c => c !== player);
+    const sub = rk === 1 ? (second ? `2위와 ${fmt(player.score - second.score)}kg 차` : '') : `1위 ${top.name} ${fmt(top.score)}kg`;
+    return { main: rk + '위', sub, ratio: top ? player.score / Math.max(1, top.score) : 1, done: false };
+  }
+  return { main: String(aliveCount()), sub: '대 생존', ratio: 1 - (aliveCount() - 1) / Math.max(1, match.total - 1), done: false };
+}
+function updateObjective() {
+  const o = objectiveState();
+  hud.objMain.textContent = o.main; hud.objSub.textContent = o.sub;
+  hud.objBar.style.width = Math.round(clamp(o.ratio, 0, 1) * 100) + '%';
+  hud.obj.classList.toggle('done', !!o.done || (match.def && match.def.mode === 'size' && myRank() === 1));
 }
 function updateZoneHud() {
   const z = hud.zone; let cls = '', txt = '';
   if (!match.on || match.state === 'countdown') txt = '출발 대기';
+  else if (match.mode !== 'royale') {
+    if (match.state === 'over') txt = '종료';
+    else { txt = `남은 시간 <b>${fmtTime(Math.max(0, Math.ceil(match.timeLeft)))}</b>`; if (match.timeLeft <= 10) cls = 'warn'; }
+  }
   else if (match.state === 'wait') { txt = `축소까지 <b>${fmtTime(Math.max(0, match.t))}</b>`; if (match.t <= 8) cls = 'warn'; }
   else if (match.state === 'shrink') { txt = '바닥 붕괴 중!'; cls = 'shrink'; }
   else if (match.state === 'final') txt = '최종 구역';
@@ -1605,7 +1666,7 @@ function onBoostDenied() {
 }
 let leader = null;
 function drawMinimap() {
-  const W = mini.width, R = W / 2 - 6, k = R / ARENA_R;
+  const W = mini.width, R = W / 2 - 6, k = R / (match.on && match.def ? match.def.R : ARENA_R);
   mctx.clearRect(0, 0, W, W);
   mctx.save(); mctx.translate(W / 2, W / 2);
   mctx.fillStyle = 'rgba(255,255,255,.05)'; mctx.beginPath(); mctx.arc(0, 0, arenaR * k, 0, TAU); mctx.fill();
@@ -1630,6 +1691,36 @@ function drawMinimap() {
   mctx.restore();
 }
 
+/* ================= stages (hole.io-style: short rounds, rotating goals) ================= */
+const MODES = {
+  solo:   { name: '고철 수집', short: 'KG' },
+  size:   { name: '크기 대결', short: '1위' },
+  kills:  { name: '사냥', short: 'KO' },
+  royale: { name: '배틀로얄', short: 'BR' }
+};
+const MODE_CYCLE = ['solo', 'size', 'kills', 'size', 'royale'];
+function stageDef(n) {
+  const mode = MODE_CYCLE[(n - 1) % MODE_CYCLE.length], tier = n - 1;
+  const d = { n, mode, bots: Math.min(14, 4 + Math.floor(tier * 0.9)), aggro: Math.min(1.7, 1 + tier * 0.05), caution: Math.max(0.5, 1 - tier * 0.03), time: 0, goal: 0 };
+  if (mode === 'solo') { d.time = 90; d.goal = 150 + tier * 30; d.bots = Math.min(8, 3 + Math.floor(n / 3)); d.aggro *= 0.55; }
+  if (mode === 'size') d.time = 120;
+  if (mode === 'kills') { d.time = 120; d.goal = Math.min(9, 2 + Math.floor(n / 4)); }
+  if (mode === 'royale') d.bots = 14;
+  d.R = mode === 'royale' ? ARENA_R : clamp(80 + d.bots * 3.5, 85, 125);
+  d.desc = mode === 'solo' ? `${fmtTime(d.time)} 안에 고철 ${d.goal}kg 모으기`
+    : mode === 'size' ? `${fmtTime(d.time)} 뒤 적재량 1위 차지하기`
+    : mode === 'kills' ? `${fmtTime(d.time)} 안에 ${d.goal}대 격파하기`
+    : `${d.bots + 1}대 중 마지막까지 살아남기`;
+  return d;
+}
+function calcStars() {
+  const d = match.def;
+  if (d.mode === 'solo' || d.mode === 'kills') { const f = match.timeLeft / d.time; return f >= 0.4 ? 3 : f >= 0.2 ? 2 : 1; }
+  if (d.mode === 'size') { const second = ranking().find(c => c !== player); const k = second ? player.score / Math.max(1, second.score) : 9; return k >= 1.6 ? 3 : k >= 1.25 ? 2 : 1; }
+  return player.kills >= 5 ? 3 : player.kills >= 2 ? 2 : 1;
+}
+const STAR_RULE = { solo: '남은 시간 40% 이상이면 별 3개', kills: '남은 시간 40% 이상이면 별 3개', size: '2위보다 1.6배 무거우면 별 3개', royale: '5대 이상 격파하면 별 3개' };
+
 /* ================= battle royale ================= */
 // [radius, seconds before it starts collapsing to the next radius]
 const ZONE = [[125, 26], [100, 22], [78, 20], [58, 18], [42, 16], [28, 14], [16, 14], [0, 0]];
@@ -1641,7 +1732,10 @@ function safeR() {
   return arenaR;
 }
 const cdEl = $('#countdown');
-function showCount(txt, go) { cdEl.innerHTML = `<b class="${go ? 'cd-go' : ''}">${txt}</b>`; }
+function showCount(txt, go) {
+  const d = match.def, brief = d && !go ? `<p class="brief"><strong>STAGE ${d.n} · ${MODES[d.mode].name}</strong>${esc(d.desc)}</p>` : '';
+  cdEl.innerHTML = `<div class="cdw"><b class="${go ? 'cd-go' : ''}">${txt}</b>${brief}</div>`;
+}
 function updateMatch(rdt, dt) {
   if (!match.on) return;
   if (match.state === 'countdown') {
@@ -1656,6 +1750,15 @@ function updateMatch(rdt, dt) {
     return;
   }
   updateObstacles(dt);
+  if (match.mode !== 'royale') {
+    if (match.state !== 'wait') return;
+    match.timeLeft -= dt;
+    if (match.timeLeft <= 10 && Math.ceil(match.timeLeft) !== match.tick && match.timeLeft > 0) { match.tick = Math.ceil(match.timeLeft); sfxTone(1000, 1000, 0.06, 0.08, 'square'); }
+    if (!player.alive) return;
+    if (objectiveState().done) stageClear();
+    else if (match.timeLeft <= 0) { if (match.mode === 'size' && myRank() === 1) stageClear(); else stageFail('time'); }
+    return;
+  }
   if (match.state === 'wait') {
     match.t -= dt;
     if (match.t <= 8 && !match.warned) {
@@ -1684,9 +1787,9 @@ function updateMatch(rdt, dt) {
   }
 }
 function checkMatchEnd() {
-  if (!match.on || match.state === 'over') return;
+  if (!match.on || match.state === 'over' || match.mode !== 'royale') return;
   const n = aliveCount();
-  if (player && player.alive && n === 1) victory();
+  if (player && player.alive && n === 1) stageClear();
 }
 
 /* ---- kill juice ---- */
@@ -1716,26 +1819,44 @@ function onPlayerKill(victim, cause, bonus) {
   [1, 1.26, 1.5, 2].forEach((m, i) => setTimeout(() => sfxTone(base * m, base * m * 1.01, 0.1, 0.2, 'square'), 70 + i * 70));
   buzz(streak >= 2 ? [30, 30, 30, 30, 80] : [30, 40, 70]);
 }
-function victory() {
-  match.state = 'over'; hideZoneWarning();
-  banner('15대 중 1위', 'CHAMPION!', '끝까지 살아남았습니다', true);
+function celebrate() {
   for (let w = 0; w < 4; w++) setTimeout(() => {
     for (let i = 0; i < 50; i++) emit(player.x + rand(-6, 6), 1, player.z + rand(-6, 6), rand(-8, 8), rand(14, 28), rand(-8, 8), rand(1, 1.8), CAR_COLORS[i % CAR_COLORS.length], 18);
   }, w * 350);
   [523, 659, 784, 1047, 784, 1047].forEach((f, i) => setTimeout(() => sfxTone(f, f, 0.12, 0.28, 'square'), i * 140));
   buzz([60, 60, 60, 60, 160]);
-  finishMatch(true, null, null, 2.8);
+}
+function stageClear() {
+  if (match.state === 'over') return;
+  match.stars = calcStars(); match.state = 'over'; hideZoneWarning();
+  const d = match.def;
+  banner(`STAGE ${d.n}`, d.mode === 'royale' ? 'CHAMPION!' : 'CLEAR!', '★'.repeat(match.stars) + '☆'.repeat(3 - match.stars), true);
+  celebrate();
+  finishMatch(true, null, null, 2.6);
+}
+function stageFail(why) {
+  if (match.state === 'over') return;
+  match.state = 'over'; hideZoneWarning();
+  const d = match.def;
+  banner(`STAGE ${d.n}`, 'TIME UP', d.mode === 'size' ? `최종 ${myRank()}위` : esc(objectiveState().main + ' ' + objectiveState().sub));
+  sfxTone(392, 196, 0.14, 0.7, 'sawtooth'); buzz([80, 60, 80]);
+  $('#deathReason').textContent = d.mode === 'size' ? `시간 종료 · 최종 ${myRank()}위` : `시간 종료 · 목표: ${d.desc}`;
+  finishMatch(false, null, 'time', 2.2);
 }
 
 /* ---- profile, levels, unlocks ---- */
-let profile = { lv: 1, xp: 0, wins: 0, best: 99 };
+let profile = { lv: 1, xp: 0, wins: 0, best: 99, stage: 1, stars: {} };
 try { profile = Object.assign(profile, JSON.parse(store.get('profile', '{}')) || {}); } catch (e) {}
+if (!profile.stars || typeof profile.stars !== 'object') profile.stars = {};
+let stageSel = profile.stage;
+const totalStars = () => Object.values(profile.stars).reduce((a, b) => a + (+b || 0), 0);
 const saveProfile = () => store.set('profile', JSON.stringify(profile));
 const xpNeed = lv => 120 + (lv - 1) * 80;
 function renderProfile() {
   $('#mLv').textContent = 'LV ' + profile.lv;
   $('#mXp').style.width = Math.round(profile.xp / xpNeed(profile.lv) * 100) + '%';
-  $('#mWins').textContent = profile.wins;
+  $('#mWins').textContent = totalStars();
+  renderStages();
 }
 
 /* ================= game flow ================= */
@@ -1817,7 +1938,7 @@ setInterval(() => { if (startScreen.hidden) return; tipEl.style.opacity = '0'; s
 function toAttract() {
   match = { on: false, state: 'idle' };
   hideZoneWarning(); setArenaR(ARENA_R); resetObstacles(); cdEl.innerHTML = '';
-  for (const c of cars) if (!c.isPlayer && !c.alive) c.respawnAt = now + rand(0.3, 2);
+  for (const c of cars) if (!c.isPlayer && !c.alive) { c.benched = false; c.respawnAt = now + rand(0.3, 2); }
   if (player && player.alive) { player.alive = false; player.group.visible = false; player.label.sprite.visible = player.hpBg.visible = player.hpFg.visible = false; }
 }
 function goMenu() {
@@ -1831,7 +1952,28 @@ $('#menuBtn').addEventListener('click', goMenu);
 const nickInput = $('#nick');
 nickInput.value = myNick;
 $('#startForm').addEventListener('submit', e => { e.preventDefault(); startRun(); });
-$('#againBtn').addEventListener('click', startRun);
+$('#againBtn').addEventListener('click', () => startRun());
+$('#retryBtn').addEventListener('click', () => { if (matchResult) stageSel = matchResult.n; startRun(); });
+
+/* ---- stage path on the menu ---- */
+const stagePathEl = $('#stagePath'), stageInfoEl = $('#stageInfo');
+function renderStages() {
+  const cur = profile.stage, from = Math.max(1, Math.min(stageSel, cur) - 2), to = from + 4;
+  let html = '';
+  for (let k = from; k <= to; k++) {
+    const d = stageDef(k), st = +profile.stars[k] || 0;
+    const cls = k < cur ? 'done' : k === cur ? 'cur' : 'lock';
+    if (k > from) html += `<span class="ln ${k <= cur ? 'done' : ''}"></span>`;
+    html += `<button type="button" class="snode ${cls}${k === stageSel ? ' sel' : ''}${d.mode === 'royale' ? ' boss' : ''}" data-k="${k}" ${k > cur ? 'disabled' : ''} aria-label="스테이지 ${k} ${MODES[d.mode].name}">${k}${st ? `<small>${'★'.repeat(st)}</small>` : ''}</button>`;
+  }
+  stagePathEl.innerHTML = html;
+  const d = stageDef(stageSel);
+  stageInfoEl.innerHTML = `<b>${MODES[d.mode].name}</b>${esc(d.desc)}`;
+}
+stagePathEl.addEventListener('click', e => {
+  const b = e.target.closest('.snode'); if (!b || b.disabled) return;
+  stageSel = +b.dataset.k; renderStages();
+});
 
 function renderDiff() {
   document.querySelectorAll('[data-diff]').forEach(seg => {
@@ -1849,7 +1991,7 @@ function renderDiff() {
 }
 renderDiff();
 
-// every PLAY is a fresh 15-car battle royale
+// every PLAY starts the selected stage from a clean world
 function startRun() {
   if (!startScreen.hidden && skinLocked()) return;
   initAudio();
@@ -1857,24 +1999,33 @@ function startRun() {
   myNick = (nickInput.value || '').trim().slice(0, 12) || '초보운전';
   store.set('nick', myNick);
   if (!player) player = createCar(true);
+  const def = stageDef(Math.max(1, Math.min(stageSel, profile.stage)));
   // reset the world
-  hideZoneWarning(); setArenaR(ARENA_R); resetObstacles();
+  match = { on: true, def, mode: def.mode, state: 'countdown', cd: 3, shown: 0, total: def.bots + 1, start: now, timeLeft: def.time, tick: 0,
+            phase: 0, fromR: ZONE[0][0], toR: ZONE[1][0], t: ZONE[0][1], warned: false };
+  hideZoneWarning(); setArenaR(def.R); resetObstacles();
+  for (const o of obstacles) if (Math.hypot(o.x, o.z) > def.R - 4) { o.gone = true; o.g.visible = false; }
   for (let i = 0; i < SCRAP_POOL; i++) { if (i < BASE_SCRAP) placeBaseScrap(i); else sOn[i] = 0; }
   for (const it of items) { it.on = false; it.m.visible = it.ring.visible = false; }
   for (let i = 0; i < 6; i++) spawnItem(items[i]);
   for (let i = 0; i < P_MAX; i++) { pLife[i] = 0; pPos[i * 3 + 1] = -999; }
-  // starting grid: everyone on one ring, facing the middle
-  const racers = [player, ...cars.filter(c => !c.isPlayer)];
+  // starting grid: everyone on one ring, facing the middle; spare bots sit this stage out
+  const bots = cars.filter(c => !c.isPlayer);
+  bots.forEach((c, i) => {
+    c.benched = i >= def.bots; c.respawnAt = 0;
+    if (c.benched) { c.alive = false; c.group.visible = false; c.label.sprite.visible = c.hpBg.visible = c.hpFg.visible = false; }
+  });
+  const racers = [player, ...bots.filter(c => !c.benched)];
   const off = rand(0, TAU);
-  racers.forEach((c, i) => { c.alive = false; c.place = 0; });
+  racers.forEach(c => { c.alive = false; c.place = 0; });
   racers.forEach((c, i) => {
-    const a = off + i / racers.length * TAU, R = ARENA_R * 0.62, pos = [Math.sin(a) * R, Math.cos(a) * R];
+    const a = off + i / racers.length * TAU, R = def.R * 0.62, pos = [Math.sin(a) * R, Math.cos(a) * R];
     if (c.isPlayer) spawnCar(player, { name: myNick, color: myColor, score: 0, pos });
     else spawnBot(c, false, pos);
     c.shield = Math.max(c.shield, 3.5);
   });
   drawLabel(player.label, myNick, '#ffc21a');
-  match = { on: true, state: 'countdown', cd: 3, shown: 0, phase: 0, fromR: ZONE[0][0], toR: ZONE[1][0], t: ZONE[0][1], warned: false, total: racers.length, start: now };
+  hud.objTitle.textContent = `STAGE ${def.n} · ${MODES[def.mode].name}`;
   streak = 0; lastKillAt = -99; spectate = null; hpGhost = 1;
   camFocus.set(player.x, 0, player.z); // cut straight to the grid slot
   playing = true; runStart = now; deathTimer = 0; matchResult = null;
@@ -1885,7 +2036,7 @@ function startRun() {
   shake = 0;
 }
 function onPlayerDeath(killer, cause) {
-  const place = match.on ? aliveCount() + 1 : 0;
+  if (match.on && match.state === 'over') return; // already cleared/failed
   spectate = killer && killer.alive ? killer : ranking()[0] || null;
   $('#deathReason').textContent = killer
     ? (cause === 'fall' ? `${killer.name}에게 밀려 떨어졌습니다.` : `${killer.name}에게 박살났습니다.`)
@@ -1893,40 +2044,47 @@ function onPlayerDeath(killer, cause) {
   if (player.score > best) { best = Math.floor(player.score); store.set('best', best); }
   $('#touchBtns').hidden = joyEl.hidden = true; endJoy();
   document.body.classList.remove('boosting', 'lowhp');
-  if (match.on) match.playerPlace = place;
+  if (match.on) match.state = 'over';
   finishMatch(false, killer, cause, 1.6);
 }
 let matchResult = null;
 function finishMatch(won, killer, cause, delay) {
-  if (matchResult) return; // already decided (e.g. fell off after winning)
-  const place = won ? 1 : (match.playerPlace || match.total || 15);
-  const total = match.total || 15;
+  if (matchResult) return;
+  const d = match.def || stageDef(1);
+  const stars = won ? (match.stars || 1) : 0;
   const t = Math.max(0, now - (match.start || runStart));
-  const lines = [
-    [`순위 #${place}`, Math.round((total - place) * 12)],
-    [`격파 ${player.kills}대`, player.kills * 30],
-    [`고철 ${fmt(player.score)} kg`, Math.min(200, Math.floor(player.score / 15))]
-  ];
-  if (won) lines.push(['우승 보너스', 150]);
+  const lines = [[won ? `STAGE ${d.n} 클리어` : `STAGE ${d.n} 도전`, won ? 60 + d.n * 10 : 15]];
+  if (player.kills) lines.push([`격파 ${player.kills}대`, player.kills * 25]);
+  lines.push([`고철 ${fmt(player.score)} kg`, Math.min(150, Math.floor(player.score / 20))]);
+  if (won) lines.push([`별 ${stars}개`, stars * 20]);
   const gained = lines.reduce((a, l) => a + l[1], 0);
   const before = { lv: profile.lv, xp: profile.xp };
   profile.xp += gained; const ups = [];
   while (profile.xp >= xpNeed(profile.lv)) { profile.xp -= xpNeed(profile.lv); profile.lv++; ups.push(profile.lv); }
-  if (won) profile.wins++;
-  profile.best = Math.min(profile.best, place);
+  const firstClear = won && d.n === profile.stage;
+  if (won) {
+    profile.stars[d.n] = Math.max(+profile.stars[d.n] || 0, stars);
+    if (firstClear) profile.stage = d.n + 1;
+    if (d.mode === 'royale') profile.wins++;
+  }
   saveProfile();
-  matchResult = { won, place, total, t, lines, gained, before, ups };
+  stageSel = won ? Math.min(profile.stage, d.n + 1) : d.n;
+  matchResult = { won, n: d.n, mode: d.mode, stars, t, lines, gained, before, ups, firstClear };
   deathTimer = delay;
 }
 function showResult() {
   const r = matchResult; if (!r) return;
-  const card = $('#resultCard');
+  const card = $('#resultCard'), d = stageDef(r.n);
   card.classList.toggle('win', r.won);
-  $('#resPlace').textContent = '#' + r.place; $('#resOf').textContent = '/ ' + r.total;
-  $('#resEyebrow').textContent = r.won ? '우승' : r.place <= 3 ? '포디움' : '경기 종료';
-  $('#resTitle').textContent = r.won ? 'CHAMPION' : r.place <= 3 ? 'SO CLOSE' : 'WRECKED';
-  if (r.won) $('#deathReason').textContent = `${r.total}대 중 끝까지 살아남았습니다!`;
+  $('#resEyebrow').textContent = `STAGE ${r.n} · ${MODES[r.mode].name}`;
+  $('#resTitle').textContent = r.won ? (r.mode === 'royale' ? 'CHAMPION' : 'CLEAR!') : 'FAILED';
+  const starEls = [...$('#resStars').children];
+  starEls.forEach(i => i.classList.remove('on'));
+  starEls.forEach((el, i) => { if (i < r.stars) setTimeout(() => { el.classList.add('on'); sfxTone(880 + i * 220, 1320 + i * 220, 0.08, 0.15, 'triangle'); buzz(15); }, 350 + i * 260); });
+  if (r.won) $('#deathReason').textContent = r.stars < 3 ? `클리어! ${STAR_RULE[r.mode]}` : '완벽해요! 별 3개 획득';
   $('#dKills').textContent = player.kills; $('#dScore').textContent = fmt(player.score); $('#dTime').textContent = fmtTime(r.t);
+  $('#againBtn').textContent = r.won ? `STAGE ${stageSel} 도전` : '다시 도전';
+  $('#retryBtn').hidden = !r.won;
   const ul = $('#xpLines');
   ul.innerHTML = r.lines.map(l => `<li><span>${esc(l[0])}</span><b>+${l[1]} XP</b></li>`).join('') + `<li class="total"><span>획득 경험치</span><b>+${r.gained} XP</b></li>`;
   [...ul.children].forEach((li, i) => setTimeout(() => li.classList.add('on'), 200 + i * 160));
@@ -1993,7 +2151,7 @@ function frame(t) {
   }
   for (const c of cars) postStep(c, simDt);
   for (const c of cars) {
-    if (!c.alive && !c.isPlayer && c.respawnAt && now >= c.respawnAt && !match.on) { c.respawnAt = 0; spawnBot(c, false); }
+    if (!c.alive && !c.isPlayer && !c.benched && c.respawnAt && now >= c.respawnAt && (!match.on || (match.mode !== 'royale' && match.state === 'wait'))) { c.respawnAt = 0; spawnBot(c, false); }
     if (c.alive) drawLabel(c.label, (c === leader ? '♛ ' : '') + c.name, c.isPlayer ? '#ffc21a' : c === leader ? '#ffe08a' : '#ece8dc');
   }
   if (!playing || !player) { if ((boardT -= dt) <= 0) { boardT = 0.5; leader = ranking()[0] || null; } }
