@@ -137,6 +137,17 @@ body.touch #feed{top:auto;bottom:calc(var(--edge-b) + 216px);width:min(300px,60v
 body.touch #board{width:160px;padding:9px 10px 6px}
 body.touch #board li{font-size:12px}
 
+/* ---------- portrait lock (phones held sideways) ---------- */
+#rotate{display:none;position:fixed;inset:0;z-index:30;background:var(--asphalt);place-items:center;text-align:center;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+#rotate .rc{display:grid;gap:12px;justify-items:center}
+#rotate svg{width:64px;height:64px;animation:turn 1.8s ease-in-out infinite}
+#rotate b{font:400 24px/1.1 var(--display);color:var(--hazard)}
+#rotate span{font:400 14px/1.5 var(--kr);color:var(--mute)}
+@keyframes turn{0%,25%{transform:rotate(-90deg)}60%,100%{transform:rotate(0)}}
+@media (prefers-reduced-motion:reduce){#rotate svg{animation:none}}
+@media (orientation:landscape) and (pointer:coarse) and (max-height:520px){#rotate{display:grid}}
+
 /* ---------- Menus ---------- */
 .overlay{position:fixed;inset:0;z-index:10;display:grid;place-items:center;overflow:auto;touch-action:pan-y;
   padding-block:calc(env(safe-area-inset-top,0px) + 20px) calc(env(safe-area-inset-bottom,0px) + 20px);
@@ -227,6 +238,11 @@ kbd{font:600 11px/1 var(--ui);color:var(--ink);background:#22252d;border:1px sol
   <button id="btnDrift" type="button" aria-label="드리프트"><span>드리프트</span></button>
   <button id="btnBoost" type="button" aria-label="니트로"><span class="lbl">니트로</span><span class="sub" id="boostSub">100%</span></button>
 </div>
+
+<div id="rotate" role="alert"><div class="rc">
+  <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="18" y="6" width="28" height="52" rx="5" fill="none" stroke="#ffc21a" stroke-width="4"/><rect x="28" y="50" width="8" height="3" rx="1.5" fill="#ffc21a"/></svg>
+  <b>세로로 돌려주세요</b><span>Scrap Derby는 세로 화면 전용이에요.<br>돌리면 멈춘 곳에서 이어서 달립니다.</span>
+</div></div>
 
 <div id="startScreen" class="overlay">
   <div class="card">
@@ -1578,10 +1594,13 @@ function onPlayerDeath(killer, cause) {
 /* ================= main loop ================= */
 let last = performance.now();
 let frameEma = 1 / 60, perfT = 0;
+const rotateMQ = matchMedia('(orientation: landscape) and (pointer: coarse) and (max-height: 520px)');
+try { rotateMQ.addEventListener('change', releaseAll); } catch (e) {}
 function frame(t) {
   requestAnimationFrame(frame);
   const raw = Math.max(0, (t - last) / 1000);
-  const dt = Math.min(0.05, raw); last = t;
+  let dt = Math.min(0.05, raw); last = t;
+  if (rotateMQ.matches) dt = 0; // sideways phone: freeze the run behind the rotate notice
   if (raw < 0.25) {
     frameEma += (raw - frameEma) * 0.05; perfT += raw;
     if (perfT > 2.5) {

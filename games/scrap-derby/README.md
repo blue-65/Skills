@@ -48,6 +48,11 @@ Three.js 차량 기반 io 게임. 파일 하나(`index.html`), 빌드 없음.
 | 터치 | 왼쪽 아래 고정 조이스틱, 오른쪽 아래 니트로/드리프트 버튼 (버튼 둘레가 니트로 잔량), 조이스틱을 잡은 채 다른 손가락으로 화면 누르기 = 니트로 |
 | `M` | 소리 켜기/끄기 |
 
+## 화면 방향
+
+세로 전용입니다. 휴대폰을 가로로 들면 "세로로 돌려주세요" 안내가 뜨고 게임이 멈춥니다. 태블릿과 데스크톱은 가로도 그대로 됩니다.
+앱으로 감쌀 때는 방향도 잠그세요: Android `AndroidManifest.xml`의 `android:screenOrientation="portrait"`, iOS `Info.plist`의 `UISupportedInterfaceOrientations`에 `UIInterfaceOrientationPortrait`만.
+
 ## 실행
 
 ```bash
