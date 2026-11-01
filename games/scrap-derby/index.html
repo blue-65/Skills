@@ -44,63 +44,105 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--hazard);outline
 
 /* ---------- HUD ---------- */
 #hud{position:fixed;inset:0;pointer-events:none;z-index:5}
-#scoreBox{position:absolute;top:var(--edge-t);left:var(--edge-l);display:grid;gap:6px}
-#scoreBox .big{font:400 40px/1 var(--display);color:var(--ink);font-variant-numeric:tabular-nums;text-shadow:0 2px 0 rgba(0,0,0,.45)}
-#scoreBox .big small{font:600 15px/1 var(--ui);color:var(--hazard);margin-left:6px;letter-spacing:.06em}
-#scoreBox .sub{font:600 13px/1.2 var(--kr);color:var(--mute);display:flex;gap:10px}
-#scoreBox .sub b{color:var(--ink);font-family:var(--ui);font-variant-numeric:tabular-nums}
-#muteBtn{pointer-events:auto;justify-self:start;margin-top:4px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:5px 9px;font:600 11px/1 var(--ui);letter-spacing:.12em;color:var(--mute);cursor:pointer}
+/* top-left: load + kills */
+#scoreBox{position:absolute;top:var(--edge-t);left:var(--edge-l);display:grid;gap:5px;justify-items:start}
+#scoreBox .big{font:400 34px/1 var(--display);color:var(--ink);font-variant-numeric:tabular-nums;text-shadow:0 2px 0 rgba(0,0,0,.45)}
+#scoreBox .big small{font:600 13px/1 var(--ui);color:var(--hazard);margin-left:5px;letter-spacing:.06em}
+.kchip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px 5px 8px;border-radius:999px;background:var(--panel);border:1px solid var(--line);font:600 12px/1 var(--kr);color:var(--mute)}
+.kchip svg{width:13px;height:13px;color:var(--hurt)}
+.kchip b{font:700 14px/1 var(--ui);color:var(--ink);font-variant-numeric:tabular-nums}
+.kchip.pop{animation:kpop .55s ease-out}
+@keyframes kpop{30%{transform:scale(1.4);background:rgba(255,75,62,.45);border-color:var(--hurt)}}
+#muteBtn{pointer-events:auto;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:5px 9px;font:600 10px/1 var(--ui);letter-spacing:.12em;color:var(--mute);cursor:pointer}
 #muteBtn[aria-pressed="true"]{color:var(--hurt)}
 
-#board{position:absolute;top:var(--edge-t);right:var(--edge-r);width:210px;padding:12px 12px 8px}
-#board ol{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:2px;counter-reset:r}
-#board li{display:grid;grid-template-columns:22px 1fr auto;gap:6px;align-items:center;font:600 13px/1.6 var(--kr);color:var(--ink);min-width:0}
-#board li .n{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
-#board li .r{font:700 12px/1 var(--ui);color:var(--mute);font-variant-numeric:tabular-nums}
-#board li .s{font:600 12px/1 var(--ui);color:var(--mute);font-variant-numeric:tabular-nums}
-#board li.me{color:var(--hazard)}
-#board li.me .s,#board li.me .r{color:var(--hazard)}
-#board li.gap{border-top:1px dashed var(--line);margin-top:3px;padding-top:3px}
-#board .dot{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:1px}
+/* top-centre: battle royale status */
+#br{position:absolute;top:var(--edge-t);left:50%;transform:translateX(-50%);display:grid;justify-items:center;gap:6px}
+#br .alive{display:flex;align-items:baseline;gap:6px;padding:6px 14px 7px;border-radius:12px;background:var(--panel);border:1px solid var(--line)}
+#br .alive b{font:400 26px/1 var(--display);font-variant-numeric:tabular-nums}
+#br .alive span{font:600 11px/1 var(--kr);color:var(--mute)}
+#zone{display:flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;font:600 12px/1 var(--kr);background:var(--panel);border:1px solid var(--line);color:var(--ink);white-space:nowrap;transition:background-color .2s,border-color .2s}
+#zone i{width:8px;height:8px;border-radius:50%;background:var(--hazard);flex:none}
+#zone b{font:700 12px/1 var(--ui);font-variant-numeric:tabular-nums}
+#zone.warn{border-color:rgba(255,75,62,.7);color:#ffd9d4}
+#zone.warn i{background:var(--hurt);animation:blink .45s infinite alternate}
+#zone.shrink{background:rgba(130,24,16,.9);border-color:var(--hurt);color:#fff}
+#zone.shrink i{background:#fff;animation:blink .25s infinite alternate}
+@keyframes blink{to{opacity:.15}}
 
-#minimap{position:absolute;right:var(--edge-r);bottom:var(--edge-b);width:150px;height:150px;border-radius:50%;background:rgba(10,11,15,.7);border:1px solid var(--line)}
+/* top-right: minimap */
+#minimap{position:absolute;top:var(--edge-t);right:var(--edge-r);width:132px;height:132px;border-radius:50%;background:rgba(10,11,15,.7);border:1px solid var(--line)}
 
-#gauges{position:absolute;left:50%;bottom:var(--edge-b);transform:translateX(-50%);display:flex;align-items:flex-end;gap:14px;padding:10px 14px;width:min(400px,calc(100vw - 360px))}
-#speedo{display:grid;justify-items:end;min-width:64px}
-#speedo b{font:400 30px/1 var(--display);font-variant-numeric:tabular-nums}
-#speedo small{font:600 10px/1 var(--ui);letter-spacing:.14em;color:var(--mute);margin-top:4px}
-.bars{flex:1;display:grid;gap:8px;min-width:0}
-.gauge{display:grid;grid-template-columns:44px 1fr;gap:8px;align-items:center}
-.gauge .gl{font:600 11px/1 var(--kr);color:var(--mute)}
-.bar{height:10px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden;position:relative}
-.bar i{position:absolute;inset:0;transform-origin:left center;background:var(--ok);transition:background-color .2s}
-.bar.nitro i{background:var(--nitro)}
-.bar.nitro.low i{background:rgba(63,216,255,.35)}
-
-#feed{position:absolute;top:var(--edge-t);left:50%;transform:translateX(-50%);display:grid;gap:4px;justify-items:center;width:min(420px,calc(100vw - 520px))}
-#feed div{font:600 13px/1.2 var(--kr);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:5px 10px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;transition:opacity .5s}
+#feed{position:absolute;top:calc(var(--edge-t) + 96px);left:50%;transform:translateX(-50%);display:grid;gap:4px;justify-items:center;width:min(340px,calc(100vw - 32px))}
+#feed div{font:600 12px/1.2 var(--kr);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:5px 10px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;transition:opacity .5s}
 #feed em{font-style:normal;color:var(--hurt);margin:0 6px;font-family:var(--ui);letter-spacing:.06em}
-#feed .mine{border-color:rgba(255,194,26,.5)}
+#feed .mine{border-color:rgba(255,194,26,.6);background:rgba(60,44,6,.85)}
 
-#toast{position:absolute;left:50%;top:30%;transform:translate(-50%,-50%);font:400 34px/1 var(--display);color:var(--hazard);text-shadow:0 3px 0 rgba(0,0,0,.5);opacity:0;transition:opacity .25s,transform .25s;white-space:nowrap}
+#toast{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);font:400 30px/1 var(--display);color:var(--hazard);text-shadow:0 3px 0 rgba(0,0,0,.5);opacity:0;transition:opacity .25s,transform .25s;white-space:nowrap;max-width:calc(100vw - 32px);z-index:2}
 #toast.on{opacity:1;transform:translate(-50%,-60%)}
-#toast{max-width:calc(100vw - 32px);z-index:2}
-body.touch #toast{top:43%}
 #toast small{display:block;text-align:center;font:600 14px/1.4 var(--kr);color:var(--ink);margin-top:6px}
 
+/* centre-bottom vitals: hull grows out to the left, nitro to the right */
+#vitals{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(var(--edge-b) + 18px);width:min(340px,calc(100vw - 32px));
+  display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:end;gap:12px;padding:9px 14px 11px;border-radius:16px;
+  background:linear-gradient(180deg,rgba(17,19,25,.55),rgba(17,19,25,.88));border:1px solid var(--line);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.vhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;font:600 10px/1 var(--kr);color:var(--mute);letter-spacing:.06em}
+.vhead b{font:700 14px/1 var(--ui);color:var(--ink);font-variant-numeric:tabular-nums}
+.vbar{position:relative;height:10px;border-radius:2px;background:rgba(255,255,255,.07);overflow:hidden;transform:skewX(-20deg)}
+.vbar i,.vbar s{position:absolute;inset:0;text-decoration:none}
+.vbar::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 calc(10% - 2px),rgba(12,13,18,.92) calc(10% - 2px) 10%)}
+.vhp .vbar i,.vhp .vbar s{transform-origin:right center}
+.vhp .vbar s{background:#fff;opacity:.8}
+.vhp .vbar i{background:linear-gradient(90deg,#3fbf5c,#a4f27f);transition:background .2s}
+.vhp.mid .vbar i{background:linear-gradient(90deg,#f0a10e,#ffd45a)}
+.vhp.low .vbar i{background:linear-gradient(90deg,#e8261c,#ff7a5a)}
+.vhp.low .vhead b{color:var(--hurt)}
+.vhp.low .vbar{animation:lowpulse .5s infinite alternate}
+@keyframes lowpulse{to{box-shadow:0 0 12px rgba(255,75,62,.9)}}
+.vni .vbar i{transform-origin:left center;background:linear-gradient(90deg,#2bb8e6,#a6f0ff)}
+.vni.active .vbar{box-shadow:0 0 14px rgba(63,216,255,.9)}
+.vni.active .vbar i{background:linear-gradient(90deg,#8eeaff,#fff)}
+.vni.empty .vbar i{opacity:.4}
+.vni.empty .vhead b{color:var(--hurt)}
+.vni.denied{animation:deny .3s}
+.vcore{display:grid;justify-items:center;min-width:58px}
+.vcore b{font:400 28px/1 var(--display);font-variant-numeric:tabular-nums}
+.vcore small{font:600 9px/1 var(--ui);letter-spacing:.16em;color:var(--mute);margin-top:4px}
+
+/* kill juice */
+#killBanner{position:absolute;left:50%;top:30%;display:grid;justify-items:center;gap:6px;opacity:0;transform:translate(-50%,-50%);white-space:nowrap}
+#killBanner.on{animation:kb 1.7s cubic-bezier(.2,1.3,.4,1) forwards}
+@keyframes kb{0%{opacity:0;transform:translate(-50%,-50%) scale(2.4) rotate(-8deg)}12%{opacity:1;transform:translate(-50%,-50%) scale(.9) rotate(-4deg)}22%{transform:translate(-50%,-50%) scale(1.06) rotate(-4deg)}78%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(-4deg)}100%{opacity:0;transform:translate(-50%,-64%) scale(1) rotate(-4deg)}}
+#killBanner .kc{font:700 13px/1 var(--ui);letter-spacing:.24em;color:#16171b;background:var(--hazard);padding:5px 10px;border-radius:4px}
+#killBanner .kt{font:400 clamp(44px,13vw,72px)/1 var(--display);color:#fff;-webkit-text-stroke:2px #401700;text-shadow:0 5px 0 #b33f00,0 0 34px rgba(255,140,40,.9)}
+#killBanner .kband{width:120%;height:9px;background:var(--stripe);border-radius:2px}
+#killBanner .ks{font:600 14px/1.2 var(--kr);color:var(--ink);background:rgba(10,11,15,.85);padding:7px 12px;border-radius:999px}
+#killBanner .ks b{color:var(--hazard);font-family:var(--ui)}
+#killBanner.win .kt{color:var(--hazard);text-shadow:0 5px 0 #8a5d00,0 0 40px rgba(255,210,60,.95)}
+#killFlash{position:fixed;inset:0;pointer-events:none;z-index:4;opacity:0;background:radial-gradient(circle at 50% 50%,rgba(255,240,190,.05) 25%,rgba(255,170,40,.6) 100%)}
+#killFlash.on{animation:kf .55s ease-out}
+@keyframes kf{0%{opacity:1}100%{opacity:0}}
+#dangerFx{position:fixed;inset:0;pointer-events:none;z-index:4;opacity:0;transition:opacity .3s;background:radial-gradient(ellipse at 50% 50%,transparent 55%,rgba(255,40,30,.42) 100%)}
+body.lowhp #dangerFx{opacity:1;animation:beat .9s infinite}
+@keyframes beat{0%,100%{opacity:.55}15%{opacity:1}30%{opacity:.6}45%{opacity:.95}}
+#countdown{position:fixed;inset:0;z-index:8;display:grid;place-items:center;pointer-events:none}
+#countdown b{font:400 clamp(96px,30vw,160px)/1 var(--display);color:var(--hazard);text-shadow:0 7px 0 rgba(0,0,0,.5);animation:cd .95s ease-out forwards}
+#countdown b.cd-go{color:var(--ok)}
+@keyframes cd{0%{transform:scale(2.2);opacity:0}18%{transform:scale(1);opacity:1}75%{opacity:1}100%{transform:scale(.8);opacity:0}}
+
 /* touch controls */
-#joy{position:fixed;left:calc(var(--edge-l) + 26px);bottom:calc(var(--edge-b) + 44px);width:140px;height:140px;border-radius:50%;border:2px solid rgba(236,232,220,.22);background:rgba(10,11,15,.35);pointer-events:none;z-index:6;transition:border-color .15s}
+#joy{position:fixed;left:calc(var(--edge-l) + 18px);bottom:calc(var(--edge-b) + 36px);width:132px;height:132px;border-radius:50%;border:2px solid rgba(236,232,220,.22);background:rgba(10,11,15,.35);pointer-events:none;z-index:6;transition:border-color .15s}
 #joy::before{content:"";position:absolute;inset:30%;border-radius:50%;border:1px dashed rgba(236,232,220,.18)}
-#joy i{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:rgba(255,194,26,.55);box-shadow:0 3px 0 rgba(0,0,0,.35)}
+#joy i{position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:rgba(255,194,26,.55);box-shadow:0 3px 0 rgba(0,0,0,.35)}
 #joy.on{border-color:rgba(255,194,26,.6)}
 #joy.on i{background:rgba(255,194,26,.95)}
-#touchBtns{touch-action:none;position:fixed;right:calc(var(--edge-r) + 18px);bottom:calc(var(--edge-b) + 36px);width:206px;height:176px;z-index:6;pointer-events:none}
+#touchBtns{touch-action:none;position:fixed;right:calc(var(--edge-r) + 12px);bottom:calc(var(--edge-b) + 30px);width:190px;height:150px;z-index:6;pointer-events:none}
 #touchBtns button{position:absolute;pointer-events:auto;border-radius:50%;padding:0;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:600 14px/1 var(--kr);color:var(--ink);transition:transform .08s,box-shadow .15s}
 /* invisible padding: a thumb that lands just outside the circle still counts */
-#touchBtns button::after{content:"";position:absolute;inset:-18px;border-radius:50%}
+#touchBtns button::after{content:"";position:absolute;inset:-16px;border-radius:50%}
 #touchBtns button span{position:relative;z-index:1;pointer-events:none;white-space:nowrap}
-#btnBoost{right:0;bottom:0;width:104px;height:104px;border:0;--n:100%;background:conic-gradient(var(--nitro) var(--n),rgba(255,255,255,.12) 0)}
+#btnBoost{right:0;bottom:0;width:100px;height:100px;border:0;--n:100%;background:conic-gradient(var(--nitro) var(--n),rgba(255,255,255,.12) 0)}
 #btnBoost::before{content:"";position:absolute;inset:7px;border-radius:50%;background:rgba(14,16,22,.9);transition:background-color .15s}
 #btnBoost .lbl{color:var(--nitro);font-size:16px}
 #btnBoost .sub{font:700 11px/1 var(--ui);color:var(--mute);letter-spacing:.06em}
@@ -110,23 +152,26 @@ body.touch #toast{top:43%}
 #btnBoost.active .lbl,#btnBoost.active .sub{color:#e9fbff}
 #btnBoost.empty .lbl{color:var(--mute)}
 #btnBoost.empty .sub{color:var(--hurt)}
-#btnBoost.denied,.bar.nitro.denied{animation:deny .3s}
+#btnBoost.denied{animation:deny .3s}
 @keyframes deny{20%,60%{translate:-5px 0}40%,80%{translate:5px 0}}
-#btnDrift{right:120px;bottom:70px;width:80px;height:80px;border:2px solid var(--line);background:rgba(14,16,22,.88)}
-#touchBtns #btnDrift::after{inset:-12px}
+#btnDrift{right:112px;bottom:30px;width:72px;height:72px;border:2px solid var(--line);background:rgba(14,16,22,.88);font-size:13px!important}
+#touchBtns #btnDrift::after{inset:-10px}
 #btnDrift.held{transform:scale(.95);border-color:var(--hazard);background:rgba(255,194,26,.16)}
 #btnDrift.active{box-shadow:0 0 22px rgba(255,194,26,.55)}
 #boostFx{position:fixed;inset:0;pointer-events:none;z-index:4;opacity:0;transition:opacity .2s;
   background:radial-gradient(ellipse at 50% 55%,transparent 52%,rgba(63,216,255,.16) 78%,rgba(63,216,255,.38) 100%)}
 body.boosting #boostFx{opacity:1}
-.bar.nitro.active i{background:#bff4ff;box-shadow:0 0 10px var(--nitro)}
 
-body.touch #minimap{right:auto;left:var(--edge-l);top:calc(var(--edge-t) + 122px);bottom:auto;width:96px;height:96px}
-body.touch #gauges{width:auto;left:var(--edge-l);right:auto;transform:none;bottom:auto;top:calc(var(--edge-t) + 228px);padding:8px 10px}
-body.touch #gauges .bars{width:120px}
-body.touch #feed{top:auto;bottom:calc(var(--edge-b) + 216px);width:min(300px,60vw)}
-body.touch #board{width:160px;padding:9px 10px 6px}
-body.touch #board li{font-size:12px}
+body.touch #minimap{width:92px;height:92px}
+body.touch #scoreBox .big{font-size:26px}
+body.touch #killBanner{top:36%}
+body.touch #feed{top:calc(var(--edge-t) + 112px);width:min(300px,calc(100vw - 32px))}
+body.touch #vitals{bottom:calc(var(--edge-b) + 186px);width:min(310px,calc(100vw - 32px))}
+@media (max-width:419px){
+  #touchBtns{width:112px;height:200px}
+  #btnDrift{right:14px;bottom:116px}
+  body.touch #vitals{bottom:calc(var(--edge-b) + 232px)}
+}
 
 /* ---------- portrait lock (phones held sideways) ---------- */
 #rotate{display:none;position:fixed;inset:0;z-index:30;background:var(--asphalt);place-items:center;text-align:center;
@@ -149,6 +194,11 @@ body.touch #board li{font-size:12px}
 .pill b{font-family:var(--ui);font-variant-numeric:tabular-nums}
 .pill .dot-live{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:ping 1.6s infinite}
 .pill.rec b{color:var(--hazard)}
+.lvb.sm{font-size:12px;padding:4px 7px;border-radius:5px}
+.mxp{width:58px;height:6px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden}
+.mxp i{display:block;height:100%;width:0;background:var(--hazard)}
+.skin-name .lock{color:var(--hurt)}
+.play:disabled{background:#3a3d46;color:#9399a6;box-shadow:0 6px 0 #22242a;animation:none;font-size:20px;cursor:not-allowed}
 @keyframes ping{0%{box-shadow:0 0 0 0 rgba(134,224,111,.6)}70%,100%{box-shadow:0 0 0 8px rgba(134,224,111,0)}}
 .icon-btn{width:40px;height:40px;flex:none;border-radius:50%;background:var(--panel);border:1px solid var(--line);display:grid;place-items:center;cursor:pointer;color:var(--ink);padding:0}
 .icon-btn svg{width:20px;height:20px}
@@ -214,23 +264,33 @@ kbd{font:600 11px/1 var(--ui);color:var(--ink);background:#22252d;border:1px sol
 .stats div{background:#121419;padding:12px 10px;display:grid;gap:6px}
 .stats b{font:400 20px/1 var(--display);font-variant-numeric:tabular-nums}
 .stats span{font:600 11px/1 var(--kr);color:var(--mute)}
-.newbest{color:var(--hazard);font:600 13px/1 var(--kr)}
+/* result card */
+.res-head{display:flex;align-items:center;gap:16px}
+.place{display:flex;align-items:baseline;gap:4px}
+.place b{font:400 64px/1 var(--display);color:var(--hazard);font-variant-numeric:tabular-nums}
+.place span{font:600 15px/1 var(--ui);color:var(--mute)}
+.result .logo{font-size:clamp(30px,9vw,46px);color:var(--hurt)}
+.result.win .logo{color:var(--hazard)}
+.result .stats{grid-template-columns:repeat(3,1fr)}
+.xpbox{display:grid;gap:10px;padding:14px;border-radius:10px;background:#121419;border:1px solid var(--line)}
+#xpLines{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+#xpLines li{display:flex;justify-content:space-between;font:600 13px/1 var(--kr);color:var(--mute);opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s}
+#xpLines li.on{opacity:1;transform:none}
+#xpLines li b{font-family:var(--ui);color:var(--ink)}
+#xpLines li.total{border-top:1px solid var(--line);padding-top:9px;color:var(--ink)}
+#xpLines li.total b{color:var(--hazard);font-size:15px}
+.lvrow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center}
+.lvb{font:400 15px/1 var(--display);color:#16171b;background:var(--hazard);padding:5px 8px;border-radius:6px;white-space:nowrap}
+.xpbar{height:10px;border-radius:5px;background:rgba(255,255,255,.08);overflow:hidden}
+.xpbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffc21a,#ffe27a);transition:width .7s ease}
+.xpt{font:600 12px/1 var(--ui);color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+.levelup{font:400 20px/1.25 var(--display);color:var(--hazard);text-align:center;animation:lvpop .6s cubic-bezier(.2,1.5,.4,1)}
+@keyframes lvpop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
+.levelup small{display:block;font:600 13px/1.4 var(--kr);color:var(--ink);margin-top:4px}
 @media (max-width:520px){
-  #touchBtns{width:120px;height:250px}
-  #btnDrift{right:12px;bottom:134px}
-}
-@media (max-width:860px){
-  #feed{top:auto;bottom:calc(var(--edge-b) + 170px);width:min(360px,calc(100vw - 32px))}
-  #gauges{width:min(360px,calc(100vw - 210px));left:var(--edge-l);transform:none}
-}
-@media (max-width:520px){
-  .stats{grid-template-columns:repeat(2,1fr)}
   .card .inner{padding:20px 18px 18px}
-  #board{width:150px}
-  #scoreBox .big{font-size:32px}
-  #minimap{width:110px;height:110px}
-  #gauges{width:calc(100vw - 170px)}
-  #feed{bottom:calc(var(--edge-b) + 130px)}
+  #scoreBox .big{font-size:30px}
+  .place b{font-size:54px}
 }
 </style>
 </head>
@@ -241,22 +301,26 @@ kbd{font:600 11px/1 var(--ui);color:var(--ink);background:#22252d;border:1px sol
   <div id="scoreBox">
     <div class="eyebrow">적재량</div>
     <div class="big"><span id="hScore">0</span><small>KG</small></div>
-    <div class="sub"><span>순위 <b id="hRank">#1</b> / <b id="hTotal">15</b></span><span>격파 <b id="hKills">0</b></span></div>
+    <div class="kchip" id="killChip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/></svg><b id="hKills">0</b>격파</div>
     <button id="muteBtn" type="button" aria-pressed="false">SOUND ON</button>
   </div>
-  <div id="board" class="panel"><div class="eyebrow">고철 순위</div><ol id="boardList"></ol></div>
+  <div id="br">
+    <div class="alive"><b id="hAlive">15</b><span>생존</span></div>
+    <div id="zone"><i></i><span id="zoneText">출발 대기</span></div>
+  </div>
+  <canvas id="minimap" width="300" height="300" aria-hidden="true"></canvas>
   <div id="feed" aria-live="polite"></div>
   <div id="toast"></div>
-  
-  <canvas id="minimap" width="300" height="300" aria-hidden="true"></canvas>
-  <div id="gauges" class="panel">
-    <div id="speedo"><b id="speedNum">0</b><small>KM/H</small></div>
-    <div class="bars">
-      <div class="gauge"><span class="gl">차체</span><div class="bar"><i id="hpFill"></i></div></div>
-      <div class="gauge"><span class="gl">니트로</span><div class="bar nitro" id="nitroBar"><i id="nitroFill"></i></div></div>
-    </div>
+  <div id="killBanner" aria-live="polite"><div class="kc" id="kbCombo"></div><div class="kt" id="kbTitle"></div><div class="kband"></div><div class="ks" id="kbSub"></div></div>
+  <div id="vitals">
+    <div class="vhp" id="vHp"><div class="vhead"><span>차체</span><b id="hpNum">100</b></div><div class="vbar"><s id="hpGhost"></s><i id="hpFill"></i></div></div>
+    <div class="vcore"><b id="speedNum">0</b><small>KM/H</small></div>
+    <div class="vni" id="vNi"><div class="vhead"><b id="nitroNum">100</b><span>니트로</span></div><div class="vbar"><i id="nitroFill"></i></div></div>
   </div>
 </div>
+<div id="killFlash" aria-hidden="true"></div>
+<div id="dangerFx" aria-hidden="true"></div>
+<div id="countdown" aria-live="assertive"></div>
 
 <div id="joy" hidden><i></i></div>
 <div id="boostFx" aria-hidden="true"></div>
@@ -272,8 +336,8 @@ kbd{font:600 11px/1 var(--ui);color:var(--ink);background:#22252d;border:1px sol
 
 <div id="startScreen" class="menu">
   <div class="menu-top">
-    <div class="pill"><i class="dot-live"></i><span><b id="liveCount">15</b>대 주행 중</span></div>
-    <div class="pill rec">최고 <b id="bestNum">0 KG</b></div>
+    <div class="pill lvp"><span class="lvb sm" id="mLv">LV 1</span><span class="mxp"><i id="mXp"></i></span></div>
+    <div class="pill rec">우승 <b id="mWins">0</b>회</div>
     <button id="menuMute" class="icon-btn" type="button" aria-pressed="false" aria-label="소리 끄기">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path class="on" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/><path class="off" d="M17 9l5 6M22 9l-5 6" hidden/></svg>
     </button>
@@ -281,7 +345,7 @@ kbd{font:600 11px/1 var(--ui);color:var(--ink);background:#22252d;border:1px sol
   <div class="menu-main">
     <h1 class="logo">SCRAP<span>DERBY</span></h1>
     <div class="tape"></div>
-    <p class="tagline">고철 먹고 커져라. 밀어내고 살아남아라.</p>
+    <p class="tagline">15대 중 마지막까지 살아남아라.</p>
     <div class="garage">
       <button class="arrow" id="skinPrev" type="button" aria-label="이전 차"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
       <canvas id="preview" aria-label="내 차 미리보기 (좌우로 밀어서 변경)"></canvas>
@@ -302,23 +366,26 @@ kbd{font:600 11px/1 var(--ui);color:var(--ink);background:#22252d;border:1px sol
 </div>
 
 <div id="deathScreen" class="overlay" hidden>
-  <div class="card wreck">
+  <div class="card result" id="resultCard">
     <div class="tape"></div>
     <div class="inner">
-      <div class="eyebrow">경기 종료</div>
-      <h2 class="logo">WRECKED</h2>
+      <div class="res-head">
+        <div class="place"><b id="resPlace">#1</b><span id="resOf">/ 15</span></div>
+        <div><div class="eyebrow" id="resEyebrow">경기 종료</div><h2 class="logo" id="resTitle">WRECKED</h2></div>
+      </div>
       <p class="reason" id="deathReason"></p>
       <div class="stats">
-        <div><b id="dScore">0</b><span>적재량 (kg)</span></div>
-        <div><b id="dRank">#1</b><span>최고 순위</span></div>
         <div><b id="dKills">0</b><span>격파</span></div>
+        <div><b id="dScore">0</b><span>적재량 (kg)</span></div>
         <div><b id="dTime">0:00</b><span>생존 시간</span></div>
       </div>
-      <div class="newbest" id="newBest" hidden>새 최고 기록!</div>
-      <div class="diff"><div class="seg" role="radiogroup" aria-label="난이도" data-diff></div><p data-diff-note></p></div>
-      <button class="go" id="againBtn" type="button">다시 출발</button>
+      <div class="xpbox">
+        <ul id="xpLines"></ul>
+        <div class="lvrow"><span class="lvb" id="resLv">LV 1</span><div class="xpbar"><i id="resXp"></i></div><span class="xpt" id="resXpText"></span></div>
+        <div class="levelup" id="levelUp" hidden></div>
+      </div>
+      <button class="go" id="againBtn" type="button">다시 도전</button>
       <button class="ghost" id="menuBtn" type="button">차고로 (차 바꾸기)</button>
-      <div class="best"><span>Enter 키로도 다시 시작할 수 있어요</span><b id="bestNum2">0 KG</b></div>
     </div>
   </div>
 </div>
@@ -440,9 +507,13 @@ function dotTex() {
 
 /* ================= arena ================= */
 const obstacles = [];
+const arenaVis = {};
+let arenaR = 125;
 (function buildArena() {
+  const groundTex = concreteTex();
   const ground = new THREE.Mesh(new THREE.CircleGeometry(ARENA_R, 128),
-    new THREE.MeshStandardMaterial({ map: concreteTex(), roughness: 0.95, metalness: 0.05 }));
+    new THREE.MeshStandardMaterial({ map: groundTex, roughness: 0.95, metalness: 0.05 }));
+  arenaVis.ground = ground; arenaVis.tex = groundTex;
   ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
 
   // hazard rim (top), UVs remapped so stripes follow the circle
@@ -452,24 +523,27 @@ const obstacles = [];
   const uv = rimGeo.attributes.uv;
   for (let k = 0; k < uv.count; k++) uv.setXY(k, (k % (segs + 1)) / segs * 220, Math.floor(k / (segs + 1)));
   const rim = new THREE.Mesh(rimGeo, new THREE.MeshStandardMaterial({ map: stripes, roughness: 0.7 }));
-  rim.rotation.x = -Math.PI / 2; rim.position.y = 0.03; rim.receiveShadow = true; scene.add(rim);
+  rim.rotation.x = -Math.PI / 2; rim.position.y = 0.03; rim.receiveShadow = true; scene.add(rim); arenaVis.rim = rim;
 
   // skirt + underside so the pad reads as floating over the void
   const skirtTex = stripes.clone(); skirtTex.needsUpdate = true; skirtTex.repeat.set(120, 1);
   const skirt = new THREE.Mesh(new THREE.CylinderGeometry(ARENA_R, ARENA_R - 2, 6, 128, 1, true),
     new THREE.MeshStandardMaterial({ map: skirtTex, roughness: 0.8 }));
-  skirt.position.y = -3; scene.add(skirt);
+  skirt.position.y = -3; scene.add(skirt); arenaVis.skirt = skirt;
   const under = new THREE.Mesh(new THREE.ConeGeometry(ARENA_R - 2, 70, 48, 1, true),
     new THREE.MeshStandardMaterial({ color: '#1b1d23', roughness: 1, side: THREE.DoubleSide }));
-  under.rotation.x = Math.PI; under.position.y = -6 - 35; scene.add(under);
+  under.rotation.x = Math.PI; under.position.y = -6 - 35; scene.add(under); arenaVis.under = under;
 
   // painted markings
-  const paint = new THREE.MeshBasicMaterial({ color: '#d9d3c0', transparent: true, opacity: 0.35 });
   const yellowPaint = new THREE.MeshBasicMaterial({ color: '#ffc21a', transparent: true, opacity: 0.55 });
-  const addRing = (a, b, mat) => { const m = new THREE.Mesh(new THREE.RingGeometry(a, b, 128), mat); m.rotation.x = -Math.PI / 2; m.position.y = 0.02; scene.add(m); };
+  const addRing = (a, b, mat) => { const m = new THREE.Mesh(new THREE.RingGeometry(a, b, 128), mat); m.rotation.x = -Math.PI / 2; m.position.y = 0.02; scene.add(m); return m; };
   addRing(16, 17.2, yellowPaint);
-  addRing(ARENA_R * 0.55, ARENA_R * 0.55 + 0.5, paint);
-  addRing(ARENA_R - 9, ARENA_R - 8.4, new THREE.MeshBasicMaterial({ color: '#ff4b3e', transparent: true, opacity: 0.45 }));
+  arenaVis.edgeLine = addRing(ARENA_R - 9, ARENA_R - 8.4, new THREE.MeshBasicMaterial({ color: '#ff4b3e', transparent: true, opacity: 0.45 }));
+  // zone warning: red band that is about to collapse + the next edge line
+  arenaVis.warnBand = addRing(0.5, 1, new THREE.MeshBasicMaterial({ color: '#ff3b2a', transparent: true, opacity: 0.25, depthWrite: false }));
+  arenaVis.warnBand.position.y = 0.05; arenaVis.warnBand.visible = false;
+  arenaVis.warnLine = addRing(0.5, 1, new THREE.MeshBasicMaterial({ color: '#ff4b3e' }));
+  arenaVis.warnLine.position.y = 0.06; arenaVis.warnLine.visible = false;
 
   // floodlight masts outside the rim
   const poleMat = new THREE.MeshStandardMaterial({ color: '#2a2d35', roughness: 0.6, metalness: 0.5 });
@@ -497,7 +571,7 @@ const obstacles = [];
       t.castShadow = true; t.receiveShadow = true; stack.add(t);
     }
     stack.position.set(x, 0, z); scene.add(stack);
-    obstacles.push({ x, z, r: 2.15 });
+    obstacles.push({ x, z, r: 2.15, g: stack, gone: false, vy: 0 });
     placed++;
   }
 
@@ -513,6 +587,35 @@ const obstacles = [];
     scene.add(m);
   }
 })();
+function setArenaR(r) {
+  arenaR = Math.max(0, r);
+  const k = Math.max(0.0001, arenaR / ARENA_R);
+  arenaVis.ground.scale.set(k, k, 1); arenaVis.rim.scale.set(k, k, 1); arenaVis.edgeLine.scale.set(k, k, 1);
+  arenaVis.skirt.scale.set(k, 1, k); arenaVis.under.scale.set(k, 1, k);
+  // keep concrete tiles locked to world space while the pad shrinks
+  const rep = Math.max(0.01, arenaR * 2 / 18);
+  arenaVis.tex.repeat.set(rep, rep); arenaVis.tex.offset.set(-arenaR / 18, -arenaR / 18);
+  const hide = arenaR < 0.5; arenaVis.ground.visible = arenaVis.rim.visible = arenaVis.skirt.visible = arenaVis.under.visible = arenaVis.edgeLine.visible = !hide;
+}
+function showZoneWarning(fromR, toR) {
+  const b = arenaVis.warnBand, l = arenaVis.warnLine;
+  b.geometry.dispose(); b.geometry = new THREE.RingGeometry(Math.max(0.01, toR), fromR, 128);
+  l.geometry.dispose(); l.geometry = new THREE.RingGeometry(Math.max(0, toR - 0.7), Math.max(0.7, toR), 128);
+  b.visible = l.visible = true;
+}
+function hideZoneWarning() { arenaVis.warnBand.visible = arenaVis.warnLine.visible = false; }
+function resetObstacles() {
+  for (const o of obstacles) { o.gone = false; o.vy = 0; o.g.visible = true; o.g.position.set(o.x, 0, o.z); o.g.rotation.set(0, 0, 0); }
+}
+function updateObstacles(dt) {
+  for (const o of obstacles) {
+    if (!o.gone && Math.hypot(o.x, o.z) > arenaR - 0.5) o.gone = true;
+    if (o.gone && o.g.visible) {
+      o.vy -= 40 * dt; o.g.position.y += o.vy * dt; o.g.rotation.x += dt * 1.5;
+      if (o.g.position.y < -60) o.g.visible = false;
+    }
+  }
+}
 
 /* ================= particles ================= */
 const P_MAX = 900;
@@ -547,7 +650,7 @@ function updateParticles(dt) {
     if (pLife[i] <= 0) { pPos[j + 1] = -999; pCol[j] = pCol[j + 1] = pCol[j + 2] = 0; continue; }
     pVel[j + 1] -= pGrav[i] * dt;
     pPos[j] += pVel[j] * dt; pPos[j + 1] += pVel[j + 1] * dt; pPos[j + 2] += pVel[j + 2] * dt;
-    if (pPos[j + 1] < 0.1 && Math.hypot(pPos[j], pPos[j + 2]) < ARENA_R) { pPos[j + 1] = 0.1; pVel[j + 1] *= -0.3; pVel[j] *= 0.7; pVel[j + 2] *= 0.7; }
+    if (pPos[j + 1] < 0.1 && Math.hypot(pPos[j], pPos[j + 2]) < arenaR) { pPos[j + 1] = 0.1; pVel[j + 1] *= -0.3; pVel[j] *= 0.7; pVel[j + 2] *= 0.7; }
     const f = pLife[i] / pMaxLife[i];
     pCol[j] = pBase[j] * f; pCol[j + 1] = pBase[j + 1] * f; pCol[j + 2] = pBase[j + 2] * f;
   }
@@ -583,7 +686,7 @@ function updateDebris(dt) {
     const p = d.m.position;
     d.vy -= 40 * dt; p.x += d.vx * dt; p.y += d.vy * dt; p.z += d.vz * dt;
     d.m.rotation.x += d.rx * dt; d.m.rotation.z += d.rz * dt;
-    if (p.y < 0.3 && Math.hypot(p.x, p.z) < ARENA_R) { p.y = 0.3; d.vy *= -0.35; d.vx *= 0.6; d.vz *= 0.6; d.rx *= 0.6; d.rz *= 0.6; }
+    if (p.y < 0.3 && Math.hypot(p.x, p.z) < arenaR) { p.y = 0.3; d.vy *= -0.35; d.vx *= 0.6; d.vz *= 0.6; d.rx *= 0.6; d.rz *= 0.6; }
     if (d.life < 0.5) d.m.scale.multiplyScalar(0.92);
   }
 }
@@ -607,9 +710,9 @@ const dummy = new THREE.Object3D();
 
 function randomFreeSpot(margin) {
   for (let t = 0; t < 30; t++) {
-    const a = rand(0, TAU), r = Math.sqrt(Math.random()) * (ARENA_R - margin);
+    const a = rand(0, TAU), r = Math.sqrt(Math.random()) * Math.max(0, arenaR - margin);
     const x = Math.sin(a) * r, z = Math.cos(a) * r;
-    if (obstacles.some(o => Math.hypot(o.x - x, o.z - z) < o.r + 2)) continue;
+    if (obstacles.some(o => !o.gone && Math.hypot(o.x - x, o.z - z) < o.r + 2)) continue;
     return [x, z];
   }
   return [0, 0];
@@ -634,16 +737,17 @@ function dropScrap(x, z, total) {
 function updateScrap(dt, t) {
   for (let i = 0; i < SCRAP_POOL; i++) {
     if (!sOn[i]) {
-      if (i < BASE_SCRAP && sRespawn[i] > 0) { sRespawn[i] -= dt; if (sRespawn[i] <= 0) placeBaseScrap(i); }
+      if (i < BASE_SCRAP && sRespawn[i] > 0) { sRespawn[i] -= dt; if (sRespawn[i] <= 0 && arenaR > 10) placeBaseScrap(i); }
       dummy.position.set(0, -500, 0); dummy.scale.setScalar(0.0001); dummy.updateMatrix(); scrapMesh.setMatrixAt(i, dummy.matrix);
       continue;
     }
     sAge[i] += dt;
+    if (Math.hypot(sx[i], sz[i]) > arenaR - 1) { sOn[i] = 0; if (i < BASE_SCRAP) sRespawn[i] = rand(2, 5); continue; }
     if (svx[i] || svy[i] || svz[i]) {
       svy[i] -= 36 * dt; sx[i] += svx[i] * dt; sy[i] += svy[i] * dt; sz[i] += svz[i] * dt;
       if (sy[i] <= 0.9) { sy[i] = 0.9; svy[i] = 0; svx[i] *= 0.5; svz[i] *= 0.5; if (Math.abs(svx[i]) + Math.abs(svz[i]) < 0.5) svx[i] = svz[i] = 0; }
       const d = Math.hypot(sx[i], sz[i]);
-      if (d > ARENA_R - 4) { sx[i] *= (ARENA_R - 4) / d; sz[i] *= (ARENA_R - 4) / d; svx[i] = svz[i] = 0; }
+      if (d > arenaR - 4 && arenaR > 8) { sx[i] *= (arenaR - 4) / d; sz[i] *= (arenaR - 4) / d; svx[i] = svz[i] = 0; }
     }
     const big = i >= BASE_SCRAP ? 1.25 : 1;
     dummy.position.set(sx[i], sy[i] + Math.sin(t * 2.4 + sPhase[i]) * 0.2, sz[i]);
@@ -765,12 +869,13 @@ function spawnCar(car, opts) {
   car.mass = Math.pow(car.scale, 2.2); car.radius = 2.15 * car.scale;
   car.hp = car.maxHp; car.nitro = 100; car.kills = 0;
   let x = 0, z = 0;
-  for (let t = 0; t < 40; t++) {
-    [x, z] = randomFreeSpot(ARENA_R * 0.25);
+  if (opts.pos) [x, z] = opts.pos;
+  else for (let t = 0; t < 40; t++) {
+    [x, z] = randomFreeSpot(arenaR * 0.25);
     if (cars.every(o => o === car || !o.alive || Math.hypot(o.x - x, o.z - z) > 18)) break;
   }
   car.x = x; car.z = z; car.y = 0; car.vx = car.vz = car.vy = 0;
-  car.angle = Math.atan2(-x, -z) + rand(-0.6, 0.6);
+  car.angle = Math.atan2(-x, -z) + (opts.pos ? 0 : rand(-0.6, 0.6));
   car.alive = true; car.falling = false; car.shield = car.isPlayer ? D().shield : 2.5; car.stun = 0;
   car.lastHitBy = null; car.lastHitAt = -99; car.lastDamageAt = -99; car.spawnedAt = now; car.peakRank = 99;
   car.pop = 0; car.boostHeld = false; car.boosting = false;
@@ -786,11 +891,12 @@ function nextBotName() {
   }
   return 'Bot' + (Math.random() * 999 | 0);
 }
-function spawnBot(car, initial) {
+function spawnBot(car, initial, pos) {
   const d = D();
   car.ai.aggro = rand(d.aggro[0], d.aggro[1]); car.ai.playerBias = rand(d.bias[0], d.bias[1]);
-  const score = initial ? Math.round(Math.pow(Math.random(), 1.6) * d.botScore) : Math.round(Math.random() * 60);
-  spawnCar(car, { name: nextBotName(), color: CAR_COLORS[Math.random() * CAR_COLORS.length | 0], score });
+  const score = pos ? Math.round(Math.random() * 30) : initial ? Math.round(Math.pow(Math.random(), 1.6) * d.botScore) : Math.round(Math.random() * 60);
+  car.respawnAt = 0;
+  spawnCar(car, { name: nextBotName(), color: CAR_COLORS[Math.random() * CAR_COLORS.length | 0], score, pos });
 }
 
 /* ================= damage / wreck ================= */
@@ -818,7 +924,7 @@ function hurt(car, amount, by) {
   if (car.shield > 0 || amount <= 0) return;
   if (car.isPlayer) amount = Math.min(amount * D().dmg, car.maxHp * D().hitCap); // one hit can't take more than hitCap of the bar
   car.hp -= amount; car.lastDamageAt = now;
-  if (car.isPlayer) shake = Math.min(1.2, shake + amount / 40);
+  if (car.isPlayer) { shake = Math.min(1.2, shake + amount / 40); hpGhostHold = 0.45; }
   if (car.hp <= 0) wreck(car, 'hp');
 }
 
@@ -831,17 +937,19 @@ function wreck(car, cause) {
     explode(car.x, car.z, car.color, car.scale);
     dropScrap(car.x, car.z, Math.max(30, car.score * 0.55));
   }
+  if (match.on && !car.isPlayer) car.place = aliveCount() + 1;
   if (killer) {
     killer.kills++;
     const bonus = Math.round(40 + car.score * (cause === 'fall' ? 0.45 : 0.2));
     addScore(killer, bonus);
-    if (killer.isPlayer) { toast(cause === 'fall' ? '링 아웃!' : '격파!', `${car.name} · +${bonus} kg`); sfxTone(520, 880, 0.12, 0.25, 'square'); }
+    if (killer.isPlayer) onPlayerKill(car, cause, bonus);
   }
   const mine = car.isPlayer || (killer && killer.isPlayer);
   if (killer) feed(`${esc(killer.name)}<em>${cause === 'fall' ? 'RING OUT' : 'WRECK'}</em>${esc(car.name)}`, mine);
   else feed(`${esc(car.name)}<em>${cause === 'fall' ? '추락' : '대파'}</em>`, mine);
   if (car.isPlayer) onPlayerDeath(killer, cause);
-  else car.respawnAt = now + rand(2, 5);
+  else if (!match.on) car.respawnAt = now + rand(2, 5);
+  if (match.on) checkMatchEnd();
 }
 
 function explode(x, z, color, scale) {
@@ -911,10 +1019,11 @@ function spawnItem(it) {
 }
 function updateItems(dt, t) {
   itemTimer -= dt;
-  if (itemTimer <= 0) { itemTimer = rand(2.5, 4.5); const free = items.find(i => !i.on); if (free) spawnItem(free); }
+  if (itemTimer <= 0) { itemTimer = rand(2.5, 4.5); const free = items.find(i => !i.on); if (free && arenaR > 18) spawnItem(free); }
   for (const it of items) {
     if (!it.on) continue;
     it.age += dt;
+    if (Math.hypot(it.x, it.z) > arenaR - 1.5) { it.on = false; it.m.visible = it.ring.visible = false; continue; }
     it.m.position.set(it.x, 2 + Math.sin(t * 2 + it.phase) * 0.35, it.z);
     it.m.rotation.set(0.35, t * 1.2 + it.phase, 0.2);
     it.m.scale.setScalar(Math.min(1, it.age * 3));
@@ -1073,7 +1182,8 @@ function botThink(b) {
       if (sc > preyScore) { preyScore = sc; prey = o; }
     }
   }
-  if (d > ARENA_R * 0.8) { ai.mode = 'edge'; ai.tx = b.x * 0.3; ai.tz = b.z * 0.3; return; }
+  const SR = safeR();
+  if (d > SR * 0.8 || d > SR - 10) { ai.mode = 'edge'; ai.tx = b.x * 0.3; ai.tz = b.z * 0.3; return; }
   if (threat && Math.random() < ai.caution) {
     ai.mode = 'flee';
     let fx = b.x - threat.x, fz = b.z - threat.z; const l = Math.hypot(fx, fz) || 1;
@@ -1091,19 +1201,19 @@ function botThink(b) {
     return;
   }
   let it = null, itd = 48;
-  for (const o of items) { if (!o.on) continue; const dd = Math.hypot(o.x - b.x, o.z - b.z); if (dd < itd) { itd = dd; it = o; } }
+  for (const o of items) { if (!o.on || Math.hypot(o.x, o.z) > SR - 6) continue; const dd = Math.hypot(o.x - b.x, o.z - b.z); if (dd < itd) { itd = dd; it = o; } }
   if (it) { ai.mode = 'item'; ai.tx = it.x; ai.tz = it.z; return; }
   let bi = -1, bs = -1e9;
   for (let i = 0; i < SCRAP_POOL; i++) {
     if (!sOn[i]) continue;
     const dx = sx[i] - b.x, dz = sz[i] - b.z;
-    if (Math.abs(dx) > 70 || Math.abs(dz) > 70) continue;
+    if (Math.abs(dx) > 70 || Math.abs(dz) > 70 || Math.hypot(sx[i], sz[i]) > SR - 6) continue;
     const s = sVal[i] * 3 - Math.hypot(dx, dz) - Math.hypot(sx[i], sz[i]) * 0.08;
     if (s > bs) { bs = s; bi = i; }
   }
   if (bi >= 0) { ai.mode = 'scrap'; ai.tx = sx[bi]; ai.tz = sz[bi]; return; }
   ai.mode = 'wander';
-  [ai.tx, ai.tz] = randomFreeSpot(ARENA_R * 0.4);
+  const wr = Math.random() * SR * 0.5, wa = rand(0, TAU); ai.tx = Math.sin(wa) * wr; ai.tz = Math.cos(wa) * wr;
 }
 function botInput(b, dt) {
   const ai = b.ai, inp = b.input;
@@ -1115,7 +1225,7 @@ function botInput(b, dt) {
   let dx = ai.tx - b.x, dz = ai.tz - b.z;
   // emergency: projected position near the edge
   const px = b.x + b.vx * 0.7, pz = b.z + b.vz * 0.7;
-  const edge = Math.hypot(px, pz) > ARENA_R - 7;
+  const edge = Math.hypot(px, pz) > safeR() - 7;
   if (edge) { dx = -b.x; dz = -b.z; }
   inp.dx = dx; inp.dz = dz; inp.mag = 1;
   const diff = Math.abs(wrapAngle(Math.atan2(dx, dz) - b.angle));
@@ -1168,6 +1278,7 @@ function driveCar(car, dt) {
 
   // tire stacks
   for (const o of obstacles) {
+    if (o.gone) continue;
     const dx = car.x - o.x, dz = car.z - o.z, d = Math.hypot(dx, dz), min = o.r + car.radius * 0.85;
     if (d < min && d > 0.0001) {
       const nx = dx / d, nz = dz / d;
@@ -1232,13 +1343,13 @@ function updateCar(car, dt) {
   }
   driveCar(car, dt);
   if (car.isPlayer && D().edge > 0) {
-    const d = Math.hypot(car.x, car.z), zone = ARENA_R - 7;
+    const d = Math.hypot(car.x, car.z), zone = arenaR - 7;
     if (d > zone) {
       const nx = car.x / d, nz = car.z / d, out = car.vx * nx + car.vz * nz;
       if (out > 0) { const f = D().edge * clamp((d - zone) / 5, 0, 1) * (car.stun > 0 ? 0.25 : 1); car.vx -= nx * out * f; car.vz -= nz * out * f; }
     }
   }
-  if (Math.hypot(car.x, car.z) > ARENA_R + car.radius * 0.15) {
+  if (Math.hypot(car.x, car.z) > arenaR + car.radius * 0.15) {
     car.falling = true; car.vy = 2;
     if (car.isPlayer || focusDist(car.x, car.z) < 60) sfxTone(400, 90, 0.12, 0.9, 'triangle');
   }
@@ -1377,13 +1488,14 @@ renderMute();
 
 /* ================= camera ================= */
 const camFocus = new THREE.Vector3(0, 0, 0);
-let attractTarget = null, attractSwitch = 0;
+let attractTarget = null, attractSwitch = 0, spectate = null, camPunch = 0;
 function focusDist(x, z) { return Math.hypot(x - camFocus.x, z - camFocus.z); }
 function updateCamera(dt) {
   let tx, tz, s = 1, lx = 0, lz = 0;
   if (playing && player) {
-    tx = player.x; tz = player.z; s = player.scale;
-    if (player.alive) { lx = player.vx * 0.28; lz = player.vz * 0.28; }
+    const f = !player.alive && spectate && spectate.alive ? spectate : player;
+    tx = f.x; tz = f.z; s = f.scale;
+    if (f.alive) { lx = f.vx * 0.28; lz = f.vz * 0.28; }
   } else {
     attractSwitch -= dt;
     if (!attractTarget || !attractTarget.alive || attractSwitch <= 0) {
@@ -1396,7 +1508,9 @@ function updateCamera(dt) {
   const k = Math.min(1, dt * 4);
   camFocus.x += (tx + lx - camFocus.x) * k; camFocus.z += (tz + lz - camFocus.z) * k;
   const portrait = camera.aspect < 0.9 ? 1.35 : 1;
-  const h = (40 + 18 * (s - 1)) * portrait, back = (28 + 12 * (s - 1)) * portrait;
+  camPunch = Math.max(0, camPunch - dt * 2.5);
+  const punch = reduceMotion ? 1 : 1 - 0.16 * Math.sin(Math.min(1, camPunch) * Math.PI / 2);
+  const h = (40 + 18 * (s - 1)) * portrait * punch, back = (28 + 12 * (s - 1)) * portrait * punch;
   let ox = 0, oz = 0;
   if (shake > 0 && !reduceMotion) { ox = rand(-1, 1) * shake * 1.2; oz = rand(-1, 1) * shake * 1.2; }
   shake = Math.max(0, shake - dt * 2.5);
@@ -1417,22 +1531,30 @@ resize();
 
 /* ================= HUD ================= */
 const hud = {
-  root: $('#hud'), score: $('#hScore'), rank: $('#hRank'), total: $('#hTotal'), kills: $('#hKills'),
-  hp: $('#hpFill'), nitro: $('#nitroFill'), nitroBar: $('#nitroBar'), speed: $('#speedNum'), board: $('#boardList')
+  root: $('#hud'), score: $('#hScore'), kills: $('#hKills'), killChip: $('#killChip'), alive: $('#hAlive'),
+  zone: $('#zone'), zoneText: $('#zoneText'), speed: $('#speedNum'),
+  vHp: $('#vHp'), hpFill: $('#hpFill'), hpGhost: $('#hpGhost'), hpNum: $('#hpNum'),
+  vNi: $('#vNi'), nitroFill: $('#nitroFill'), nitroNum: $('#nitroNum')
 };
 const mini = $('#minimap'), mctx = mini.getContext('2d');
-let hudT = 0, boardT = 0;
+let hudT = 0, boardT = 0, hpGhost = 1, hpGhostHold = 0;
 function ranking() { return cars.filter(c => c.alive).sort((a, b) => b.score - a.score); }
+function aliveCount() { let n = 0; for (const c of cars) if (c.alive) n++; return n; }
+const fmtTime = t => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, '0')}`;
 function updateHud(dt) {
   if (!playing || !player) return;
   hudT -= dt; boardT -= dt;
   const r = clamp(player.hp / player.maxHp, 0, 1);
-  hud.hp.style.transform = `scaleX(${r})`;
-  hud.hp.style.backgroundColor = r > 0.6 ? 'var(--ok)' : r > 0.3 ? 'var(--hazard)' : 'var(--hurt)';
-  hud.nitro.style.transform = `scaleX(${player.nitro / 100})`;
-  hud.nitroBar.classList.toggle('low', player.nitro < 10 && !player.boosting);
+  hud.hpFill.style.transform = `scaleX(${r})`;
+  if (r < hpGhost) { if (hpGhostHold > 0) hpGhostHold -= dt; else hpGhost = Math.max(r, hpGhost - dt * 0.7); } else hpGhost = r;
+  hud.hpGhost.style.transform = `scaleX(${hpGhost})`;
+  hud.vHp.classList.toggle('mid', r <= 0.6 && r > 0.3);
+  hud.vHp.classList.toggle('low', r <= 0.3);
+  document.body.classList.toggle('lowhp', player.alive && r <= 0.3);
+  hud.nitroFill.style.transform = `scaleX(${player.nitro / 100})`;
   const boostingNow = player.alive && player.boosting;
-  hud.nitroBar.classList.toggle('active', boostingNow);
+  hud.vNi.classList.toggle('active', boostingNow);
+  hud.vNi.classList.toggle('empty', player.nitro < 10 && !boostingNow);
   document.body.classList.toggle('boosting', boostingNow);
   if (touchUI) updateTouchButtons(boostingNow);
   if (hudT <= 0) {
@@ -1440,21 +1562,26 @@ function updateHud(dt) {
     hud.speed.textContent = player.alive ? Math.round(Math.abs(player.fwd) * 4.2) : 0;
     hud.score.textContent = fmt(player.score);
     hud.kills.textContent = player.kills;
+    hud.hpNum.textContent = Math.max(0, Math.ceil(player.hp));
+    hud.nitroNum.textContent = Math.round(player.nitro);
+    updateZoneHud();
   }
   if (boardT <= 0) {
-    boardT = 0.3;
-    const list = ranking();
-    const myRank = list.indexOf(player) + 1;
-    if (player.alive && myRank > 0) { player.peakRank = Math.min(player.peakRank, myRank); hud.rank.textContent = '#' + myRank; }
-    else hud.rank.textContent = '-';
-    hud.total.textContent = list.length;
-    let html = '';
-    list.slice(0, 6).forEach((c, i) => { html += boardRow(c, i + 1); });
-    if (myRank > 6) html += boardRow(player, myRank, true);
-    hud.board.innerHTML = html;
-    leader = list[0] || null;
+    boardT = 0.25;
+    leader = ranking()[0] || null;
+    hud.alive.textContent = aliveCount();
     drawMinimap();
   }
+}
+function updateZoneHud() {
+  const z = hud.zone; let cls = '', txt = '';
+  if (!match.on || match.state === 'countdown') txt = '출발 대기';
+  else if (match.state === 'wait') { txt = `축소까지 <b>${fmtTime(Math.max(0, match.t))}</b>`; if (match.t <= 8) cls = 'warn'; }
+  else if (match.state === 'shrink') { txt = '바닥 붕괴 중!'; cls = 'shrink'; }
+  else if (match.state === 'final') txt = '최종 구역';
+  else txt = '경기 종료';
+  if (z.dataset.c !== cls) { z.className = cls; z.dataset.c = cls; }
+  if (hud.zoneText.innerHTML !== txt) hud.zoneText.innerHTML = txt;
 }
 const btnBoostEl = $('#btnBoost'), btnDriftEl = $('#btnDrift'), boostSub = $('#boostSub');
 const btnUI = { n: -1, st: '', sub: '' };
@@ -1472,32 +1599,30 @@ function onBoostStart() {
   buzz(18);
 }
 function onBoostDenied() {
-  for (const el of [btnBoostEl, hud.nitroBar]) { el.classList.remove('denied'); void el.offsetWidth; el.classList.add('denied'); }
+  for (const el of [btnBoostEl, hud.vNi]) { el.classList.remove('denied'); void el.offsetWidth; el.classList.add('denied'); }
   sfxTone(160, 110, 0.12, 0.18, 'square');
   buzz([12, 40, 12]);
 }
 let leader = null;
-function boardRow(c, rank, gap) {
-  return `<li class="${c.isPlayer ? 'me' : ''}${gap ? ' gap' : ''}"><span class="r">${rank}</span><span class="n"><i class="dot" style="background:${c.color}"></i>${esc(c.name)}</span><span class="s">${fmt(c.score)}</span></li>`;
-}
 function drawMinimap() {
   const W = mini.width, R = W / 2 - 6, k = R / ARENA_R;
   mctx.clearRect(0, 0, W, W);
   mctx.save(); mctx.translate(W / 2, W / 2);
-  mctx.strokeStyle = 'rgba(255,194,26,.55)'; mctx.lineWidth = 4; mctx.beginPath(); mctx.arc(0, 0, R, 0, TAU); mctx.stroke();
-  mctx.fillStyle = 'rgba(236,232,220,.18)';
-  for (const o of obstacles) { mctx.beginPath(); mctx.arc(o.x * k, o.z * k, 4, 0, TAU); mctx.fill(); }
-  for (const it of items) if (it.on) { mctx.fillStyle = ITEM_TYPES[it.type].color; mctx.fillRect(it.x * k - 4, it.z * k - 4, 8, 8); }
+  mctx.fillStyle = 'rgba(255,255,255,.05)'; mctx.beginPath(); mctx.arc(0, 0, arenaR * k, 0, TAU); mctx.fill();
+  mctx.strokeStyle = 'rgba(255,194,26,.75)'; mctx.lineWidth = 4; mctx.beginPath(); mctx.arc(0, 0, Math.max(1, arenaR * k), 0, TAU); mctx.stroke();
+  if (match.on && (match.state === 'shrink' || (match.state === 'wait' && match.t <= 8))) {
+    mctx.strokeStyle = '#ff4b3e'; mctx.setLineDash([10, 8]); mctx.lineWidth = 4;
+    mctx.beginPath(); mctx.arc(0, 0, Math.max(1, match.toR * k), 0, TAU); mctx.stroke(); mctx.setLineDash([]);
+  }
+  for (const it of items) if (it.on) { mctx.fillStyle = ITEM_TYPES[it.type].color; mctx.fillRect(it.x * k - 5, it.z * k - 5, 10, 10); }
   for (const c of cars) {
     if (!c.alive || c.isPlayer) continue;
     mctx.fillStyle = c === leader ? '#ffc21a' : c.color;
-    mctx.globalAlpha = c === leader ? 1 : 0.85;
-    mctx.beginPath(); mctx.arc(c.x * k, c.z * k, 3 + c.scale * 3, 0, TAU); mctx.fill();
+    mctx.beginPath(); mctx.arc(c.x * k, c.z * k, 4 + c.scale * 3, 0, TAU); mctx.fill();
   }
-  mctx.globalAlpha = 1;
   if (player && player.alive) {
     mctx.save(); mctx.translate(player.x * k, player.z * k); mctx.rotate(-player.angle + Math.PI);
-    const s = 7 + player.scale * 3;
+    const s = 9 + player.scale * 3;
     mctx.fillStyle = '#ffffff'; mctx.strokeStyle = '#101217'; mctx.lineWidth = 3;
     mctx.beginPath(); mctx.moveTo(0, -s * 1.2); mctx.lineTo(s * 0.8, s); mctx.lineTo(-s * 0.8, s); mctx.closePath(); mctx.stroke(); mctx.fill();
     mctx.restore();
@@ -1505,17 +1630,123 @@ function drawMinimap() {
   mctx.restore();
 }
 
+/* ================= battle royale ================= */
+// [radius, seconds before it starts collapsing to the next radius]
+const ZONE = [[125, 26], [100, 22], [78, 20], [58, 18], [42, 16], [28, 14], [16, 14], [0, 0]];
+const SHRINK_T = 7;
+let match = { on: false, state: 'idle' };
+function safeR() {
+  if (!match.on) return arenaR;
+  if (match.state === 'shrink' || (match.state === 'wait' && match.t <= 10)) return Math.min(arenaR, match.toR);
+  return arenaR;
+}
+const cdEl = $('#countdown');
+function showCount(txt, go) { cdEl.innerHTML = `<b class="${go ? 'cd-go' : ''}">${txt}</b>`; }
+function updateMatch(rdt, dt) {
+  if (!match.on) return;
+  if (match.state === 'countdown') {
+    match.cd -= rdt;
+    const n = Math.ceil(match.cd);
+    if (n !== match.shown && n >= 1) { match.shown = n; showCount(n); sfxTone(440, 440, 0.12, 0.15, 'square'); buzz(10); }
+    if (match.cd <= 0) {
+      match.state = 'wait'; match.start = now; showCount('GO!', true);
+      sfxTone(880, 880, 0.14, 0.35, 'square'); buzz(30);
+      setTimeout(() => { if (cdEl.textContent === 'GO!') cdEl.innerHTML = ''; }, 900);
+    }
+    return;
+  }
+  updateObstacles(dt);
+  if (match.state === 'wait') {
+    match.t -= dt;
+    if (match.t <= 8 && !match.warned) {
+      match.warned = true; showZoneWarning(match.fromR, match.toR);
+      if (playing && player.alive) { toast('바닥 붕괴 경고', '빨간 구역이 곧 무너져요. 안쪽으로!', '#ff4b3e'); buzz([40, 60, 40]); }
+      sfxTone(660, 520, 0.1, 0.4, 'square'); setTimeout(() => sfxTone(660, 520, 0.1, 0.4, 'square'), 500);
+    }
+    if (arenaVis.warnBand.visible) arenaVis.warnBand.material.opacity = 0.18 + 0.14 * Math.sin(now * 8);
+    if (match.t <= 0) { match.state = 'shrink'; match.st = 0; sfxNoise(0.4, 2.5, 120, 'lowpass'); }
+  } else if (match.state === 'shrink') {
+    match.st += dt;
+    const k = Math.min(1, match.st / SHRINK_T), e = k * k * (3 - 2 * k);
+    setArenaR(match.fromR + (match.toR - match.fromR) * e);
+    arenaVis.warnBand.material.opacity = 0.3 + 0.2 * Math.sin(now * 14);
+    for (let i = 0; i < 6 && arenaR > 1; i++) {
+      const a = rand(0, TAU);
+      emit(Math.sin(a) * arenaR, 0.3, Math.cos(a) * arenaR, Math.sin(a) * rand(1, 4), rand(1, 5), Math.cos(a) * rand(1, 4), rand(0.6, 1.2), Math.random() < 0.6 ? '#5d5a55' : '#ff7a2f', 22);
+    }
+    if (playing && player.alive && arenaR - Math.hypot(player.x, player.z) < 14) shake = Math.max(shake, 0.25);
+    if (k >= 1) {
+      match.phase++;
+      hideZoneWarning();
+      if (match.phase >= ZONE.length - 1) match.state = 'final';
+      else { match.state = 'wait'; match.fromR = ZONE[match.phase][0]; match.toR = ZONE[match.phase + 1][0]; match.t = ZONE[match.phase][1]; match.warned = false; }
+    }
+  }
+}
+function checkMatchEnd() {
+  if (!match.on || match.state === 'over') return;
+  const n = aliveCount();
+  if (player && player.alive && n === 1) victory();
+}
+
+/* ---- kill juice ---- */
+const kbEl = $('#killBanner'), kfEl = $('#killFlash');
+let streak = 0, lastKillAt = -99, slowmo = 0;
+const STREAK_TITLES = ['격파!', '더블 크래시!', '트리플 크래시!', '쿼드라 크래시!', '폐차장의 왕!'];
+function banner(combo, title, sub, win) {
+  $('#kbCombo').textContent = combo; $('#kbCombo').hidden = !combo;
+  $('#kbTitle').textContent = title; $('#kbSub').innerHTML = sub;
+  kbEl.classList.toggle('win', !!win);
+  kbEl.classList.remove('on'); void kbEl.offsetWidth; kbEl.classList.add('on');
+}
+function onPlayerKill(victim, cause, bonus) {
+  streak = now - lastKillAt < 6 ? streak + 1 : 1; lastKillAt = now;
+  const title = streak >= 2 ? STREAK_TITLES[Math.min(streak, 5) - 1] : cause === 'fall' ? '링 아웃!' : '격파!';
+  banner(streak >= 2 ? `x${streak} COMBO` : `${player.kills} KILL`, title, `<b>${esc(victim.name)}</b> · +${bonus} kg`);
+  kfEl.classList.remove('on'); void kfEl.offsetWidth; kfEl.classList.add('on');
+  hud.killChip.classList.remove('pop'); void hud.killChip.offsetWidth; hud.killChip.classList.add('pop');
+  if (!reduceMotion) { slowmo = 0.32; camPunch = 1; }
+  shake = Math.min(1.4, shake + 0.6);
+  for (let i = 0; i < 40; i++) {
+    const a = i / 40 * TAU, sp = rand(8, 16);
+    emit(player.x, 1.2, player.z, Math.sin(a) * sp, rand(6, 14), Math.cos(a) * sp, rand(0.5, 0.9), i % 2 ? '#ffd84a' : '#fff3c2', 20);
+  }
+  sfxNoise(0.5, 0.7, 160, 'lowpass'); sfxTone(110, 40, 0.35, 0.4, 'sine');
+  const base = 523 * Math.pow(1.12, Math.min(streak - 1, 5));
+  [1, 1.26, 1.5, 2].forEach((m, i) => setTimeout(() => sfxTone(base * m, base * m * 1.01, 0.1, 0.2, 'square'), 70 + i * 70));
+  buzz(streak >= 2 ? [30, 30, 30, 30, 80] : [30, 40, 70]);
+}
+function victory() {
+  match.state = 'over'; hideZoneWarning();
+  banner('15대 중 1위', 'CHAMPION!', '끝까지 살아남았습니다', true);
+  for (let w = 0; w < 4; w++) setTimeout(() => {
+    for (let i = 0; i < 50; i++) emit(player.x + rand(-6, 6), 1, player.z + rand(-6, 6), rand(-8, 8), rand(14, 28), rand(-8, 8), rand(1, 1.8), CAR_COLORS[i % CAR_COLORS.length], 18);
+  }, w * 350);
+  [523, 659, 784, 1047, 784, 1047].forEach((f, i) => setTimeout(() => sfxTone(f, f, 0.12, 0.28, 'square'), i * 140));
+  buzz([60, 60, 60, 60, 160]);
+  finishMatch(true, null, null, 2.8);
+}
+
+/* ---- profile, levels, unlocks ---- */
+let profile = { lv: 1, xp: 0, wins: 0, best: 99 };
+try { profile = Object.assign(profile, JSON.parse(store.get('profile', '{}')) || {}); } catch (e) {}
+const saveProfile = () => store.set('profile', JSON.stringify(profile));
+const xpNeed = lv => 120 + (lv - 1) * 80;
+function renderProfile() {
+  $('#mLv').textContent = 'LV ' + profile.lv;
+  $('#mXp').style.width = Math.round(profile.xp / xpNeed(profile.lv) * 100) + '%';
+  $('#mWins').textContent = profile.wins;
+}
+
 /* ================= game flow ================= */
 let runStart = 0, deathTimer = 0;
 const startScreen = $('#startScreen'), deathScreen = $('#deathScreen');
-function renderBest() { $('#bestNum').textContent = fmt(best) + ' KG'; $('#bestNum2').textContent = fmt(best) + ' KG'; }
-renderBest();
 
 /* ---- garage: skin carousel with a live 3D preview ---- */
 const SKINS = [
-  { c: '#ffc21a', n: '택시 옐로' }, { c: '#ff5a36', n: '파이어 레드' }, { c: '#3fd8ff', n: '아이스 블루' },
-  { c: '#86e06f', n: '라임 그린' }, { c: '#b77bff', n: '바이올렛' }, { c: '#ff6fb5', n: '버블검' },
-  { c: '#eeeae0', n: '크림 화이트' }, { c: '#4f7dff', n: '코발트' }, { c: '#ff9b2f', n: '탠저린' }, { c: '#2fd6a6', n: '민트' }
+  { c: '#ffc21a', n: '택시 옐로', lv: 1 }, { c: '#ff5a36', n: '파이어 레드', lv: 1 }, { c: '#3fd8ff', n: '아이스 블루', lv: 1 },
+  { c: '#86e06f', n: '라임 그린', lv: 2 }, { c: '#b77bff', n: '바이올렛', lv: 3 }, { c: '#ff6fb5', n: '버블검', lv: 4 },
+  { c: '#eeeae0', n: '크림 화이트', lv: 5 }, { c: '#4f7dff', n: '코발트', lv: 6 }, { c: '#ff9b2f', n: '탠저린', lv: 8 }, { c: '#2fd6a6', n: '민트', lv: 10 }
 ];
 const pvCanvas = $('#preview');
 const pvR = new THREE.WebGLRenderer({ canvas: pvCanvas, antialias: true, alpha: true });
@@ -1537,12 +1768,16 @@ function sizePreview() {
   pvR.setSize(w, h, false); pvCam.aspect = w / h; pvCam.updateProjectionMatrix();
 }
 addEventListener('resize', sizePreview);
-let skinIdx = Math.max(0, SKINS.findIndex(k => k.c === myColor));
-const skinName = $('#skinName');
+let skinIdx = Math.max(0, SKINS.findIndex(k => k.c === myColor && k.lv <= profile.lv));
+const skinName = $('#skinName'), playBtn = $('#playBtn');
+const skinLocked = () => SKINS[skinIdx].lv > profile.lv;
 function setSkin(i) {
   skinIdx = (i + SKINS.length) % SKINS.length;
-  myColor = SKINS[skinIdx].c; store.set('color', myColor); pvMat.color.set(myColor);
-  skinName.innerHTML = `<b>${SKINS[skinIdx].n}</b>${skinIdx + 1} / ${SKINS.length}`;
+  const sk = SKINS[skinIdx], locked = skinLocked();
+  pvMat.color.set(sk.c); if (locked) pvMat.color.multiplyScalar(0.25);
+  if (!locked) { myColor = sk.c; store.set('color', myColor); }
+  skinName.innerHTML = locked ? `<b>${sk.n}</b><span class="lock">LV ${sk.lv}에 해제</span>` : `<b>${sk.n}</b>${skinIdx + 1} / ${SKINS.length}`;
+  playBtn.disabled = locked; playBtn.textContent = locked ? `LV ${sk.lv}에 해제` : 'PLAY';
   pvKick = 1;
 }
 setSkin(skinIdx); pvKick = 0;
@@ -1563,24 +1798,33 @@ function drawPreview(dt) {
   pvR.render(pvScene, pvCam);
 }
 
-/* ---- tips + live count ---- */
+/* ---- tips ---- */
 const TIPS = [
+  '시간이 지나면 바깥 바닥부터 무너져요. 빨간 구역이 보이면 안쪽으로!',
+  '마지막 1대가 되면 우승. 격파와 순위로 경험치를 얻어요.',
+  '레벨이 오르면 새 차 색이 열려요.',
   '정면 범퍼로 들이받으면 내가 받는 피해가 70% 줄어요.',
-  '상대 옆구리를 찍으면 멀리 날아가요. 가장자리 근처에서 노려보세요.',
+  '상대 옆구리를 찍으면 멀리 날아가요. 무너지는 가장자리 근처에서 노려보세요.',
   '주황 상자는 +60 kg, 반짝이는 황금 상자는 +180 kg이에요.',
-  '파란 상자를 먹으면 니트로가 바로 가득 차요.',
-  '드리프트로 미끄러지는 동안 니트로가 빠르게 충전돼요.',
-  '차가 터지면 모은 고철의 절반이 바닥에 쏟아져요.',
-  '나보다 훨씬 큰 차는 피하고, 작은 차를 노리세요.'
+  '6초 안에 연달아 격파하면 콤보가 쌓여요.',
+  '드리프트로 미끄러지는 동안 니트로가 빠르게 충전돼요.'
 ];
 const tipEl = $('#tip'); let tipIdx = Math.random() * TIPS.length | 0;
 function showTip() { tipEl.innerHTML = `<b>TIP</b>${esc(TIPS[tipIdx++ % TIPS.length])}`; }
 showTip();
 setInterval(() => { if (startScreen.hidden) return; tipEl.style.opacity = '0'; setTimeout(() => { showTip(); tipEl.style.opacity = '1'; }, 300); }, 5000);
-const liveEl = $('#liveCount');
 
+function toAttract() {
+  match = { on: false, state: 'idle' };
+  hideZoneWarning(); setArenaR(ARENA_R); resetObstacles(); cdEl.innerHTML = '';
+  for (const c of cars) if (!c.isPlayer && !c.alive) c.respawnAt = now + rand(0.3, 2);
+  if (player && player.alive) { player.alive = false; player.group.visible = false; player.label.sprite.visible = player.hpBg.visible = player.hpFg.visible = false; }
+}
 function goMenu() {
-  deathScreen.hidden = true; hud.root.hidden = true; playing = false;
+  deathScreen.hidden = true; hud.root.hidden = true; playing = false; spectate = null;
+  $('#touchBtns').hidden = joyEl.hidden = true; endJoy();
+  document.body.classList.remove('boosting', 'lowhp');
+  toAttract(); renderProfile(); setSkin(skinIdx); pvKick = 0;
   startScreen.hidden = false; sizePreview();
 }
 $('#menuBtn').addEventListener('click', goMenu);
@@ -1605,39 +1849,116 @@ function renderDiff() {
 }
 renderDiff();
 
+// every PLAY is a fresh 15-car battle royale
 function startRun() {
+  if (!startScreen.hidden && skinLocked()) return;
   initAudio();
-  if (botsDiff !== diffKey) {
-    botsDiff = diffKey;
-    for (const c of cars) if (!c.isPlayer && c.alive) { c.alive = false; spawnBot(c, true); }
-  }
+  botsDiff = diffKey;
   myNick = (nickInput.value || '').trim().slice(0, 12) || '초보운전';
   store.set('nick', myNick);
   if (!player) player = createCar(true);
-  if (player.alive) return;
-  spawnCar(player, { name: myNick, color: myColor, score: 0 });
+  // reset the world
+  hideZoneWarning(); setArenaR(ARENA_R); resetObstacles();
+  for (let i = 0; i < SCRAP_POOL; i++) { if (i < BASE_SCRAP) placeBaseScrap(i); else sOn[i] = 0; }
+  for (const it of items) { it.on = false; it.m.visible = it.ring.visible = false; }
+  for (let i = 0; i < 6; i++) spawnItem(items[i]);
+  for (let i = 0; i < P_MAX; i++) { pLife[i] = 0; pPos[i * 3 + 1] = -999; }
+  // starting grid: everyone on one ring, facing the middle
+  const racers = [player, ...cars.filter(c => !c.isPlayer)];
+  const off = rand(0, TAU);
+  racers.forEach((c, i) => { c.alive = false; c.place = 0; });
+  racers.forEach((c, i) => {
+    const a = off + i / racers.length * TAU, R = ARENA_R * 0.62, pos = [Math.sin(a) * R, Math.cos(a) * R];
+    if (c.isPlayer) spawnCar(player, { name: myNick, color: myColor, score: 0, pos });
+    else spawnBot(c, false, pos);
+    c.shield = Math.max(c.shield, 3.5);
+  });
   drawLabel(player.label, myNick, '#ffc21a');
-  playing = true; runStart = now; deathTimer = 0;
+  match = { on: true, state: 'countdown', cd: 3, shown: 0, phase: 0, fromR: ZONE[0][0], toR: ZONE[1][0], t: ZONE[0][1], warned: false, total: racers.length, start: now };
+  streak = 0; lastKillAt = -99; spectate = null; hpGhost = 1;
+  camFocus.set(player.x, 0, player.z); // cut straight to the grid slot
+  playing = true; runStart = now; deathTimer = 0; matchResult = null;
   startScreen.hidden = true; deathScreen.hidden = true; hud.root.hidden = false;
   $('#touchBtns').hidden = joyEl.hidden = !touchUI;
+  feedEl.innerHTML = '';
   canvas.focus({ preventScroll: true });
   shake = 0;
 }
 function onPlayerDeath(killer, cause) {
-  deathTimer = 1.3;
-  const t = Math.max(0, now - runStart), m = Math.floor(t / 60), s = Math.floor(t % 60);
-  $('#dScore').textContent = fmt(player.score);
-  $('#dRank').textContent = player.peakRank < 99 ? '#' + player.peakRank : '-';
-  $('#dKills').textContent = player.kills;
-  $('#dTime').textContent = `${m}:${String(s).padStart(2, '0')}`;
+  const place = match.on ? aliveCount() + 1 : 0;
+  spectate = killer && killer.alive ? killer : ranking()[0] || null;
   $('#deathReason').textContent = killer
-    ? (cause === 'fall' ? `${killer.name}에게 밀려 아레나 밖으로 떨어졌습니다.` : `${killer.name}에게 박살났습니다.`)
-    : (cause === 'fall' ? '아레나 밖으로 떨어졌습니다.' : '차체가 버티지 못했습니다.');
-  const isBest = player.score > best;
-  $('#newBest').hidden = !isBest;
-  if (isBest) { best = Math.floor(player.score); store.set('best', best); renderBest(); }
+    ? (cause === 'fall' ? `${killer.name}에게 밀려 떨어졌습니다.` : `${killer.name}에게 박살났습니다.`)
+    : (cause === 'fall' ? (match.state === 'shrink' ? '무너지는 바닥과 함께 떨어졌습니다.' : '아레나 밖으로 떨어졌습니다.') : '차체가 버티지 못했습니다.');
+  if (player.score > best) { best = Math.floor(player.score); store.set('best', best); }
   $('#touchBtns').hidden = joyEl.hidden = true; endJoy();
-  document.body.classList.remove('boosting');
+  document.body.classList.remove('boosting', 'lowhp');
+  if (match.on) match.playerPlace = place;
+  finishMatch(false, killer, cause, 1.6);
+}
+let matchResult = null;
+function finishMatch(won, killer, cause, delay) {
+  if (matchResult) return; // already decided (e.g. fell off after winning)
+  const place = won ? 1 : (match.playerPlace || match.total || 15);
+  const total = match.total || 15;
+  const t = Math.max(0, now - (match.start || runStart));
+  const lines = [
+    [`순위 #${place}`, Math.round((total - place) * 12)],
+    [`격파 ${player.kills}대`, player.kills * 30],
+    [`고철 ${fmt(player.score)} kg`, Math.min(200, Math.floor(player.score / 15))]
+  ];
+  if (won) lines.push(['우승 보너스', 150]);
+  const gained = lines.reduce((a, l) => a + l[1], 0);
+  const before = { lv: profile.lv, xp: profile.xp };
+  profile.xp += gained; const ups = [];
+  while (profile.xp >= xpNeed(profile.lv)) { profile.xp -= xpNeed(profile.lv); profile.lv++; ups.push(profile.lv); }
+  if (won) profile.wins++;
+  profile.best = Math.min(profile.best, place);
+  saveProfile();
+  matchResult = { won, place, total, t, lines, gained, before, ups };
+  deathTimer = delay;
+}
+function showResult() {
+  const r = matchResult; if (!r) return;
+  const card = $('#resultCard');
+  card.classList.toggle('win', r.won);
+  $('#resPlace').textContent = '#' + r.place; $('#resOf').textContent = '/ ' + r.total;
+  $('#resEyebrow').textContent = r.won ? '우승' : r.place <= 3 ? '포디움' : '경기 종료';
+  $('#resTitle').textContent = r.won ? 'CHAMPION' : r.place <= 3 ? 'SO CLOSE' : 'WRECKED';
+  if (r.won) $('#deathReason').textContent = `${r.total}대 중 끝까지 살아남았습니다!`;
+  $('#dKills').textContent = player.kills; $('#dScore').textContent = fmt(player.score); $('#dTime').textContent = fmtTime(r.t);
+  const ul = $('#xpLines');
+  ul.innerHTML = r.lines.map(l => `<li><span>${esc(l[0])}</span><b>+${l[1]} XP</b></li>`).join('') + `<li class="total"><span>획득 경험치</span><b>+${r.gained} XP</b></li>`;
+  [...ul.children].forEach((li, i) => setTimeout(() => li.classList.add('on'), 200 + i * 160));
+  // XP bar: fill from the old value, roll over on each level up
+  const lvEl = $('#resLv'), bar = $('#resXp'), txt = $('#resXpText'), up = $('#levelUp');
+  up.hidden = true;
+  let lv = r.before.lv;
+  lvEl.textContent = 'LV ' + lv;
+  bar.style.transition = 'none'; bar.style.width = (r.before.xp / xpNeed(lv) * 100) + '%'; void bar.offsetWidth; bar.style.transition = '';
+  txt.textContent = `${r.before.xp} / ${xpNeed(lv)}`;
+  let step = 0;
+  const tick = () => {
+    if (step < r.ups.length) {
+      bar.style.width = '100%';
+      setTimeout(() => {
+        lv = r.ups[step++]; lvEl.textContent = 'LV ' + lv;
+        bar.style.transition = 'none'; bar.style.width = '0%'; void bar.offsetWidth; bar.style.transition = '';
+        sfxTone(660, 1320, 0.1, 0.3, 'triangle'); buzz(40);
+        tick();
+      }, 800);
+    } else {
+      bar.style.width = (profile.xp / xpNeed(profile.lv) * 100) + '%';
+      txt.textContent = `${profile.xp} / ${xpNeed(profile.lv)}`;
+      if (r.ups.length) {
+        const unlocked = SKINS.filter(s => r.ups.includes(s.lv)).map(s => s.n);
+        up.innerHTML = `LEVEL UP! LV ${profile.lv}` + (unlocked.length ? `<small>새 차 색 해금: ${esc(unlocked.join(', '))}</small>` : '');
+        up.hidden = false;
+      }
+    }
+  };
+  setTimeout(tick, 200 + ul.children.length * 160 + 200);
+  deathScreen.hidden = false; $('#againBtn').focus({ preventScroll: true });
 }
 
 /* ================= main loop ================= */
@@ -1648,8 +1969,8 @@ try { rotateMQ.addEventListener('change', releaseAll); } catch (e) {}
 function frame(t) {
   requestAnimationFrame(frame);
   const raw = Math.max(0, (t - last) / 1000);
-  let dt = Math.min(0.05, raw); last = t;
-  if (rotateMQ.matches) dt = 0; // sideways phone: freeze the run behind the rotate notice
+  let rdt = Math.min(0.05, raw); last = t;
+  if (rotateMQ.matches) rdt = 0; // sideways phone: freeze the run behind the rotate notice
   if (raw < 0.25) {
     frameEma += (raw - frameEma) * 0.05; perfT += raw;
     if (perfT > 2.5) {
@@ -1657,30 +1978,35 @@ function frame(t) {
       if (frameEma > 1 / 42 && prLevel < PR_STEPS.length - 1) { prLevel++; renderer.setPixelRatio(PR_STEPS[prLevel]); resize(); }
     }
   }
-  now += dt;
-  if (playing && player && player.alive) readPlayerInput();
-  for (const c of cars) if (c.alive && !c.isPlayer && !c.falling) botInput(c, dt);
-  const steps = Math.max(1, Math.ceil(dt / STEP)), h = dt / steps;
-  for (let s = 0; s < steps; s++) {
+  // kill hit-stop: a short slow-motion window
+  if (slowmo > 0) slowmo -= rdt;
+  const dt = rdt * (slowmo > 0 ? 0.3 : 1);
+  const simDt = match.on && match.state === 'countdown' ? 0 : dt;
+  now += simDt;
+  updateMatch(rotateMQ.matches ? 0 : Math.min(raw, 0.25), simDt); // countdown runs on wall-clock time
+  if (playing && player && player.alive && simDt > 0) readPlayerInput();
+  for (const c of cars) if (c.alive && !c.isPlayer && !c.falling) botInput(c, simDt);
+  const steps = Math.max(1, Math.ceil(simDt / STEP)), h = simDt / steps;
+  if (simDt > 0) for (let s = 0; s < steps; s++) {
     for (const c of cars) if (c.alive) updateCar(c, h);
     collideCars();
   }
-  for (const c of cars) postStep(c, dt);
+  for (const c of cars) postStep(c, simDt);
   for (const c of cars) {
-    if (!c.alive && !c.isPlayer && c.respawnAt && now >= c.respawnAt) { c.respawnAt = 0; spawnBot(c, false); }
+    if (!c.alive && !c.isPlayer && c.respawnAt && now >= c.respawnAt && !match.on) { c.respawnAt = 0; spawnBot(c, false); }
     if (c.alive) drawLabel(c.label, (c === leader ? '♛ ' : '') + c.name, c.isPlayer ? '#ffc21a' : c === leader ? '#ffe08a' : '#ece8dc');
   }
-  if (!playing || !player) { if ((boardT -= dt) <= 0) { boardT = 0.5; const r = ranking(); leader = r[0] || null; liveEl.textContent = r.length; } }
-  if (!startScreen.hidden) drawPreview(dt);
-  updateScrap(dt, now);
+  if (!playing || !player) { if ((boardT -= dt) <= 0) { boardT = 0.5; leader = ranking()[0] || null; } }
+  if (!startScreen.hidden) drawPreview(rdt);
+  updateScrap(simDt, now);
   updateParticles(dt);
   updateDebris(dt);
-  updateItems(dt, now);
+  updateItems(simDt, now);
   flash.intensity = Math.max(0, flash.intensity - dt * 14);
-  updateCamera(dt);
-  updateHud(dt);
+  updateCamera(rdt);
+  updateHud(rdt);
   updateEngine();
-  if (deathTimer > 0) { deathTimer -= dt; if (deathTimer <= 0) { deathScreen.hidden = false; $('#againBtn').focus({ preventScroll: true }); } }
+  if (deathTimer > 0) { deathTimer -= rdt; if (deathTimer <= 0) showResult(); }
   renderer.render(scene, camera);
 }
 
@@ -1690,10 +2016,11 @@ function boot(data) {
   if (booted) return; booted = true;
   if (data && typeof data === 'object') {
     if (data.nick) { myNick = data.nick; nickInput.value = data.nick; }
-    if (data.best > best) { best = data.best; renderBest(); }
+    if (data.best > best) best = data.best;
   }
   for (let i = 0; i < BOT_COUNT; i++) spawnBot(createCar(false), true);
   for (let i = 0; i < 6; i++) spawnItem(items[i]);
+  renderProfile();
   sizePreview();
   requestAnimationFrame(frame);
 }
