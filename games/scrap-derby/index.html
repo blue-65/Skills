@@ -643,15 +643,15 @@ let arenaR = 125;
 /* ================= maps: a new place every five stages ================= */
 const THEMES = [
   { name: '고철 야드', ground: 'concrete', rim: ['#ffc21a', '#16171b'], sky: '#0c0e13', fog: [110, 300], hemi: ['#c3cdf2', '#2b2419', 0.62], sun: ['#fff0d2', 0.95],
-    accent: '#ffc21a', void: '#262931', floor: null, obstacle: 'tires', grip: 1, light: '#fff1c2' },
+    accent: '#ffc21a', void: '#262931', floor: null, obstacle: 'tires', grip: 1, light: '#fff1c2', skid: ['#0a0a0c', 0.55] },
   { name: '사막 캐니언', ground: 'sand', rim: ['#ff8a3d', '#4a2414'], sky: '#2b1a12', fog: [120, 320], hemi: ['#ffd9a8', '#6a4022', 0.8], sun: ['#ffcf8a', 1.1],
-    accent: '#ff8a3d', void: '#7a4a2a', floor: '#5b3720', obstacle: 'rocks', grip: 0.9, light: '#ffd9a0' },
+    accent: '#ff8a3d', void: '#7a4a2a', floor: '#5b3720', obstacle: 'rocks', grip: 0.9, light: '#ffd9a0', skid: ['#5a3a1c', 0.5] },
   { name: '빙판 호수', ground: 'ice', rim: ['#e8f6ff', '#2a6f9a'], sky: '#0b1826', fog: [110, 300], hemi: ['#d2ecff', '#294866', 0.7], sun: ['#eaf6ff', 0.8],
-    accent: '#7fd6ff', void: '#2c4d68', floor: '#0a2234', obstacle: 'ice', grip: 0.42, light: '#d8f2ff' },
+    accent: '#7fd6ff', void: '#2c4d68', floor: '#0a2234', obstacle: 'ice', grip: 0.42, light: '#d8f2ff', skid: ['#f4fbff', 0.6] },
   { name: '네온 시티', ground: 'neon', rim: ['#ff3ea5', '#140f1f'], sky: '#07040d', fog: [100, 280], hemi: ['#9a7bff', '#1a1028', 0.55], sun: ['#c7b5ff', 0.6],
-    accent: '#3fe8ff', void: '#1d1533', floor: '#120a22', obstacle: 'neon', grip: 1, light: '#ff6fd0' },
+    accent: '#3fe8ff', void: '#1d1533', floor: '#120a22', obstacle: 'neon', grip: 1, light: '#ff6fd0', skid: ['#3fe8ff', 0.55] },
   { name: '용암 제철소', ground: 'steel', rim: ['#ff5a1f', '#1a0f0a'], sky: '#1a0603', fog: [100, 280], hemi: ['#ffb48a', '#3a0f05', 0.6], sun: ['#ffad6b', 0.9],
-    accent: '#ff7a2f', void: '#3a2a26', floor: '#ff4a12', obstacle: 'barrels', grip: 1, light: '#ffc08a' }
+    accent: '#ff7a2f', void: '#3a2a26', floor: '#ff4a12', obstacle: 'barrels', grip: 1, light: '#ffc08a', skid: ['#050505', 0.6] }
 ];
 let mapGrip = 1, themeIdx = -1;
 const themeOf = n => Math.floor((n - 1) / 5) % THEMES.length;
@@ -761,6 +761,7 @@ function applyTheme(i) {
   arenaVis.centerPaint.color.set(t.accent);
   arenaVis.floor.visible = !!t.floor; if (t.floor) arenaVis.floor.material.color.set(t.floor);
   mapGrip = t.grip;
+  setSkidLook(t.skid);
   rebuildObstacles(t.obstacle);
   setArenaR(arenaR);
 }
@@ -833,6 +834,64 @@ function updateParticles(dt) {
   }
   pGeo.attributes.position.needsUpdate = true;
   pGeo.attributes.color.needsUpdate = true;
+}
+
+/* skid marks: a ring buffer of thin quads laid behind the rear wheels */
+const SKID_MAX = 2400, SKID_LIFE = 14;
+const skPos = new Float32Array(SKID_MAX * 12), skCol = new Float32Array(SKID_MAX * 16);
+const skAge = new Float32Array(SKID_MAX).fill(SKID_LIFE), skCx = new Float32Array(SKID_MAX), skCz = new Float32Array(SKID_MAX);
+const skIndex = new Uint32Array(SKID_MAX * 6);
+for (let q = 0; q < SKID_MAX; q++) { const v = q * 4, i = q * 6; skIndex.set([v, v + 1, v + 2, v + 2, v + 1, v + 3], i); }
+const skGeo = new THREE.BufferGeometry();
+skGeo.setAttribute('position', new THREE.BufferAttribute(skPos, 3).setUsage(THREE.DynamicDrawUsage));
+skGeo.setAttribute('color', new THREE.BufferAttribute(skCol, 4).setUsage(THREE.DynamicDrawUsage));
+skGeo.setIndex(new THREE.BufferAttribute(skIndex, 1));
+const skMat = new THREE.MeshBasicMaterial({ vertexColors: true, transparent: true, depthWrite: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+const skMesh = new THREE.Mesh(skGeo, skMat); skMesh.frustumCulled = false; skMesh.renderOrder = 1; scene.add(skMesh);
+let skHead = 0, skRGB = [0.04, 0.04, 0.05], skAlpha = 0.55, skDirty = false;
+function setSkidLook(look) {
+  const c = new THREE.Color(look[0]); skRGB = [c.r, c.g, c.b]; skAlpha = look[1];
+  skMat.blending = look[0] === '#3fe8ff' ? THREE.AdditiveBlending : THREE.NormalBlending; skMat.needsUpdate = true;
+  clearSkids();
+}
+function clearSkids() { skAge.fill(SKID_LIFE); skCol.fill(0); skGeo.attributes.color.needsUpdate = true; }
+function addSkid(x0, z0, x1, z1, w) {
+  const dx = x1 - x0, dz = z1 - z0, l = Math.hypot(dx, dz) || 1, nx = -dz / l * w, nz = dx / l * w, y = 0.04;
+  const q = skHead; skHead = (skHead + 1) % SKID_MAX;
+  skPos.set([x0 + nx, y, z0 + nz, x0 - nx, y, z0 - nz, x1 + nx, y, z1 + nz, x1 - nx, y, z1 - nz], q * 12);
+  skAge[q] = 0; skCx[q] = (x0 + x1) / 2; skCz[q] = (z0 + z1) / 2;
+  skGeo.attributes.position.needsUpdate = true; skDirty = true;
+}
+function updateSkids(dt) {
+  for (let q = 0; q < SKID_MAX; q++) {
+    if (skAge[q] >= SKID_LIFE) continue;
+    skAge[q] += dt;
+    // marks on floor that has collapsed go with it
+    if (Math.hypot(skCx[q], skCz[q]) > arenaR - 0.5) skAge[q] = SKID_LIFE;
+    const a = skAge[q] >= SKID_LIFE ? 0 : skAlpha * Math.min(1, (SKID_LIFE - skAge[q]) / 5);
+    const o = q * 16;
+    for (let v = 0; v < 4; v++) { skCol[o + v * 4] = skRGB[0]; skCol[o + v * 4 + 1] = skRGB[1]; skCol[o + v * 4 + 2] = skRGB[2]; skCol[o + v * 4 + 3] = a; }
+    skDirty = true;
+  }
+  if (skDirty) { skGeo.attributes.color.needsUpdate = true; skDirty = false; }
+}
+// called per car each frame: lays rubber from both rear wheels while sliding
+function skidTrail(car) {
+  const sliding = !car.falling && car.alive && car.y > -0.5 && Math.abs(car.fwd) + Math.abs(car.lateral) > 6 &&
+    ((car.drifting && Math.abs(car.lateral) > 3.5) || Math.abs(car.lateral) > 9);
+  if (!sliding) { car.skidL = car.skidR = null; car.skidding = false; return; }
+  car.skidding = true;
+  const s = car.scale * car.stats.size, fx = Math.sin(car.angle), fz = Math.cos(car.angle), rx = fz, rz = -fx;
+  const bx = car.x - fx * 1.3 * s, bz = car.z - fz * 1.3 * s, half = 1.12 * s, w = 0.2 * s;
+  const L = [bx + rx * half, bz + rz * half], R = [bx - rx * half, bz - rz * half];
+  car.skidL = layRubber(car.skidL, L, w); car.skidR = layRubber(car.skidR, R, w);
+}
+function layRubber(prev, cur, w) {
+  if (!prev) return cur;
+  const d = Math.hypot(cur[0] - prev[0], cur[1] - prev[1]);
+  if (d > 6) return cur;            // teleported (respawn, big knock): start a fresh streak
+  if (d < 0.5) return prev;
+  addSkid(prev[0], prev[1], cur[0], cur[1], w); return cur;
 }
 
 /* debris chunks */
@@ -1688,6 +1747,7 @@ function postStep(car, dt) {
   for (const p of car.frontPivots) p.rotation.y = car.steerVis * 0.45;
   car.shieldMesh.visible = car.shield > 0;
   if (car.shield > 0) car.shieldMesh.material.opacity = 0.35 + 0.3 * Math.sin(now * 14);
+  skidTrail(car);
   // exhaust / boost flames
   if (car.boosting && !car.falling) {
     const bx = car.x - Math.sin(car.angle) * 2.3 * car.scale, bz = car.z - Math.cos(car.angle) * 2.3 * car.scale;
@@ -1727,6 +1787,11 @@ function initAudio() {
     lp.type = 'lowpass'; lp.frequency.value = 380; lp.Q.value = 3; g.gain.value = 0;
     o1.connect(lp); o2.connect(lp); lp.connect(g); g.connect(audio.master); o1.start(); o2.start();
     audio.engine = { o1, o2, lp, g };
+    const sq = ctx.createBufferSource(); sq.buffer = buf; sq.loop = true;
+    const sf = ctx.createBiquadFilter(); sf.type = 'bandpass'; sf.frequency.value = 2600; sf.Q.value = 6;
+    const sg = ctx.createGain(); sg.gain.value = 0;
+    sq.connect(sf); sf.connect(sg); sg.connect(audio.master); sq.start();
+    audio.screech = { sf, sg };
   } catch (e) { audio.ctx = null; }
 }
 function sfxNoise(vol, dur, freq, type = 'bandpass') {
@@ -1764,6 +1829,8 @@ function updateEngine() {
   e.o1.frequency.setTargetAtTime(f, t, 0.08); e.o2.frequency.setTargetAtTime(f / 2, t, 0.08);
   e.lp.frequency.setTargetAtTime(300 + sp * 14 + (player && player.boosting ? 600 : 0), t, 0.1);
   e.g.gain.setTargetAtTime(active ? 0.05 + (player.throttle || 0) * 0.04 : 0, t, 0.15);
+  const sk = active && player.skidding ? Math.min(1, Math.abs(player.lateral) / 18) : 0;
+  if (audio.screech) { audio.screech.sg.gain.setTargetAtTime(sk * 0.09, t, 0.06); audio.screech.sf.frequency.setTargetAtTime(2200 + sk * 900, t, 0.1); }
 }
 const muteBtn = $('#muteBtn');
 const menuMute = $('#menuMute');
@@ -2277,6 +2344,7 @@ function startRun() {
   for (const it of items) { it.on = false; it.m.visible = it.ring.visible = false; }
   for (let i = 0; i < 6; i++) spawnItem(items[i]);
   for (let i = 0; i < P_MAX; i++) { pLife[i] = 0; pPos[i * 3 + 1] = -999; }
+  clearSkids();
   // starting grid: everyone on one ring, facing the middle; spare bots sit this stage out
   const bots = cars.filter(c => !c.isPlayer);
   bots.forEach((c, i) => {
@@ -2447,6 +2515,7 @@ function frame(t) {
   updateScrap(simDt, now);
   updateParticles(dt);
   updateDebris(dt);
+  updateSkids(simDt);
   updateItems(simDt, now);
   flash.intensity = Math.max(0, flash.intensity - dt * 14);
   updateCamera(rdt);
