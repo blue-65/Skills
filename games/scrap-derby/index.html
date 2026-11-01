@@ -212,6 +212,19 @@ body.touch #vitals{bottom:calc(var(--edge-b) + 186px);width:min(310px,calc(100vw
 .menu .logo{font-size:clamp(36px,10vw,58px)}
 .carcard{width:100%;display:grid;gap:7px;justify-items:center;margin-top:-6px}
 .carhead{display:flex;align-items:center;gap:8px}
+.tier{font:700 10px/1 var(--ui);letter-spacing:.12em;color:var(--mute);border:1px solid var(--line);border-radius:4px;padding:3px 5px}
+.tier.best{color:#16171b;background:linear-gradient(90deg,#ffc21a,#ff7a2f);border-color:transparent}
+.ladder{display:flex;gap:6px;align-items:center}
+.ladder button{width:26px;height:8px;border-radius:4px;border:0;padding:0;background:rgba(255,255,255,.14);cursor:pointer;position:relative}
+.ladder button.own{background:rgba(134,224,111,.65)}
+.ladder button.cur{outline:2px solid #fff;outline-offset:2px}
+.ladder button:last-child{width:34px;background:rgba(255,122,47,.35)}
+.ladder button:last-child.own{background:linear-gradient(90deg,#ffc21a,#ff7a2f)}
+.power{width:100%;display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;font:700 11px/1 var(--kr);color:var(--mute)}
+.power i{height:9px;border-radius:5px;background:rgba(255,255,255,.1);overflow:hidden;position:relative}
+.power i b{display:block;height:100%;background:linear-gradient(90deg,#ffc21a,#ff7a2f);transition:width .35s}
+.power strong{font:400 18px/1 var(--display);color:var(--ink);font-variant-numeric:tabular-nums;min-width:36px;text-align:right}
+.arrow:disabled{opacity:.25;cursor:default}
 .carhead b{font:400 20px/1 var(--display)}
 .carhead .mxp{width:64px}
 .cardesc{font:400 12.5px/1.3 var(--kr);color:var(--mute)}
@@ -412,7 +425,9 @@ kbd{font:600 11px/1 var(--ui);color:var(--ink);background:#22252d;border:1px sol
       <button class="arrow" id="skinNext" type="button" aria-label="다음 차량"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
     </div>
     <div class="carcard">
-      <div class="carhead"><b id="carName">머슬카</b><span class="lvb sm" id="carLv">LV 1</span><span class="mxp"><i id="carXp"></i></span></div>
+      <div class="ladder" id="ladder" aria-label="차량 단계"></div>
+      <div class="carhead"><span class="tier" id="carTier">TIER 1</span><b id="carName">머슬카</b><span class="lvb sm" id="carLv">LV 1</span><span class="mxp"><i id="carXp"></i></span></div>
+      <div class="power"><span>파워</span><i><b id="powerFill"></b></i><strong id="powerNum">100</strong></div>
       <div class="cardesc" id="carDesc"></div>
       <div class="statgrid" id="statGrid"></div>
       <div class="paints" id="paints" role="radiogroup" aria-label="차 색"></div>
@@ -1064,16 +1079,23 @@ function createCar(isPlayer) {
 }
 /* ================= vehicles ================= */
 // stats are multipliers on the base handling; size scales the hitbox, h is roof height for labels
+// Ordered weakest -> strongest. Each step up is better overall, so the ladder is the goal.
+// botMap: first map (0-based) where bots may drive it; power: the single number shown in the garage
 const VEHICLES = {
-  muscle:  { name: '머슬카',      price: 0,    size: 1,    h: 2.6, speed: 1,    accel: 1,    turn: 1,    mass: 1,    armor: 1,    nitro: 1,    ram: 1,    desc: '무난한 올라운더' },
-  buggy:   { name: '샌드 버기',   price: 600,  size: 0.92, h: 2.4, speed: 1.06, accel: 1.28, turn: 1.25, mass: 0.78, armor: 0.8,  nitro: 1.15, ram: 0.9,  desc: '가볍고 날렵하지만 약해요' },
-  pickup:  { name: '픽업 트럭',   price: 1200, size: 1.12, h: 2.9, speed: 0.95, accel: 0.9,  turn: 0.88, mass: 1.3,  armor: 1.3,  nitro: 0.9,  ram: 1.1,  desc: '튼튼하고 묵직해요' },
-  racer:   { name: '레이서',      price: 2000, size: 0.95, h: 1.9, speed: 1.2,  accel: 1.15, turn: 1.1,  mass: 0.85, armor: 0.85, nitro: 1.35, ram: 0.95, desc: '최고 속도, 니트로 특화' },
-  monster: { name: '몬스터 트럭', price: 3500, size: 1.3,  h: 3.8, speed: 0.92, accel: 0.85, turn: 0.8,  mass: 1.6,  armor: 1.5,  nitro: 0.9,  ram: 1.15, desc: '거대한 바퀴, 압도적인 무게' },
-  dozer:   { name: '불도저',      price: 5000, size: 1.22, h: 3.2, speed: 0.82, accel: 0.8,  turn: 0.85, mass: 1.9,  armor: 1.7,  nitro: 0.8,  ram: 1.45, desc: '블레이드로 정면 돌격' }
+  muscle:  { name: '머슬카',      price: 0,    power: 100, botMap: 0, size: 1,    h: 2.6, speed: 1,    accel: 1,    turn: 1,    mass: 1,    armor: 1,    nitro: 1,    ram: 1,    desc: '무난한 올라운더' },
+  buggy:   { name: '샌드 버기',   price: 600,  power: 118, botMap: 0, size: 0.92, h: 2.4, speed: 1.05, accel: 1.22, turn: 1.2,  mass: 0.92, armor: 0.95, nitro: 1.1,  ram: 1,    desc: '가속과 핸들링이 좋은 경량 차' },
+  racer:   { name: '레이서',      price: 1500, power: 138, botMap: 1, size: 0.95, h: 1.9, speed: 1.18, accel: 1.18, turn: 1.12, mass: 0.98, armor: 1.02, nitro: 1.3,  ram: 1,    desc: '최고 속도와 니트로 특화' },
+  pickup:  { name: '픽업 트럭',   price: 3000, power: 160, botMap: 2, size: 1.12, h: 2.9, speed: 1.08, accel: 1.05, turn: 1.0,  mass: 1.35, armor: 1.35, nitro: 1.1,  ram: 1.15, desc: '빠르면서도 튼튼한 만능 트럭' },
+  monster: { name: '몬스터 트럭', price: 5000, power: 185, botMap: 3, size: 1.3,  h: 3.8, speed: 1.1,  accel: 1.05, turn: 0.98, mass: 1.6,  armor: 1.6,  nitro: 1.15, ram: 1.25, desc: '거대한 바퀴, 압도적인 무게' },
+  dozer:   { name: '불도저',      price: 8000, power: 215, botMap: 4, size: 1.22, h: 3.2, speed: 1.05, accel: 1.0,  turn: 0.96, mass: 1.95, armor: 1.9,  nitro: 1.15, ram: 1.5,  desc: '블레이드 정면 돌격, 최강의 차' }
 };
 const VEHICLE_KEYS = Object.keys(VEHICLES);
 const CAR_MAX_LV = 10;
+const POWER_MAX = Math.round(VEHICLES.dozer.power * (1 + 0.05 * (CAR_MAX_LV - 1)));
+const carPower = (type, lv) => Math.round(VEHICLES[type].power * (1 + 0.05 * (Math.min(CAR_MAX_LV, lv) - 1)));
+// cars bots may use on a given stage: one more unlocks with each new map, the bulldozer only on the last one
+const mapIndexOf = n => Math.floor((n - 1) / 5);
+const botCarsFor = n => VEHICLE_KEYS.filter(k => VEHICLES[k].botMap <= mapIndexOf(n));
 // each car level: a little faster, quicker, tougher
 function vehicleStats(type, lv) {
   const v = VEHICLES[type], k = Math.max(0, Math.min(CAR_MAX_LV, lv) - 1);
@@ -1247,10 +1269,11 @@ function spawnBot(car, initial, pos) {
   car.ai.aggro = rand(d.aggro[0], d.aggro[1]); car.ai.playerBias = rand(d.bias[0], d.bias[1]);
   const score = pos ? Math.round(Math.random() * 30) : initial ? Math.round(Math.pow(Math.random(), 1.6) * d.botScore) : Math.round(Math.random() * 60);
   car.respawnAt = 0; car.boss = false;
-  const tier = match.on && match.def ? match.def.n - 1 : Math.random() * 8 | 0;
-  const pool = ['muscle', 'muscle', 'buggy', 'pickup'];
-  if (tier >= 2) pool.push('racer', 'buggy'); if (tier >= 4) pool.push('pickup', 'monster'); if (tier >= 7) pool.push('dozer', 'monster', 'racer');
-  setCarType(car, pool[Math.random() * pool.length | 0], match.on && match.def ? Math.min(CAR_MAX_LV, 1 + Math.floor(tier / 2)) : 1 + (Math.random() * 3 | 0));
+  const sn = match.on && match.def ? match.def.n : stageSel || 1, tier = sn - 1;
+  const allowed = botCarsFor(sn), newest = allowed[allowed.length - 1];
+  // the car that just unlocked shows up less often than the older ones
+  const pool = []; for (const k of allowed) { const w = k === newest && allowed.length > 1 ? 1 : 2; for (let i = 0; i < w; i++) pool.push(k); }
+  setCarType(car, pool[Math.random() * pool.length | 0], Math.min(CAR_MAX_LV, 1 + Math.floor(tier / 4)));
   if (match.on && match.def) { car.ai.aggro *= match.def.aggro; car.ai.caution *= match.def.caution; }
   spawnCar(car, { name: nextBotName(), color: CAR_COLORS[Math.random() * CAR_COLORS.length | 0], score: match.on && match.def ? Math.round(Math.random() * (30 + match.def.botKg)) : score, pos });
 }
@@ -2041,8 +2064,13 @@ function safeR() {
   return arenaR;
 }
 const cdEl = $('#countdown');
+function newRival(n) {
+  if ((n - 1) % 5 !== 0 || n === 1 || mapIndexOf(n) > 4) return '';
+  const k = VEHICLE_KEYS.find(k => VEHICLES[k].botMap === mapIndexOf(n));
+  return k ? `<br><span style="color:var(--hurt)">새 상대 차량 등장: ${VEHICLES[k].name}</span>` : '';
+}
 function showCount(txt, go) {
-  const d = match.def, brief = d && !go ? `<p class="brief"><strong>STAGE ${d.n} · ${THEMES[themeOf(d.n)].name}${d.boss ? ' · BOSS' : ''}</strong>${esc(d.desc)}</p>` : '';
+  const d = match.def, brief = d && !go ? `<p class="brief"><strong>STAGE ${d.n} · ${THEMES[themeOf(d.n)].name}${d.boss ? ' · BOSS' : ''}</strong>${esc(d.desc)}${newRival(d.n)}</p>` : '';
   cdEl.innerHTML = `<div class="cdw"><b class="${go ? 'cd-go' : ''}">${txt}</b>${brief}</div>`;
 }
 function updateMatch(rdt, dt) {
@@ -2201,7 +2229,15 @@ function renderGarage() {
   $('#carName').textContent = v.name;
   $('#carLv').textContent = rec.lv >= CAR_MAX_LV ? 'LV MAX' : 'LV ' + rec.lv;
   $('#carXp').style.width = (rec.lv >= CAR_MAX_LV ? 100 : Math.round(rec.xp / carXpNeed(rec.lv) * 100)) + '%';
-  $('#carDesc').innerHTML = esc(v.desc) + ' · ' + (owned ? '<span class="own">보유 중</span>' : `<span class="price">${fmt(v.price)} 코인</span>`);
+  const best = garageIdx === VEHICLE_KEYS.length - 1;
+  const tierEl = $('#carTier'); tierEl.textContent = best ? '최강' : `TIER ${garageIdx + 1}`; tierEl.classList.toggle('best', best);
+  const pw = carPower(type, rec.lv);
+  $('#powerNum').textContent = pw; $('#powerFill').style.width = Math.round(pw / POWER_MAX * 100) + '%';
+  const short = v.price - profile.coins;
+  $('#carDesc').innerHTML = esc(v.desc) + ' · ' + (owned ? '<span class="own">보유 중</span>'
+    : short > 0 ? `<span class="price">${fmt(v.price)} 코인</span> (${fmt(short)} 더 필요)` : `<span class="price">${fmt(v.price)} 코인 · 구매 가능!</span>`);
+  $('#ladder').innerHTML = VEHICLE_KEYS.map((k, i) => `<button type="button" data-i="${i}" class="${profile.owned.includes(k) ? 'own' : ''}${i === garageIdx ? ' cur' : ''}" aria-label="${VEHICLES[k].name}"></button>`).join('');
+  $('#skinPrev').disabled = garageIdx === 0; $('#skinNext').disabled = garageIdx === VEHICLE_KEYS.length - 1;
   const st = vehicleStats(type, rec.lv);
   $('#statGrid').innerHTML = STAT_ROWS.map(([k, label]) => `<div class="st"><span>${label}</span><i><b style="width:${Math.round(clamp((st[k] - 0.5) / 1.4, 0.06, 1) * 100)}%"></b></i></div>`).join('');
   playBtn.classList.toggle('buy', !owned);
@@ -2209,7 +2245,8 @@ function renderGarage() {
   else if (profile.coins >= v.price) { playBtn.disabled = false; playBtn.textContent = `구매 · ${fmt(v.price)} 코인`; }
   else { playBtn.disabled = true; playBtn.textContent = `코인 부족 · ${fmt(v.price)}`; }
 }
-function setGarage(i) { garageIdx = (i + VEHICLE_KEYS.length) % VEHICLE_KEYS.length; pvKick = 1; renderGarage(); }
+function setGarage(i) { const n = clamp(i, 0, VEHICLE_KEYS.length - 1); if (n === garageIdx) return; garageIdx = n; pvKick = 1; renderGarage(); }
+$('#ladder').addEventListener('click', e => { const b = e.target.closest('button'); if (b) setGarage(+b.dataset.i); });
 function buyCurrent() {
   const type = VEHICLE_KEYS[garageIdx], v = VEHICLES[type];
   if (profile.owned.includes(type) || profile.coins < v.price) return false;
@@ -2230,7 +2267,7 @@ let swipeX = null;
 pvCanvas.addEventListener('pointerdown', e => { swipeX = e.clientX; });
 pvCanvas.addEventListener('pointerup', e => {
   if (swipeX === null) return; const dx = e.clientX - swipeX; swipeX = null;
-  if (Math.abs(dx) > 28) setGarage(garageIdx + (dx < 0 ? 1 : -1)); else setGarage(garageIdx + 1);
+  if (Math.abs(dx) > 28) setGarage(garageIdx + (dx < 0 ? 1 : -1));
 });
 pvCanvas.addEventListener('pointercancel', () => { swipeX = null; });
 function drawPreview(dt) {
@@ -2298,7 +2335,7 @@ function renderStages() {
   }
   stagePathEl.innerHTML = html;
   const d = stageDef(stageSel);
-  stageInfoEl.innerHTML = `<b>STAGE ${d.n}</b>${esc(d.desc)}<span class="mapname">MAP · ${THEMES[themeOf(d.n)].name}${d.n > 25 ? ' (재방문)' : ''}</span>`;
+  stageInfoEl.innerHTML = `<b>STAGE ${d.n}</b>${esc(d.desc)}<span class="mapname">MAP · ${THEMES[themeOf(d.n)].name}${d.n > 25 ? ' (재방문)' : ''} · 상대 차량 ${botCarsFor(d.n).length}/${VEHICLE_KEYS.length}종</span>`;
 }
 stagePathEl.addEventListener('click', e => {
   const b = e.target.closest('.snode'); if (!b || b.disabled) return;
@@ -2362,7 +2399,7 @@ function startRun() {
   });
   if (def.boss) {
     const b = racers[1];
-    setCarType(b, 'monster', Math.min(CAR_MAX_LV, 2 + Math.floor(def.n / 3)));
+    const bl = botCarsFor(def.n); setCarType(b, bl[bl.length - 1], Math.min(CAR_MAX_LV, 2 + Math.floor(def.n / 4))); // boss drives the strongest car this map allows
     b.boss = true; b.name = '보스 크러셔'; b.color = '#7d1c16'; b.bodyMat.color.set(b.color);
     b.score = def.bossKg; setScoreDerived(b, true); b.mass = Math.pow(b.scale, 2.2) * b.stats.mass; b.radius = 2.15 * b.scale * b.stats.size; b.hp = b.maxHp;
     b.ai.aggro = 1.9; b.ai.caution = 0.2; b.ai.playerBias = 25;
