@@ -66,7 +66,7 @@ Three.js 차량 배틀로얄 io 게임, 끝없는 스테이지 진행 (솔로 �
 
 - 상점은 메인 화면의 코인(+) 또는 카트 버튼, 차고에서 썬더볼트의 "상점에서 얻기", 광고 화면의 "광고 제거"로 엽니다.
 - **광고:** 판이 끝날 때마다 결과 화면 전에 전면 광고가 나옵니다(5초 뒤 닫기). 광고 제거를 사면 나오지 않습니다.
-- **웹 빌드는 테스트 모드입니다.** 결제는 확인 창 후 바로 지급되고, 광고는 자체 홍보 화면입니다. 앱으로 낼 때 `iapPurchase()`를 스토어 결제(Google Play Billing / StoreKit, 예: Capacitor 인앱결제 플러그인)로, `showInterstitial()`을 AdMob 전면 광고로 교체하면 됩니다. 실제 출시 전에는 구매 복원과 서버 영수증 검증도 필요합니다.
+- **브라우저에서는 테스트 모드입니다.** 결제는 확인 창 후 바로 지급되고, 광고는 자체 홍보 화면입니다. Capacitor 앱 안에서는 같은 코드가 자동으로 Google Play 결제(cordova-plugin-purchase)와 AdMob 전면 광고(@capacitor-community/admob)를 씁니다. 안드로이드 앱 프로젝트와 출시 절차는 [`../scrap-derby-app`](../scrap-derby-app/HANDOFF.md)에 있습니다.
 
 ## HUD
 

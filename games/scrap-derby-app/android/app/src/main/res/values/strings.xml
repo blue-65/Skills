@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Scrap Derby</string>
+    <string name="title_activity_main">Scrap Derby</string>
+    <string name="package_name">com.scrapderby.game</string>
+    <string name="custom_url_scheme">com.scrapderby.game</string>
+</resources>

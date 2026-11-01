@@ -2424,8 +2424,12 @@ function drawPreview(dt) {
 }
 
 /* ================= shop (IAP) + ads =================
-   Web build runs in TEST MODE: purchases are granted instantly and the interstitial is an in-house placeholder.
-   In the app, swap iapPurchase()/showInterstitial() for the store billing + AdMob plugin calls. */
+   Browser: TEST MODE (instant grant, in-house placeholder ad).
+   Capacitor app: Google Play Billing via cordova-plugin-purchase, interstitials via @capacitor-community/admob. */
+const NATIVE = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
+const plug = n => (NATIVE && window.Capacitor.Plugins) ? window.Capacitor.Plugins[n] || null : null;
+// TODO(release): replace with your own AdMob interstitial unit id and set testing:false. These are Google's public test ids.
+const ADMOB = { interstitial: 'ca-app-pub-3940256099942544/1033173712', testing: true };
 const ICONS = {
   coin: '<svg viewBox="0 0 24 24"><circle cx="9" cy="14" r="7" fill="#c98f00"/><circle cx="15" cy="10" r="7" fill="#ffc21a"/><circle cx="15" cy="10" r="4.5" fill="none" stroke="#a87a00" stroke-width="1.6"/></svg>',
   car: '<svg viewBox="0 0 24 24"><path d="M3 15l2-5c.4-1 1.2-1.6 2.3-1.6h9.4c1.1 0 1.9.6 2.3 1.6l2 5v3H3z" fill="#ffc21a"/><path d="M7 10.2h10l1.2 3H5.8z" fill="#1a2230"/><circle cx="7" cy="18" r="2" fill="#16171b"/><circle cx="17" cy="18" r="2" fill="#16171b"/></svg>',
@@ -2436,10 +2440,10 @@ const PRODUCTS = [
   { id: 'thunder_pack', title: '썬더볼트 패키지', sub: '전용 차량 썬더볼트 + 코인 10,000', price: 14000, icon: 'car', hero: true, give: { car: 'thunder', coins: 10000 } },
   { id: 'premium_all', title: '프리미엄 올인원', tag: 'BEST', sub: '썬더볼트 + 코인 30,000 + 광고 제거', price: 29000, icon: 'star', hero: true, give: { car: 'thunder', coins: 30000, noAds: true } },
   { id: 'no_ads', title: '광고 제거', sub: '판이 끝날 때 광고가 나오지 않아요', price: 3900, icon: 'noad', give: { noAds: true } },
-  { id: 'coins_s', title: '코인 1,200', sub: '', price: 1200, icon: 'coin', give: { coins: 1200 } },
-  { id: 'coins_m', title: '코인 6,500', tag: '+10%', sub: '', price: 5900, icon: 'coin', give: { coins: 6500 } },
-  { id: 'coins_l', title: '코인 14,000', tag: '+25%', sub: '', price: 11000, icon: 'coin', give: { coins: 14000 } },
-  { id: 'coins_xl', title: '코인 36,000', tag: '+40%', sub: '', price: 25000, icon: 'coin', give: { coins: 36000 } }
+  { id: 'coins_s', consumable: true, title: '코인 1,200', sub: '', price: 1200, icon: 'coin', give: { coins: 1200 } },
+  { id: 'coins_m', consumable: true, title: '코인 6,500', tag: '+10%', sub: '', price: 5900, icon: 'coin', give: { coins: 6500 } },
+  { id: 'coins_l', consumable: true, title: '코인 14,000', tag: '+25%', sub: '', price: 11000, icon: 'coin', give: { coins: 14000 } },
+  { id: 'coins_xl', consumable: true, title: '코인 36,000', tag: '+40%', sub: '', price: 25000, icon: 'coin', give: { coins: 36000 } }
 ];
 const krw = n => '₩' + fmt(n);
 const shopEl = $('#shop'), sheetEl = $('#buySheet'), adEl = $('#adScreen');
@@ -2454,7 +2458,7 @@ function renderShop() {
     const done = productDone(pr);
     return `<div class="prod${pr.hero ? ' hero' : ''}"><div class="ico">${ICONS[pr.icon]}</div>
       <div><div class="pt">${esc(pr.title)}${pr.tag ? `<em>${pr.tag}</em>` : ''}</div>${pr.sub ? `<div class="ps">${esc(pr.sub)}</div>` : ''}</div>
-      <button type="button" class="pb" data-id="${pr.id}" ${done ? 'disabled' : ''}>${done ? '보유 중' : krw(pr.price)}</button></div>`;
+      <button type="button" class="pb" data-id="${pr.id}" ${done ? 'disabled' : ''}>${done ? '보유 중' : (storePrice(pr.id) || krw(pr.price))}</button></div>`;
   }).join('');
 }
 function openShop() { renderShop(); shopEl.hidden = false; }
@@ -2472,32 +2476,111 @@ $('#shopList').addEventListener('click', e => {
   if (g.noAds) items.push('광고 제거');
   $('#buyTitle').textContent = pending.title;
   $('#buyItems').innerHTML = items.map(t => `<li>${esc(t)}</li>`).join('');
-  $('#buyConfirm').textContent = `${krw(pending.price)} 구매하기`;
+  $('#buyConfirm').textContent = `${storePrice(pending.id) || krw(pending.price)} 구매하기`;
   sheetEl.hidden = false;
 });
 $('#buyCancel').addEventListener('click', () => { sheetEl.hidden = true; pending = null; });
-// TEST MODE stand-in for the store's billing flow
-function iapPurchase(product) { return Promise.resolve({ ok: true, id: product.id }); }
+function grantProduct(pr, key) {
+  const g = pr.give;
+  if (g.coins) profile.coins += g.coins;
+  if (g.noAds) profile.noAds = true;
+  if (g.car && !profile.owned.includes(g.car)) { profile.owned.push(g.car); profile.car = g.car; garageIdx = VEHICLE_KEYS.indexOf(g.car); }
+  profile.purchases.push({ id: pr.id, key, at: Date.now() });
+  saveProfile(); renderShop(); renderProfile();
+  const pill = shopEl.querySelector('.pill.coin'); pill.classList.remove('bump'); void pill.offsetWidth; pill.classList.add('bump');
+  [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => sfxTone(f, f, 0.1, 0.22, 'triangle'), i * 90)); buzz([30, 40, 60]);
+  if (g.noAds && !adEl.hidden) closeAd();
+}
+const granted = key => profile.purchases.some(p => p.key === key);
+/* ---- Google Play Billing (app only) ---- */
+let billing = null;
+function storePrice(id) {
+  if (!billing) return '';
+  const p = billing.get(id, CdvPurchase.Platform.GOOGLE_PLAY);
+  return (p && p.pricing && p.pricing.price) || '';
+}
+function initBilling() {
+  if (!NATIVE || !window.CdvPurchase || billing) return;
+  const { store, ProductType, Platform } = CdvPurchase;
+  billing = store;
+  store.register(PRODUCTS.map(pr => ({ id: pr.id, platform: Platform.GOOGLE_PLAY, type: pr.consumable ? ProductType.CONSUMABLE : ProductType.NON_CONSUMABLE })));
+  store.when()
+    .approved(tx => {
+      for (const p of tx.products) {
+        const pr = PRODUCTS.find(x => x.id === p.id); if (!pr) continue;
+        const key = pr.consumable ? 'gp:' + tx.transactionId : 'gp:' + pr.id;   // packs grant once, coin packs per purchase
+        if (!granted(key)) grantProduct(pr, key);
+      }
+      tx.finish();
+    })
+    .productUpdated(() => { if (!shopEl.hidden) renderShop(); })
+    .receiptUpdated(() => {
+      // reinstall / new phone: non-consumables Play says we own but this device never granted
+      for (const pr of PRODUCTS) if (!pr.consumable && store.owned(pr.id) && !granted('gp:' + pr.id)) grantProduct(pr, 'gp:' + pr.id);
+    });
+  store.initialize([Platform.GOOGLE_PLAY]).catch(() => {});
+  $('.testnote').hidden = true;
+}
+document.addEventListener('deviceready', initBilling, false);
+setTimeout(initBilling, 1500);
+async function iapPurchase(pr) {
+  if (billing) {
+    const product = billing.get(pr.id, CdvPurchase.Platform.GOOGLE_PLAY), offer = product && product.getOffer();
+    if (!offer) { toast('상품 준비 중', '잠시 뒤 다시 시도해 주세요', '#ff4b3e'); return { ok: false }; }
+    const err = await offer.order();
+    return { ok: false, pendingNative: !err };   // the grant arrives through the approved() handler
+  }
+  if (NATIVE) { toast('스토어 연결 실패', '네트워크를 확인해 주세요', '#ff4b3e'); return { ok: false }; }
+  return { ok: true, key: 'test:' + Date.now() };   // browser TEST MODE
+}
 $('#buyConfirm').addEventListener('click', async () => {
   const pr = pending; if (!pr) return;
   $('#buyConfirm').disabled = true;
   const res = await iapPurchase(pr).catch(() => ({ ok: false }));
   $('#buyConfirm').disabled = false; sheetEl.hidden = true; pending = null;
-  if (!res.ok) return;
-  const g = pr.give;
-  if (g.coins) profile.coins += g.coins;
-  if (g.noAds) profile.noAds = true;
-  if (g.car && !profile.owned.includes(g.car)) { profile.owned.push(g.car); profile.car = g.car; garageIdx = VEHICLE_KEYS.indexOf(g.car); }
-  profile.purchases.push({ id: pr.id, at: Date.now() });
-  saveProfile(); renderShop(); renderProfile();
-  const pill = shopEl.querySelector('.pill.coin'); pill.classList.remove('bump'); void pill.offsetWidth; pill.classList.add('bump');
-  [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => sfxTone(f, f, 0.1, 0.22, 'triangle'), i * 90)); buzz([30, 40, 60]);
-  if (g.noAds && !adEl.hidden) closeAd();
+  if (res.ok) grantProduct(pr, res.key);
 });
+/* ---- AdMob (app only) ---- */
+let adReady = false;
+async function prepareAd() {
+  const AdMob = plug('AdMob'); if (!AdMob || profile.noAds) return;
+  try { await AdMob.prepareInterstitial({ adId: ADMOB.interstitial, isTesting: ADMOB.testing }); adReady = true; } catch (e) { adReady = false; }
+}
+async function initAds() {
+  const AdMob = plug('AdMob'); if (!AdMob) return;
+  try {
+    await AdMob.initialize({ initializeForTesting: ADMOB.testing });
+    try { const info = await AdMob.requestConsentInfo(); if (info.isConsentFormAvailable && info.status === 'REQUIRED') await AdMob.showConsentForm(); } catch (e) {}
+    const after = () => { adReady = false; const d = adDone; adDone = null; if (d) d(); prepareAd(); };
+    AdMob.addListener('interstitialAdDismissed', after);
+    AdMob.addListener('interstitialAdFailedToShow', after);
+    AdMob.addListener('interstitialAdFailedToLoad', () => { adReady = false; });
+    prepareAd();
+  } catch (e) {}
+}
+initAds();
+/* ---- Android back button ---- */
+(() => {
+  const App = plug('App'); if (!App) return;
+  App.addListener('backButton', () => {
+    if (!sheetEl.hidden) { sheetEl.hidden = true; pending = null; }
+    else if (!shopEl.hidden) closeShop();
+    else if (!adEl.hidden) { if (!$('#adClose').disabled) closeAd(); }
+    else if (!deathScreen.hidden) goMenu();
+    else if (!startScreen.hidden) App.exitApp();
+  });
+})();
 // interstitial after every round unless ads were removed
 let adDone = null, adTimer = 0;
 function showInterstitial(done) {
   if (profile.noAds) { done(); return; }
+  if (NATIVE) {
+    // real ad if one is loaded; never block the result screen on a missing ad
+    const AdMob = plug('AdMob');
+    if (AdMob && adReady) { adDone = done; AdMob.showInterstitial().catch(() => { const d = adDone; adDone = null; if (d) d(); }); }
+    else { done(); prepareAd(); }
+    return;
+  }
   adDone = done; adEl.hidden = false;
   const btn = $('#adClose'); let n = 5; btn.disabled = true; btn.textContent = n;
   clearInterval(adTimer);

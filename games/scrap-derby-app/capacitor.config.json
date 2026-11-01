@@ -1,0 +1,8 @@
+{
+  "appId": "com.scrapderby.game",
+  "appName": "Scrap Derby",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#101217"
+  }
+}
