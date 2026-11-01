@@ -87,8 +87,11 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--hazard);outline
 #toast small{display:block;text-align:center;font:600 14px/1.4 var(--kr);color:var(--ink);margin-top:6px}
 
 /* touch controls */
-#joy{position:fixed;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;border:2px solid rgba(236,232,220,.25);background:rgba(10,11,15,.25);pointer-events:none;z-index:6}
-#joy i{position:absolute;left:50%;top:50%;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;background:rgba(255,194,26,.85)}
+#joy{position:fixed;left:calc(var(--edge-l) + 8px);bottom:calc(var(--edge-b) + 12px);width:136px;height:136px;border-radius:50%;border:2px solid rgba(236,232,220,.22);background:rgba(10,11,15,.35);pointer-events:none;z-index:6;transition:border-color .15s}
+#joy::before{content:"";position:absolute;inset:30%;border-radius:50%;border:1px dashed rgba(236,232,220,.18)}
+#joy i{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:rgba(255,194,26,.55);box-shadow:0 3px 0 rgba(0,0,0,.35)}
+#joy.on{border-color:rgba(255,194,26,.6)}
+#joy.on i{background:rgba(255,194,26,.95)}
 #touchBtns{touch-action:none;position:fixed;right:var(--edge-r);bottom:calc(var(--edge-b) + 10px);display:grid;grid-template-columns:auto auto;gap:14px;align-items:end;z-index:6}
 #touchBtns button{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;pointer-events:auto;border-radius:50%;border:2px solid var(--line);background:var(--panel);font:600 13px/1 var(--kr);touch-action:none}
 #btnBoost{width:84px;height:84px;color:var(--nitro);border-color:rgba(63,216,255,.5)!important}
@@ -98,7 +101,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--hazard);outline
 body.touch #minimap{right:auto;left:var(--edge-l);top:calc(var(--edge-t) + 122px);bottom:auto;width:96px;height:96px}
 body.touch #gauges{width:auto;left:var(--edge-l);right:auto;transform:none;bottom:auto;top:calc(var(--edge-t) + 228px);padding:8px 10px}
 body.touch #gauges .bars{width:120px}
-body.touch #feed{top:auto;bottom:calc(var(--edge-b) + 120px);width:min(300px,60vw)}
+body.touch #feed{top:auto;bottom:calc(var(--edge-b) + 180px);width:min(300px,60vw)}
 body.touch #board{width:160px;padding:9px 10px 6px}
 body.touch #board li{font-size:12px}
 
@@ -205,8 +208,8 @@ kbd{font:600 11px/1 var(--ui);color:var(--ink);background:#22252d;border:1px sol
         <div class="desk"><kbd>Space</kbd> 니트로 부스트</div>
         <div class="desk"><kbd>Shift</kbd> 드리프트 (니트로 충전)</div>
         <div class="desk"><kbd>마우스 누르기</kbd> 커서 쪽으로 주행</div>
-        <div class="tch"><kbd>드래그</kbd> 화면 어디서든 조이스틱</div>
-        <div class="tch"><kbd>두 번째 손가락</kbd> 누르는 동안 니트로</div>
+        <div class="tch"><kbd>왼쪽 아래 조이스틱</kbd> 미는 방향으로 주행</div>
+        <div class="tch"><kbd>다른 손가락</kbd> 조이스틱 잡은 채 화면 누르면 니트로</div>
         <div class="tch"><kbd>니트로</kbd> <kbd>드리프트</kbd> 오른쪽 아래 버튼</div>
       </div>
       <div class="best"><span>내 최고 기록</span><b id="bestNum">0 KG</b></div>
@@ -779,11 +782,27 @@ const JOY_R = 56;
 let touchBoostId = null;
 const btnState = { boost: false, drift: false };
 
-function startJoy(e) {
-  joy.id = e.pointerId; joy.ox = e.clientX; joy.oy = e.clientY; joy.x = joy.y = 0; joy.active = true;
-  joyEl.hidden = false; joyEl.style.left = joy.ox + 'px'; joyEl.style.top = joy.oy + 'px'; knob.style.transform = '';
+// fixed stick: the base never moves; a touch near it (or anywhere in the lower-left quarter) grabs it
+function joyCenter() {
+  const r = joyEl.getBoundingClientRect();
+  return r.width ? [r.left + r.width / 2, r.top + r.height / 2, r.width / 2] : [86, innerHeight - 86, 68];
 }
-function endJoy() { joy.id = null; joy.active = false; joy.x = joy.y = 0; joyEl.hidden = true; }
+function inJoyZone(e) {
+  const [cx, cy, R] = joyCenter();
+  return Math.hypot(e.clientX - cx, e.clientY - cy) < R * 1.8 || (e.clientX < innerWidth * 0.5 && e.clientY > innerHeight * 0.55);
+}
+function moveJoy(e) {
+  let dx = e.clientX - joy.ox, dy = e.clientY - joy.oy; const l = Math.hypot(dx, dy);
+  if (l > JOY_R) { dx *= JOY_R / l; dy *= JOY_R / l; }
+  joy.x = dx / JOY_R; joy.y = dy / JOY_R;
+  knob.style.transform = `translate(${dx}px,${dy}px)`;
+}
+function startJoy(e) {
+  const [cx, cy] = joyCenter();
+  joy.id = e.pointerId; joy.ox = cx; joy.oy = cy; joy.active = true;
+  joyEl.classList.add('on'); moveJoy(e);
+}
+function endJoy() { joy.id = null; joy.active = false; joy.x = joy.y = 0; joyEl.classList.remove('on'); knob.style.transform = ''; }
 function releaseAll() {
   for (const k in keys) keys[k] = false;
   mouse.down = mouse.boost = false;
@@ -802,8 +821,8 @@ canvas.addEventListener('pointerdown', e => {
     enableTouchUI();
     // first finger of a new gesture: anything we still think is held lost its pointerup
     if (e.isPrimary) { endJoy(); touchBoostId = null; }
-    if (joy.id === null) startJoy(e);
-    else if (touchBoostId === null) touchBoostId = e.pointerId;
+    if (joy.id === null && inJoyZone(e)) startJoy(e);
+    else if (joy.id !== null && touchBoostId === null) touchBoostId = e.pointerId;
   } else {
     if (e.button === 2) mouse.boost = true; else mouse.down = true;
     mouse.x = e.clientX; mouse.y = e.clientY;
@@ -811,17 +830,8 @@ canvas.addEventListener('pointerdown', e => {
   try { canvas.setPointerCapture(e.pointerId); } catch (err) {}
 });
 canvas.addEventListener('pointermove', e => {
-  if (e.pointerId === joy.id) {
-    let dx = e.clientX - joy.ox, dy = e.clientY - joy.oy; const l = Math.hypot(dx, dy);
-    if (l > JOY_R) {
-      // base follows the thumb so a long drag never "runs out" of stick
-      joy.ox += dx * (l - JOY_R) / l; joy.oy += dy * (l - JOY_R) / l;
-      dx *= JOY_R / l; dy *= JOY_R / l;
-      joyEl.style.left = joy.ox + 'px'; joyEl.style.top = joy.oy + 'px';
-    }
-    joy.x = dx / JOY_R; joy.y = dy / JOY_R;
-    knob.style.transform = `translate(${dx}px,${dy}px)`;
-  } else if (e.pointerType !== 'touch') { mouse.x = e.clientX; mouse.y = e.clientY; }
+  if (e.pointerId === joy.id) moveJoy(e);
+  else if (e.pointerType !== 'touch') { mouse.x = e.clientX; mouse.y = e.clientY; }
 });
 const endPointer = e => {
   if (e.pointerId === joy.id) endJoy();
@@ -844,7 +854,7 @@ let touchUI = false;
 function enableTouchUI() {
   if (touchUI) return; touchUI = true;
   document.body.classList.add('touch');
-  if (playing) $('#touchBtns').hidden = false;
+  if (playing && player && player.alive) $('#touchBtns').hidden = joyEl.hidden = false;
 }
 if (COARSE) enableTouchUI();
 
@@ -1313,7 +1323,7 @@ function startRun() {
   drawLabel(player.label, myNick, '#ffc21a');
   playing = true; runStart = now; deathTimer = 0;
   startScreen.hidden = true; deathScreen.hidden = true; hud.root.hidden = false;
-  $('#touchBtns').hidden = !touchUI;
+  $('#touchBtns').hidden = joyEl.hidden = !touchUI;
   canvas.focus({ preventScroll: true });
   shake = 0;
 }
@@ -1330,7 +1340,7 @@ function onPlayerDeath(killer, cause) {
   const isBest = player.score > best;
   $('#newBest').hidden = !isBest;
   if (isBest) { best = Math.floor(player.score); store.set('best', best); renderBest(); }
-  $('#touchBtns').hidden = true;
+  $('#touchBtns').hidden = joyEl.hidden = true; endJoy();
 }
 
 /* ================= main loop ================= */
